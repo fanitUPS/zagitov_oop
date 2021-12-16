@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace ModelLab1Classes
 {
+    //TODO: XML
     public class PersonList
     {
+        //TODO: RSDN
         Person[] personArray = new Person[0];
 
+         //TODO: XML
         public int Lenght
         {
             get 
@@ -17,8 +20,6 @@ namespace ModelLab1Classes
                 return personArray.Length;
             }
         }
-
-
 
         public void Add(Person person)
         {
@@ -37,6 +38,7 @@ namespace ModelLab1Classes
         
         public void DeleteIndex(int index)
         {
+            //TODO: RSDN
             personArray = personArray.Where((source, indexArray) => indexArray != index).ToArray();
         }
 
@@ -44,6 +46,7 @@ namespace ModelLab1Classes
         {
             try
             {
+                //TODO: лучше исключение
                 var findPerson = personArray[index];
                 return findPerson;
             }
@@ -57,16 +60,12 @@ namespace ModelLab1Classes
         
         public int SearchName(Person person)
         {
-            var indexOfElement = Array.IndexOf(personArray, person);
-            return indexOfElement;
+            return Array.IndexOf(personArray, person);
         }
 
         public void Clear()
         {
             Array.Resize(ref personArray, 0);
         }
-
-
-
     }
 }
