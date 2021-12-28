@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace ModelLab1Classes
 {
-     //TODO: XML
+     //TODO: XML(+)
+     /// <summary>
+     /// Enum of person gender
+     /// </summary>
     public enum PersonGender
     {
         Female,
