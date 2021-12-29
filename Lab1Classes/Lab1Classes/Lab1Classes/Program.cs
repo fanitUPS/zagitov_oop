@@ -14,19 +14,19 @@ namespace ViewLab1Classes
         /// <param name="args">Command line arguments</param>
         static void Main(string[] args)
         {
-            PersonList personList1 = new PersonList();
+            var personList1 = new PersonList();
 
-            Person person11 = new Person("fanit", "zagitov",
+            var person11 = new Person("fanit", "zagitov",
                 58, PersonGender.Male);
             personList1.Add(person11);
 
-            Person person12 = new Person("elsa", "frozen",
+            var person12 = new Person("elsa", "frozen",
                 18, PersonGender.Female);
             personList1.Add(person12);
 
             try
             {
-                Person person33 = new Person("ghg", "dsd--ds",
+                var person33 = new Person("ghg", "dsd--ds",
                     18, PersonGender.Female);
                 personList1.Add(person33);
             }
