@@ -9,7 +9,6 @@ namespace ModelLab1Classes
 {
     /// <summary>
     /// Class Person
-    /// Include properties: name, surname, age, gender
     /// </summary>
     public class Person
     {
@@ -75,6 +74,7 @@ namespace ModelLab1Classes
         /// </summary>
         public Person()
         {
+            //TODO: сделать через цепочку конструкторов
             _name = "Fanit";
             _surname = "Zagitov";
             _age = 135;
@@ -171,6 +171,7 @@ namespace ModelLab1Classes
         /// </summary>
         public void View()
         {
+            //TODO: убрать консольный вывод из класса.
             Console.WriteLine(this._name + " " + this._surname + " " +
                 this._age + " " + this._gender);
         }

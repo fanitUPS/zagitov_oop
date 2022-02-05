@@ -3,29 +3,20 @@ using System.Linq;
 
 namespace ModelLab1Classes
 {
-    //TODO: XML(+)
     /// <summary>
     /// Class list of persons
     /// </summary>
     public class PersonList
     {
-        //TODO: RSDN(+)
         /// <summary>
         /// Array of person
         /// </summary>
         private Person[] _personArray = new Person[0];
-
-        //TODO: XML
+        
         /// <summary>
         /// Length of PersonList
         /// </summary>
-        public int Lenght
-        {
-            get
-            {
-                return _personArray.Length;
-            }
-        }
+        public int Length => _personArray.Length;
 
         /// <summary>
         /// Add new instanse in PersonList
@@ -54,7 +45,6 @@ namespace ModelLab1Classes
         /// <param name="index">Index of deleted person</param>
         public void DeleteIndex(int index)
         {
-            //TODO: RSDN(+)
             _personArray = _personArray.Where((_, indexArray) =>
                 indexArray != index).ToArray();
         }
@@ -66,7 +56,6 @@ namespace ModelLab1Classes
         /// <returns>Element of PersonList</returns>
         public Person SearchIndex(int index)
         {
-            //TODO: лучше исключение(+)
             return _personArray[index];
         }
 
@@ -93,7 +82,7 @@ namespace ModelLab1Classes
         /// </summary>
         public void Show()
         {
-            foreach (Person person in _personArray)
+            foreach (var person in _personArray)
             {
                 person.View();
             }
