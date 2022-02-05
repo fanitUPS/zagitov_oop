@@ -144,7 +144,6 @@ namespace ViewLab1Classes
             try
             {
                 int gender = Convert.ToInt32(Console.ReadLine());
-                
                 switch (gender)
                 {
                     case 1:
