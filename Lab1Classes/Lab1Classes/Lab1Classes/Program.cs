@@ -35,32 +35,34 @@ namespace ViewLab1Classes
                 Console.WriteLine(e.Message);
             }
 
-            Person person13 = new Person("elizabeth", "black",
+            var person13 = new Person("elizabeth", "black",
                 25, PersonGender.Female);
             personList1.Add(person13);
 
-            OutputInConcole(personList1, 1);
+            Console.WriteLine("Person in List 1");
+            OutputInConcole(personList1);
 
-            PersonList personList2 = new PersonList();
+            var personList2 = new PersonList();
 
-            Person person21 = new Person("James", "Bond",
+            var person21 = new Person("James", "Bond",
                 30, PersonGender.Male);
             personList2.Add(person21);
 
-            Person person22 = new Person("eva", "red-green",
+            var person22 = new Person("eva", "red-green",
                 23, PersonGender.Female);
             personList2.Add(person22);
 
-            Person person23 = new Person("athena", "greece",
+            var person23 = new Person("athena", "greece",
                 88, PersonGender.Female);
             personList2.Add(person23);
 
-            OutputInConcole(personList2, 2);
+            Console.WriteLine("Person in List 2");
+            OutputInConcole(personList2);
 
             Console.ReadLine();
             Console.Clear();
 
-            Person person = Person.GetRandomPerson();
+            var person = Person.GetRandomPerson();
 
             personList1.Add(person);
 
@@ -73,31 +75,38 @@ namespace ViewLab1Classes
                 Console.WriteLine(e.Message);
             }
 
-            OutputInConcole(personList1, 1);
-            OutputInConcole(personList2, 2);
+            Console.WriteLine("Person in List 1");
+            OutputInConcole(personList1);
+            Console.WriteLine("Person in List 2");
+            OutputInConcole(personList2);
 
             Console.ReadLine();
             Console.Clear();
 
             personList1.DeleteIndex(1);
 
-            OutputInConcole(personList1, 1);
-            OutputInConcole(personList2, 2);
+            Console.WriteLine("Person in List 1");
+            OutputInConcole(personList1);
+            Console.WriteLine("Person in List 2");
+            OutputInConcole(personList2);
 
             Console.ReadLine();
             Console.Clear();
 
             personList2.Clear();
 
-            OutputInConcole(personList1, 1);
-            OutputInConcole(personList2, 2);
+            Console.WriteLine("Person in List 1");
+            OutputInConcole(personList1);
+            Console.WriteLine("Person in List 2");
+            OutputInConcole(personList2);
 
             Console.ReadLine();
             Console.Clear();
 
-            Person newPerson = ReadPerson();
+            var newPerson = ReadPerson();
             personList2.Add(newPerson);
-            OutputInConcole(personList2, 2);
+            Console.WriteLine("Person in List 2");
+            OutputInConcole(personList2);
         }
 
         /// <summary>
@@ -105,11 +114,10 @@ namespace ViewLab1Classes
         /// </summary>
         /// <param name="personList">Instance PersonList</param>
         /// <param name="numberList">Number of List</param>
-        static void OutputInConcole(PersonList personList, int numberList)
+        static void OutputInConcole(PersonList personList)
         {
-            Console.WriteLine("Persons in list {0}", numberList);
             Console.WriteLine("-------------");
-            personList.Show();
+            Console.WriteLine(personList.ListInfo());
             Console.WriteLine("-------------");
         }
 
@@ -119,60 +127,105 @@ namespace ViewLab1Classes
         /// <returns>Instance person</returns>
         static Person ReadPerson()
         {
-            Console.WriteLine("Enter name of person:");
-            string name = "default";
-            name = Console.ReadLine();
+            var defaultPerson = new Person();
+            var validName = false;
+            var validSurname = false;
+            var validAge = false;
+            var validGender = false;
 
-            Console.WriteLine("Enter surname of person:");
-            string surname = "default";
-            surname = Console.ReadLine();
-
-            Console.WriteLine("Enter age of person:");
-            int age = 0;
-            try
+            while (!(validName && validSurname && validAge && validGender))
             {
-                age = Convert.ToInt32(Console.ReadLine());
-            }
-            catch (FormatException e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
-            Console.WriteLine("Choose gender of person." +
-                "Enter 1 for male or 2 for female");
-            PersonGender personGender = PersonGender.Male;
-            try
-            {
-                int gender = Convert.ToInt32(Console.ReadLine());
-                switch (gender)
+                if (!validName)
                 {
-                    case 1:
-                        personGender = PersonGender.Male;
-                        break;
-                    case 2:
-                        personGender = PersonGender.Female;
-                        break;
-                    default:
-                        Console.WriteLine("Enter 1 or 2!!!");
-                        break;
+                    Console.WriteLine("Enter name of person:");
+                    Name:
+                    try
+                    {
+                        defaultPerson.Name = Console.ReadLine();
+                        validName = true;
+                    }
+                    catch (ArgumentException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.WriteLine("Try again!");
+                        goto Name;
+                    }
+                }
+                if (!validSurname)
+                {
+                    Console.WriteLine("Enter surname of person:");
+                    Surname:
+                    try
+                    {
+                        defaultPerson.Surname = Console.ReadLine();
+                        validSurname = true;
+                    }
+                    catch (ArgumentException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.WriteLine("Try again!");
+                        goto Surname;
+                    }
+                }
+                if (!validAge)
+                {
+                    int age = 0;
+                    Console.WriteLine("Enter age of person:");
+                    Age:
+                    try
+                    {
+                        age = Convert.ToInt32(Console.ReadLine());
+                        defaultPerson.Age = age;
+                        validAge = true;
+                    }
+                    catch (FormatException e1)
+                    {
+                        Console.WriteLine(e1.Message);
+                        Console.WriteLine("Try again!");
+                        goto Age;
+                    }
+                    catch (ArgumentException e2)
+                    {
+                        Console.WriteLine(e2.Message);
+                        Console.WriteLine("Try again!");
+                        goto Age;
+                    }
+                }
+                if (!validGender)
+                {
+                    Console.WriteLine("Choose gender of person." +
+                    "Enter 1 for male or 2 for female");
+                    var personGender = PersonGender.Male;
+                    Gender:
+                    try
+                    {
+                        int gender = Convert.ToInt32(Console.ReadLine());
+                        switch (gender)
+                        {
+                            case 1:
+                                personGender = PersonGender.Male;
+                                defaultPerson.Gender = personGender;
+                                validGender = true;
+                                break;
+                            case 2:
+                                personGender = PersonGender.Female;
+                                defaultPerson.Gender = personGender;
+                                validGender = true;
+                                break;
+                            default:
+                                Console.WriteLine("Enter 1 or 2!!!");
+                                goto Gender;
+                        }
+                    }
+                    catch (FormatException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.WriteLine("Try again!");
+                        goto Gender;
+                    }
                 }
             }
-            catch (FormatException e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
-            try
-            {
-                Person person = new Person(name, surname,
-                    age, personGender);
-                return person;
-            }
-            catch (ArgumentException e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            return null;
+            return defaultPerson;
         }
     }
 }

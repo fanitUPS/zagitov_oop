@@ -80,12 +80,14 @@ namespace ModelLab1Classes
         /// <summary>
         /// Show in console all elements in PersonList
         /// </summary>
-        public void Show()
+        public string ListInfo()
         {
+            string infoList = "";
             foreach (var person in _personArray)
             {
-                person.View();
+                 infoList = infoList + "\n" + person.Info();
             }
+            return infoList;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace ModelLab1Classes
         /// Name of person
         /// </summary>
         private string _name;
-
+        
         /// <summary>
         /// Surname of person
         /// </summary>
@@ -33,6 +33,89 @@ namespace ModelLab1Classes
         private PersonGender _gender;
 
         /// <summary>
+        /// Max age of person
+        /// </summary>
+        public const int maxAge = 135;
+
+        /// <summary>
+        /// Name of person
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                if (!ValidName(value) || SpaceInName(value))
+                {
+                    throw new ArgumentException
+                        (string.Format("Entered name is not valid"));
+                }
+
+                _name = ChangeString(value);
+            }
+        }
+
+        /// <summary>
+        /// Surname of person
+        /// </summary>
+        public string Surname
+        {
+            get
+            {
+                return _surname;
+            }
+            set
+            {
+                if (!ValidName(value) || SpaceInName(value))
+                {
+                    throw new ArgumentException
+                        (string.Format("Entered surname is not valid"));
+                }
+
+                _surname = ChangeString(value);
+            }
+        }
+
+        /// <summary>
+        /// Age of person
+        /// </summary>
+        public int Age
+        {
+            get
+            {
+                return _age;
+            }
+            set
+            {
+                if (value < 0 || value > maxAge)
+                {
+                    throw new ArgumentException
+                        (string.Format("Entered age is not valid"));
+                }
+
+                _age = value;
+            }
+        }
+
+        /// <summary>
+        /// Gender of person
+        /// </summary>
+        public PersonGender Gender
+        {
+            get
+            {
+                return _gender;
+            }
+            set
+            {
+                _gender = value;
+            }
+        }
+
+        /// <summary>
         /// Constructor of person instance
         /// </summary>
         /// <param name="name">Name of person</param>
@@ -42,43 +125,19 @@ namespace ModelLab1Classes
         public Person(string name, string surname, int age,
             PersonGender gender)
         {
-            if (!ValidName(name)||SpaceInName(name))
-            {
-                throw new ArgumentException
-                    (string.Format("Entered name is not valid"));
-            }  
-
-            _name = ChangeString(name);
-            
-            if (!ValidName(surname) || SpaceInName(surname))
-            {
-                throw new ArgumentException
-                    (string.Format("Entered surname is not valid"));
-            }
-
-            _surname = ChangeString(surname);
-
-            if (age < 0 || age > 136)
-            {
-                throw new ArgumentException
-                    (string.Format("Entered age is not valid"));
-            }
-
-            _age = age;
-            
-            _gender = gender;
+            Name = name;
+            Surname = surname;
+            Age = age;
+            Gender = gender;
         }
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        public Person()
+        public Person() : this ("Fanit", "Zagitov", maxAge - 10,
+            PersonGender.Male)
         {
-            //TODO: сделать через цепочку конструкторов
-            _name = "Fanit";
-            _surname = "Zagitov";
-            _age = 135;
-            _gender = PersonGender.Male;
+            //TODO: сделать через цепочку конструкторов(+)
         }
        
         /// <summary>
@@ -169,11 +228,12 @@ namespace ModelLab1Classes
         /// <summary>
         /// Output in console info about person
         /// </summary>
-        public void View()
+        public string Info()
         {
-            //TODO: убрать консольный вывод из класса.
-            Console.WriteLine(this._name + " " + this._surname + " " +
-                this._age + " " + this._gender);
+            //TODO: убрать консольный вывод из класса.(+)
+            string info = this._name + " " + this._surname + " " +
+                this._age + " " + this._gender;
+            return info;
         }
     }
 }
