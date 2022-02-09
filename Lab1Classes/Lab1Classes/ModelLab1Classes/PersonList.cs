@@ -30,6 +30,7 @@ namespace ModelLab1Classes
             _personArray[endIndexArray] = person;
         }
 
+        //TODO: naming
         /// <summary>
         /// Delete last added person in PersonList
         /// </summary>
@@ -49,6 +50,7 @@ namespace ModelLab1Classes
                 indexArray != index).ToArray();
         }
 
+        //TODO: naming by-
         /// <summary>
         /// Search element in PersonList by index
         /// </summary>
@@ -59,6 +61,7 @@ namespace ModelLab1Classes
             return _personArray[index];
         }
 
+        //TODO: naming by-
         /// <summary>
         /// Search index of element by name
         /// </summary>

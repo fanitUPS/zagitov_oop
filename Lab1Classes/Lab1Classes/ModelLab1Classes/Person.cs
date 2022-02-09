@@ -24,11 +24,6 @@ namespace ModelLab1Classes
         private int _age;
 
         /// <summary>
-        /// Gender of person
-        /// </summary>
-        private PersonGender _gender;
-
-        /// <summary>
         /// Max age of person
         /// </summary>
         public const int maxAge = 135;
@@ -38,16 +33,12 @@ namespace ModelLab1Classes
         /// </summary>
         public string Name
         {
-            get
-            {
-                return _name;
-            }
+            get => _name;
             set
             {
                 if (!ValidName(value) || SpaceInName(value))
                 {
-                    throw new ArgumentException
-                        (string.Format("Entered name is not valid"));
+                    throw new ArgumentException("Entered name is not valid");
                 }
 
                 _name = ChangeString(value);
@@ -59,16 +50,12 @@ namespace ModelLab1Classes
         /// </summary>
         public string Surname
         {
-            get
-            {
-                return _surname;
-            }
+            get => _surname;
             set
             {
                 if (!ValidName(value) || SpaceInName(value))
                 {
-                    throw new ArgumentException
-                        (string.Format("Entered surname is not valid"));
+                    throw new ArgumentException("Entered surname is not valid");
                 }
 
                 _surname = ChangeString(value);
@@ -80,10 +67,7 @@ namespace ModelLab1Classes
         /// </summary>
         public int Age
         {
-            get
-            {
-                return _age;
-            }
+            get => _age;
             set
             {
                 if (value < 0 || value > maxAge)
@@ -99,17 +83,7 @@ namespace ModelLab1Classes
         /// <summary>
         /// Gender of person
         /// </summary>
-        public PersonGender Gender
-        {
-            get
-            {
-                return _gender;
-            }
-            set
-            {
-                _gender = value;
-            }
-        }
+        public PersonGender Gender { get; set; }
 
         /// <summary>
         /// Constructor of person instance
@@ -132,9 +106,7 @@ namespace ModelLab1Classes
         /// </summary>
         public Person() : this ("Fanit", "Zagitov", maxAge - 10,
             PersonGender.Male)
-        {
-            //TODO: сделать через цепочку конструкторов(+)
-        }
+        { }
        
         /// <summary>
         /// Validation name and surname of person
@@ -226,10 +198,7 @@ namespace ModelLab1Classes
         /// </summary>
         public string Info()
         {
-            //TODO: убрать консольный вывод из класса.(+)
-            string info = this._name + " " + this._surname + " " +
-                this._age + " " + this._gender;
-            return info;
+            return $"{this._name} {this._surname} {this._age} {this.Gender}";
         }
     }
 }

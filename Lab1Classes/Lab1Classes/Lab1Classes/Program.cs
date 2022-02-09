@@ -1,8 +1,10 @@
 ﻿using ModelLab1Classes;
 using System;
+using System.Collections.Generic;
 
 namespace ViewLab1Classes
 {
+    //TODO: RSDN
     /// <summary>
     /// Class program
     /// </summary>
@@ -109,6 +111,7 @@ namespace ViewLab1Classes
             OutputInConcole(personList2);
         }
 
+        //TODO: Несоответствие XML-комментария сигнатуре метода 
         /// <summary>
         /// Output in console all elements in PersonList
         /// </summary>
@@ -137,8 +140,10 @@ namespace ViewLab1Classes
             {
                 if (!validName)
                 {
+                    //TODO: дубль
                     Console.WriteLine("Enter name of person:");
-                    Name:
+                    //TODO: дубль
+                    Name: 
                     try
                     {
                         defaultPerson.Name = Console.ReadLine();
@@ -153,6 +158,7 @@ namespace ViewLab1Classes
                 }
                 if (!validSurname)
                 {
+                    //TODO: дубль
                     Console.WriteLine("Enter surname of person:");
                     Surname:
                     try
@@ -169,8 +175,10 @@ namespace ViewLab1Classes
                 }
                 if (!validAge)
                 {
+                    //TODO: дубль
                     int age = 0;
                     Console.WriteLine("Enter age of person:");
+                    //TODO: goto o_O
                     Age:
                     try
                     {
@@ -193,9 +201,11 @@ namespace ViewLab1Classes
                 }
                 if (!validGender)
                 {
+                    //TODO: дубль
                     Console.WriteLine("Choose gender of person." +
                     "Enter 1 for male or 2 for female");
                     var personGender = PersonGender.Male;
+                    //TODO: goto o_O
                     Gender:
                     try
                     {
@@ -226,6 +236,91 @@ namespace ViewLab1Classes
                 }
             }
             return defaultPerson;
+        }
+
+        /// <summary>
+        /// Inter person from console
+        /// </summary>
+        /// <returns>Instance person</returns>
+        static Person ReadPerson1()
+        {
+            var defaultPerson = new Person();
+            var actionsTupleList = new List<(Action Action, string Message)>
+            {
+                (
+                    () => { defaultPerson.Name = Console.ReadLine(); },
+                    "Enter name of person:"
+                ),
+                (
+                    () =>
+                    {
+                        defaultPerson.Surname = Console.ReadLine();
+                    },
+                    "Enter surname of person:"),
+                (
+                    () =>
+                    {
+                        defaultPerson.Age = Convert.ToInt32(Console.ReadLine());
+                    },
+                    "Enter age of person:"),
+                (
+                    () =>
+                    {
+                        int gender = Convert.ToInt32(Console.ReadLine());
+                        switch (gender)
+                        {
+                            case 1:
+                            {
+                                defaultPerson.Gender = PersonGender.Male;
+                                return;
+                            }
+                            case 2:
+                            {
+                                defaultPerson.Gender = PersonGender.Female;
+                                return;
+                            }
+                            default:
+                            {
+                                Console.WriteLine("Enter 1 or 2!!!");
+                                break;
+                            }
+                        }
+                    },
+                    "Choose gender of person." +
+                    "Enter 1 for male or 2 for female")
+            };
+
+            foreach (var actionTuple in actionsTupleList)
+            {
+                ActionHandler(actionTuple.Action, actionTuple.Message);
+            }
+            return defaultPerson;
+        }
+
+        private static void ActionHandler(Action action, string inputMessage)
+        {
+            while (true)
+            {
+                Console.WriteLine(inputMessage);
+                try
+                {
+                    action.Invoke();
+                    return;
+                }
+                catch (Exception e)
+                {
+                    if (e is ArgumentException
+                        || e is FormatException)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.WriteLine("Try again!");
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
         }
     }
 }

@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{787A5ADB-95AF-4424-BAB4-738FBF7F2C0D}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Lab1Classes</RootNamespace>
-    <AssemblyName>Lab1Classes</AssemblyName>
+    <RootNamespace>ViewLab1Classes</RootNamespace>
+    <AssemblyName>ViewLab1Classes</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
