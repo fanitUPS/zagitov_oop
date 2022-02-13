@@ -55,7 +55,8 @@ namespace ModelLab1Classes
             {
                 if (!ValidName(value) || SpaceInName(value))
                 {
-                    throw new ArgumentException("Entered surname is not valid");
+                    throw new ArgumentException
+                        ("Entered surname is not valid");
                 }
 
                 _surname = ChangeString(value);
@@ -73,7 +74,7 @@ namespace ModelLab1Classes
                 if (value < 0 || value > maxAge)
                 {
                     throw new ArgumentException
-                        (string.Format("Entered age is not valid"));
+                        ("Entered age is not valid");
                 }
 
                 _age = value;
@@ -194,7 +195,7 @@ namespace ModelLab1Classes
         }
 
         /// <summary>
-        /// Output in console info about person
+        /// Info about person
         /// </summary>
         public string Info()
         {

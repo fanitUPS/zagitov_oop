@@ -30,11 +30,11 @@ namespace ModelLab1Classes
             _personArray[endIndexArray] = person;
         }
 
-        //TODO: naming
+        //TODO: naming(+)
         /// <summary>
         /// Delete last added person in PersonList
         /// </summary>
-        public void Delete()
+        public void DeleteLastAdded()
         {
             int countArray = _personArray.Length;
             Array.Resize(ref _personArray, countArray - 1);
@@ -44,30 +44,30 @@ namespace ModelLab1Classes
         /// Delete person in PersonList by index
         /// </summary>
         /// <param name="index">Index of deleted person</param>
-        public void DeleteIndex(int index)
+        public void DeleteByIndex(int index)
         {
             _personArray = _personArray.Where((_, indexArray) =>
                 indexArray != index).ToArray();
         }
 
-        //TODO: naming by-
+        //TODO: naming by-(+)
         /// <summary>
         /// Search element in PersonList by index
         /// </summary>
         /// <param name="index">Index of element</param>
         /// <returns>Element of PersonList</returns>
-        public Person SearchIndex(int index)
+        public Person SearchByIndex(int index)
         {
             return _personArray[index];
         }
 
-        //TODO: naming by-
+        //TODO: naming by-(+)
         /// <summary>
         /// Search index of element by name
         /// </summary>
         /// <param name="person">Instanse Person</param>
         /// <returns>Index of element</returns>
-        public int SearchName(Person person)
+        public int SearchByName(Person person)
         {
             return Array.IndexOf(_personArray, person);
         }
@@ -81,7 +81,7 @@ namespace ModelLab1Classes
         }
 
         /// <summary>
-        /// Show in console all elements in PersonList
+        /// Info about all elements in PersonList
         /// </summary>
         public string ListInfo()
         {

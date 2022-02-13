@@ -4,17 +4,17 @@ using System.Collections.Generic;
 
 namespace ViewLab1Classes
 {
-    //TODO: RSDN
+    //TODO: RSDN(+)
     /// <summary>
     /// Class program
     /// </summary>
-    class Program
+    public class Program
     {
         /// <summary>
         /// Entry point of application
         /// </summary>
         /// <param name="args">Command line arguments</param>
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var personList1 = new PersonList();
 
@@ -70,7 +70,7 @@ namespace ViewLab1Classes
 
             try
             {
-                personList2.Add(personList1.SearchIndex(1));
+                personList2.Add(personList1.SearchByIndex(1));
             }
             catch (IndexOutOfRangeException e)
             {
@@ -85,7 +85,7 @@ namespace ViewLab1Classes
             Console.ReadLine();
             Console.Clear();
 
-            personList1.DeleteIndex(1);
+            personList1.DeleteByIndex(1);
 
             Console.WriteLine("Person in List 1");
             OutputInConcole(personList1);
@@ -111,12 +111,11 @@ namespace ViewLab1Classes
             OutputInConcole(personList2);
         }
 
-        //TODO: Несоответствие XML-комментария сигнатуре метода 
+        //TODO: Несоответствие XML-комментария сигнатуре метода(+) 
         /// <summary>
         /// Output in console all elements in PersonList
         /// </summary>
         /// <param name="personList">Instance PersonList</param>
-        /// <param name="numberList">Number of List</param>
         static void OutputInConcole(PersonList personList)
         {
             Console.WriteLine("-------------");
@@ -131,126 +130,14 @@ namespace ViewLab1Classes
         static Person ReadPerson()
         {
             var defaultPerson = new Person();
-            var validName = false;
-            var validSurname = false;
-            var validAge = false;
-            var validGender = false;
-
-            while (!(validName && validSurname && validAge && validGender))
-            {
-                if (!validName)
-                {
-                    //TODO: дубль
-                    Console.WriteLine("Enter name of person:");
-                    //TODO: дубль
-                    Name: 
-                    try
-                    {
-                        defaultPerson.Name = Console.ReadLine();
-                        validName = true;
-                    }
-                    catch (ArgumentException e)
-                    {
-                        Console.WriteLine(e.Message);
-                        Console.WriteLine("Try again!");
-                        goto Name;
-                    }
-                }
-                if (!validSurname)
-                {
-                    //TODO: дубль
-                    Console.WriteLine("Enter surname of person:");
-                    Surname:
-                    try
-                    {
-                        defaultPerson.Surname = Console.ReadLine();
-                        validSurname = true;
-                    }
-                    catch (ArgumentException e)
-                    {
-                        Console.WriteLine(e.Message);
-                        Console.WriteLine("Try again!");
-                        goto Surname;
-                    }
-                }
-                if (!validAge)
-                {
-                    //TODO: дубль
-                    int age = 0;
-                    Console.WriteLine("Enter age of person:");
-                    //TODO: goto o_O
-                    Age:
-                    try
-                    {
-                        age = Convert.ToInt32(Console.ReadLine());
-                        defaultPerson.Age = age;
-                        validAge = true;
-                    }
-                    catch (FormatException e1)
-                    {
-                        Console.WriteLine(e1.Message);
-                        Console.WriteLine("Try again!");
-                        goto Age;
-                    }
-                    catch (ArgumentException e2)
-                    {
-                        Console.WriteLine(e2.Message);
-                        Console.WriteLine("Try again!");
-                        goto Age;
-                    }
-                }
-                if (!validGender)
-                {
-                    //TODO: дубль
-                    Console.WriteLine("Choose gender of person." +
-                    "Enter 1 for male or 2 for female");
-                    var personGender = PersonGender.Male;
-                    //TODO: goto o_O
-                    Gender:
-                    try
-                    {
-                        int gender = Convert.ToInt32(Console.ReadLine());
-                        switch (gender)
-                        {
-                            case 1:
-                                personGender = PersonGender.Male;
-                                defaultPerson.Gender = personGender;
-                                validGender = true;
-                                break;
-                            case 2:
-                                personGender = PersonGender.Female;
-                                defaultPerson.Gender = personGender;
-                                validGender = true;
-                                break;
-                            default:
-                                Console.WriteLine("Enter 1 or 2!!!");
-                                goto Gender;
-                        }
-                    }
-                    catch (FormatException e)
-                    {
-                        Console.WriteLine(e.Message);
-                        Console.WriteLine("Try again!");
-                        goto Gender;
-                    }
-                }
-            }
-            return defaultPerson;
-        }
-
-        /// <summary>
-        /// Inter person from console
-        /// </summary>
-        /// <returns>Instance person</returns>
-        static Person ReadPerson1()
-        {
-            var defaultPerson = new Person();
             var actionsTupleList = new List<(Action Action, string Message)>
             {
                 (
-                    () => { defaultPerson.Name = Console.ReadLine(); },
-                    "Enter name of person:"
-                ),
+                    () => 
+                    { 
+                        defaultPerson.Name = Console.ReadLine();
+                    },
+                    "Enter name of person:"),
                 (
                     () =>
                     {
@@ -260,7 +147,8 @@ namespace ViewLab1Classes
                 (
                     () =>
                     {
-                        defaultPerson.Age = Convert.ToInt32(Console.ReadLine());
+                        defaultPerson.Age =
+                            Convert.ToInt32(Console.ReadLine());
                     },
                     "Enter age of person:"),
                 (
@@ -281,8 +169,8 @@ namespace ViewLab1Classes
                             }
                             default:
                             {
-                                Console.WriteLine("Enter 1 or 2!!!");
-                                break;
+                                throw new ArgumentException
+                                    ("Enter 1 or 2!!!");
                             }
                         }
                     },
@@ -297,6 +185,11 @@ namespace ViewLab1Classes
             return defaultPerson;
         }
 
+        /// <summary>
+        /// Handler of enter person from console
+        /// </summary>
+        /// <param name="action">Executable action</param>
+        /// <param name="inputMessage">Message to action</param>
         private static void ActionHandler(Action action, string inputMessage)
         {
             while (true)
