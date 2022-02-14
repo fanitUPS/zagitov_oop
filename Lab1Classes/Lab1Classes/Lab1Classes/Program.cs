@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace ViewLab1Classes
 {
-    //TODO: RSDN(+)
     /// <summary>
     /// Class program
     /// </summary>
@@ -42,7 +41,7 @@ namespace ViewLab1Classes
             personList1.Add(person13);
 
             Console.WriteLine("Person in List 1");
-            OutputInConcole(personList1);
+            OutputInConsole(personList1);
 
             var personList2 = new PersonList();
 
@@ -59,7 +58,7 @@ namespace ViewLab1Classes
             personList2.Add(person23);
 
             Console.WriteLine("Person in List 2");
-            OutputInConcole(personList2);
+            OutputInConsole(personList2);
 
             Console.ReadLine();
             Console.Clear();
@@ -78,9 +77,9 @@ namespace ViewLab1Classes
             }
 
             Console.WriteLine("Person in List 1");
-            OutputInConcole(personList1);
+            OutputInConsole(personList1);
             Console.WriteLine("Person in List 2");
-            OutputInConcole(personList2);
+            OutputInConsole(personList2);
 
             Console.ReadLine();
             Console.Clear();
@@ -88,9 +87,9 @@ namespace ViewLab1Classes
             personList1.DeleteByIndex(1);
 
             Console.WriteLine("Person in List 1");
-            OutputInConcole(personList1);
+            OutputInConsole(personList1);
             Console.WriteLine("Person in List 2");
-            OutputInConcole(personList2);
+            OutputInConsole(personList2);
 
             Console.ReadLine();
             Console.Clear();
@@ -98,9 +97,9 @@ namespace ViewLab1Classes
             personList2.Clear();
 
             Console.WriteLine("Person in List 1");
-            OutputInConcole(personList1);
+            OutputInConsole(personList1);
             Console.WriteLine("Person in List 2");
-            OutputInConcole(personList2);
+            OutputInConsole(personList2);
 
             Console.ReadLine();
             Console.Clear();
@@ -108,15 +107,16 @@ namespace ViewLab1Classes
             var newPerson = ReadPerson();
             personList2.Add(newPerson);
             Console.WriteLine("Person in List 2");
-            OutputInConcole(personList2);
+            OutputInConsole(personList2);
+            //TODO:
+            Console.ReadLine();
         }
-
-        //TODO: Несоответствие XML-комментария сигнатуре метода(+) 
+        
         /// <summary>
         /// Output in console all elements in PersonList
         /// </summary>
         /// <param name="personList">Instance PersonList</param>
-        static void OutputInConcole(PersonList personList)
+        static void OutputInConsole(PersonList personList)
         {
             Console.WriteLine("-------------");
             Console.WriteLine(personList.ListInfo());

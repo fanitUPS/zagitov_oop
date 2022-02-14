@@ -29,13 +29,13 @@ namespace ModelLab1Classes
             int endIndexArray = countArray;
             _personArray[endIndexArray] = person;
         }
-
-        //TODO: naming(+)
+        
         /// <summary>
         /// Delete last added person in PersonList
         /// </summary>
-        public void DeleteLastAdded()
+        public void DeleteLast()
         {
+            //TODO: bug
             int countArray = _personArray.Length;
             Array.Resize(ref _personArray, countArray - 1);
         }
@@ -49,8 +49,7 @@ namespace ModelLab1Classes
             _personArray = _personArray.Where((_, indexArray) =>
                 indexArray != index).ToArray();
         }
-
-        //TODO: naming by-(+)
+        
         /// <summary>
         /// Search element in PersonList by index
         /// </summary>
@@ -60,8 +59,7 @@ namespace ModelLab1Classes
         {
             return _personArray[index];
         }
-
-        //TODO: naming by-(+)
+        
         /// <summary>
         /// Search index of element by name
         /// </summary>
