@@ -1,6 +1,7 @@
 ﻿using ModelLab1Classes;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace ViewLab1Classes
 {
@@ -16,6 +17,9 @@ namespace ViewLab1Classes
         private static void Main(string[] args)
         {
             var personList1 = new PersonList();
+
+            var personList33 = new PersonList();
+            personList33.DeleteLast();
 
             var person11 = new Person("fanit", "zagitov",
                 58, PersonGender.Male);
@@ -108,7 +112,6 @@ namespace ViewLab1Classes
             personList2.Add(newPerson);
             Console.WriteLine("Person in List 2");
             OutputInConsole(personList2);
-            //TODO:
             Console.ReadLine();
         }
         
@@ -116,7 +119,7 @@ namespace ViewLab1Classes
         /// Output in console all elements in PersonList
         /// </summary>
         /// <param name="personList">Instance PersonList</param>
-        static void OutputInConsole(PersonList personList)
+        private static void OutputInConsole(PersonList personList)
         {
             Console.WriteLine("-------------");
             Console.WriteLine(personList.ListInfo());
@@ -127,7 +130,7 @@ namespace ViewLab1Classes
         /// Inter person from console
         /// </summary>
         /// <returns>Instance person</returns>
-        static Person ReadPerson()
+        private static Person ReadPerson()
         {
             var defaultPerson = new Person();
             var actionsTupleList = new List<(Action Action, string Message)>
@@ -142,6 +145,12 @@ namespace ViewLab1Classes
                     () =>
                     {
                         defaultPerson.Surname = Console.ReadLine();
+                        if (CheckLanguage(defaultPerson.Name)
+                            != CheckLanguage(defaultPerson.Surname))
+                        {
+                            throw new ArgumentException
+                            ("Please enter Surname in same language as Name");
+                        }
                     },
                     "Enter surname of person:"),
                 (
@@ -170,7 +179,7 @@ namespace ViewLab1Classes
                             default:
                             {
                                 throw new ArgumentException
-                                    ("Enter 1 or 2!!!");
+                                    ("Please enter 1 or 2");
                             }
                         }
                     },
@@ -182,6 +191,7 @@ namespace ViewLab1Classes
             {
                 ActionHandler(actionTuple.Action, actionTuple.Message);
             }
+
             return defaultPerson;
         }
 
@@ -213,6 +223,25 @@ namespace ViewLab1Classes
                         throw;
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Check language of name or surname
+        /// </summary>
+        /// <param name="value">Name or surname</param>
+        /// <returns>Language of name or surname</returns>
+        private static Language CheckLanguage(string value)
+        {
+            var language = Regex.IsMatch(value.ToLower(),
+                @"(^[а-я]+[-]?[а-я]+$)|(^[а-я]$)");
+            if (language)
+            {
+                return Language.Russian;
+            }
+            else
+            {
+                return Language.English;
             }
         }
     }

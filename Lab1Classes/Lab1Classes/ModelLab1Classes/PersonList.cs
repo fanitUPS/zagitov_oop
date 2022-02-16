@@ -35,9 +35,12 @@ namespace ModelLab1Classes
         /// </summary>
         public void DeleteLast()
         {
-            //TODO: bug
+            //TODO: bug(+)
             int countArray = _personArray.Length;
-            Array.Resize(ref _personArray, countArray - 1);
+            if (countArray != 0)
+            {
+                Array.Resize(ref _personArray, countArray - 1);
+            }
         }
 
         /// <summary>

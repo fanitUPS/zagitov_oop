@@ -26,7 +26,7 @@ namespace ModelLab1Classes
         /// <summary>
         /// Max age of person
         /// </summary>
-        public const int maxAge = 135;
+        public const int MaxAge = 135;
 
         /// <summary>
         /// Name of person
@@ -34,15 +34,7 @@ namespace ModelLab1Classes
         public string Name
         {
             get => _name;
-            set
-            {
-                if (!ValidName(value) || SpaceInName(value))
-                {
-                    throw new ArgumentException("Entered name is not valid");
-                }
-
-                _name = ChangeString(value);
-            }
+            set => _name = Validation(value);
         }
 
         /// <summary>
@@ -51,18 +43,8 @@ namespace ModelLab1Classes
         public string Surname
         {
             get => _surname;
-            set
-            {
-                if (!ValidName(value) || SpaceInName(value))
-                {
-                    throw new ArgumentException
-                        ("Entered surname is not valid");
-                }
-
-                _surname = ChangeString(value);
-            }
+            set => _surname = Validation(value);
         }
-
         /// <summary>
         /// Age of person
         /// </summary>
@@ -71,10 +53,11 @@ namespace ModelLab1Classes
             get => _age;
             set
             {
-                if (value < 0 || value > maxAge)
+                if (value <= 0 || value > MaxAge)
                 {
                     throw new ArgumentException
-                        ("Entered age is not valid");
+                        ("Entered age is not valid. Valid age " +
+                        $"from 1 to {MaxAge} years.");
                 }
 
                 _age = value;
@@ -105,7 +88,7 @@ namespace ModelLab1Classes
         /// <summary>
         /// Default constructor
         /// </summary>
-        public Person() : this ("Fanit", "Zagitov", maxAge - 10,
+        public Person() : this ("Fanit", "Zagitov", MaxAge - 10,
             PersonGender.Male)
         { }
        
@@ -130,6 +113,22 @@ namespace ModelLab1Classes
         public bool SpaceInName(string checkName)
         {
             return Regex.IsMatch(checkName, @" ");
+        }
+
+        /// <summary>
+        /// Changes text to valid form
+        /// </summary>
+        /// <param name="text">Name or surname</param>
+        /// <returns>Valid text</returns>
+        public string Validation(string text)
+        {
+            if (!ValidName(text) || SpaceInName(text))
+            {
+                throw new ArgumentException("Entered name or surname is not " +
+                    "valid. You must use Latin or Cyrillic alphabet.");
+            }
+
+            return ChangeString(text);
         }
 
         /// <summary>
@@ -166,7 +165,7 @@ namespace ModelLab1Classes
                 "Tom","Ron","Harry"
             };
 
-            string[] sureNames = {
+            string[] surenames = {
                 "Potter", "Zagitov", "Griffin",
                 "Stalin","Churchill","Pitt",
                 "Putin","Glinka","Snow"
@@ -178,19 +177,19 @@ namespace ModelLab1Classes
                 "Krista","Sasha","Lara"
             };
 
-            int rndAge = rnd.Next(0, 134);
+            int rndAge = rnd.Next(MaxAge);
             
-            int rndGender = rnd.Next(0, 8);
+            int rndGender = rnd.Next(namesMale.Length);
 
             if (rndGender % 2 == 0)
             {
-                return new Person(namesMale[rnd.Next(0, 8)],
-                    sureNames[rnd.Next(0, 8)], rndAge, PersonGender.Male);
+                return new Person(namesMale[rnd.Next(namesMale.Length)],
+                    surenames[rnd.Next(surenames.Length)], rndAge, PersonGender.Male);
             }
             else
             {
-                return new Person(namesFemale[rnd.Next(0, 8)],
-                    sureNames[rnd.Next(0, 8)], rndAge, PersonGender.Female);
+                return new Person(namesFemale[rnd.Next(namesFemale.Length)],
+                    surenames[rnd.Next(surenames.Length)], rndAge, PersonGender.Female);
             }
         }
 
