@@ -235,14 +235,9 @@ namespace ViewLab1Classes
         {
             var language = Regex.IsMatch(value.ToLower(),
                 @"(^[а-я]+[-]?[а-я]+$)|(^[а-я]$)");
-            if (language)
-            {
-                return Language.Russian;
-            }
-            else
-            {
-                return Language.English;
-            }
+            return language 
+                ? Language.Russian 
+                : Language.English;
         }
     }
 }
