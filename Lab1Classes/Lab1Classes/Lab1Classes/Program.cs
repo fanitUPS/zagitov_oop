@@ -1,6 +1,7 @@
 ﻿using ModelLab1Classes;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace ViewLab1Classes
@@ -16,6 +17,12 @@ namespace ViewLab1Classes
         /// <param name="args">Command line arguments</param>
         private static void Main(string[] args)
         {
+            
+
+
+            System.Console.OutputEncoding = System.Text.Encoding.Unicode;
+            System.Console.InputEncoding = System.Text.Encoding.Unicode;
+
             var personList1 = new PersonList();
 
             var personList33 = new PersonList();
@@ -31,7 +38,7 @@ namespace ViewLab1Classes
 
             try
             {
-                var person33 = new Person("ghg", "dsd--ds",
+                var person33 = new Person("fhgh", "длждл",
                     18, PersonGender.Female);
                 personList1.Add(person33);
             }
@@ -132,7 +139,9 @@ namespace ViewLab1Classes
         /// <returns>Instance person</returns>
         private static Person ReadPerson()
         {
-            var defaultPerson = new Person();
+
+
+            var defaultPerson = new Person(10, PersonGender.Male);
             var actionsTupleList = new List<(Action Action, string Message)>
             {
                 (
@@ -145,12 +154,6 @@ namespace ViewLab1Classes
                     () =>
                     {
                         defaultPerson.Surname = Console.ReadLine();
-                        if (CheckLanguage(defaultPerson.Name)
-                            != CheckLanguage(defaultPerson.Surname))
-                        {
-                            throw new ArgumentException
-                            ("Please enter Surname in same language as Name");
-                        }
                     },
                     "Enter surname of person:"),
                 (
@@ -224,20 +227,6 @@ namespace ViewLab1Classes
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// Check language of name or surname
-        /// </summary>
-        /// <param name="value">Name or surname</param>
-        /// <returns>Language of name or surname</returns>
-        private static Language CheckLanguage(string value)
-        {
-            var language = Regex.IsMatch(value.ToLower(),
-                @"(^[а-я]+[-]?[а-я]+$)|(^[а-я]$)");
-            return language 
-                ? Language.Russian 
-                : Language.English;
         }
     }
 }

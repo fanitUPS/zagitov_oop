@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace ModelLab1Classes
@@ -91,6 +92,17 @@ namespace ModelLab1Classes
         public Person() : this ("Fanit", "Zagitov", MaxAge - 10,
             PersonGender.Male)
         { }
+
+        /// <summary>
+        /// Constructor of person instance for input from console
+        /// </summary>
+        /// <param name="age">Age of person</param>
+        /// <param name="gender">Gender of person</param>
+        public Person(int age, PersonGender gender)
+        {
+            Age = age;
+            Gender = gender;
+        }
        
         /// <summary>
         /// Validation name and surname of person
@@ -126,8 +138,16 @@ namespace ModelLab1Classes
             {
                 throw new ArgumentException("Entered name or surname is not " +
                     "valid. You must use Latin or Cyrillic alphabet.");
+            }        
+            
+            else if ((_name != null &&
+                     (CheckLanguage(text) != CheckLanguage(_name))) ||
+                     (_surname != null &&
+                     (CheckLanguage(text) != CheckLanguage(_surname))))
+            {
+                throw new ArgumentException
+                    ("Please enter Surname and Name in same language");
             }
-
             return ChangeString(text);
         }
 
@@ -149,6 +169,32 @@ namespace ModelLab1Classes
                     secondName.ToString().ToLower().Remove(0, 2);
             }
             return changeName;
+        }
+
+        /// <summary>
+        /// Check language of name or surname
+        /// </summary>
+        /// <param name="value">Name or surname</param>
+        /// <returns>Language of name or surname</returns>
+        public Language CheckLanguage(string value)
+        {
+            var laguageDictionary = new Dictionary<Language, string>()
+            {
+                {Language.Russian, @"(^[а-я]+[-]?[а-я]+$)|(^[а-я]$)"},
+                {Language.English, @"(^[a-z]+[-]?[a-z]+$)|(^[a-z]$)"}
+            };
+            
+            foreach (var item in laguageDictionary)
+            {
+                var language = Regex.IsMatch(value.ToLower(),
+                    laguageDictionary[item.Key]);
+                if (language)
+                {
+                    return item.Key;
+                }
+            }
+            throw new ArgumentException
+                        ("Unknown language.");
         }
 
         /// <summary>
