@@ -1,6 +1,7 @@
 ﻿
 namespace ModelLab1Classes
 {
+    //TODO: RSDN
     /// <summary>
     /// Class adult
     /// </summary>

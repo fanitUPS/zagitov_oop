@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace ModelLab1Classes
 {
+    //TODO: RSDN abstract
     /// <summary>
     /// Class Person
     /// </summary>
