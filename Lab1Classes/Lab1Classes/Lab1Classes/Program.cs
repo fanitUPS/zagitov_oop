@@ -22,6 +22,7 @@ namespace ViewLab1Classes
 
             var rnd = new Random();
             
+            //TODO: RSDN
             var Adult1 = AdultPerson.GetRandomPerson(rnd);
             var Adult2 = AdultPerson.GetRandomPerson(rnd);
             var Adult3 = AdultPerson.GetRandomPerson(rnd);

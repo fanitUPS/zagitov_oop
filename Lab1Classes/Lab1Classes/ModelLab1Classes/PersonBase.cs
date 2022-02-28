@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 
 namespace ModelLab1Classes
 {
-    //TODO: RSDN abstract(+)
     /// <summary>
     /// Class Person
     /// </summary>
@@ -78,7 +77,7 @@ namespace ModelLab1Classes
         /// <param name="surname">Surname of person</param>
         /// <param name="age">Age of person</param>
         /// <param name="gender">Gender of person</param>
-        public PersonBase(string name, string surname, int age,
+        protected PersonBase(string name, string surname, int age,
             PersonGender gender)
         {
             Name = name;
@@ -90,7 +89,7 @@ namespace ModelLab1Classes
         /// <summary>
         /// Default constructor
         /// </summary>
-        public PersonBase() : this ("Fanit", "Zagitov", MaxAge - 10,
+        protected PersonBase() : this ("Fanit", "Zagitov", MaxAge - 10,
             PersonGender.Male)
         { }
 
@@ -99,7 +98,7 @@ namespace ModelLab1Classes
         /// </summary>
         /// <param name="age">Age of person</param>
         /// <param name="gender">Gender of person</param>
-        public PersonBase(int age, PersonGender gender)
+        protected PersonBase(int age, PersonGender gender)
         {
             Age = age;
             Gender = gender;

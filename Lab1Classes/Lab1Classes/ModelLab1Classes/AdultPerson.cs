@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ModelLab1Classes
 {
-    //TODO: RSDN(+)
+    //TODO: RSDN
     /// <summary>
     /// Class adult
     /// </summary>
@@ -104,14 +104,9 @@ namespace ModelLab1Classes
                 info = $"{info} {this.Partner.Name} {this.Partner.Surname}";
             }
 
-            if (!string.IsNullOrEmpty(this.Job))
-            {
-                info = $"{info} {this.Job}";
-            }
-            else
-            {
-                info = $"{info} Jobless";
-            }
+            info = !string.IsNullOrEmpty(this.Job) 
+                ? $"{info} {this.Job}" 
+                : $"{info} Jobless";
             
             return info;
         }
@@ -163,6 +158,7 @@ namespace ModelLab1Classes
             
             int rndGender = rnd.Next(namesMale.Length);
 
+            //TODO: duplication
             if (rndGender % 2 == 0)
             {
                 var name = namesMale[rnd.Next(namesMale.Length)];

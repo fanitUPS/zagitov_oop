@@ -40,6 +40,7 @@ namespace ModelLab1Classes
             set => _father = GenderCheck(value, PersonGender.Male);
         }
 
+        //TODO: RSDN
         /// <summary>
         /// Name of kindergarten
         /// </summary>
@@ -103,14 +104,9 @@ namespace ModelLab1Classes
                 info = $"{info}\nFather:{this.Father.Name} {this.Father.Surname}";
             }
 
-            if (!string.IsNullOrEmpty(this.Kindergarten))
-            {
-                info = $"{info}\n{this.Kindergarten}";
-            }
-            else
-            {
-                info = $"{info}\nDoesn't go to kindergarten";
-            }
+            info = !string.IsNullOrEmpty(this.Kindergarten) 
+                ? $"{info}\n{this.Kindergarten}" 
+                : $"{info}\nDoesn't go to kindergarten";
 
             return info;
         }
