@@ -46,12 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adult.cs" />
-    <Compile Include="Child.cs" />
+    <Compile Include="AdultPerson.cs" />
+    <Compile Include="ChildPerson.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="MaritalStatus.cs" />
     <Compile Include="PersonGender.cs" />
-    <Compile Include="Person.cs" />
+    <Compile Include="PersonBase.cs" />
     <Compile Include="PersonList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -4,11 +4,11 @@ using System.Text.RegularExpressions;
 
 namespace ModelLab1Classes
 {
-    //TODO: RSDN abstract
+    //TODO: RSDN abstract(+)
     /// <summary>
     /// Class Person
     /// </summary>
-    public class Person
+    public abstract class PersonBase
     {
         /// <summary>
         /// Name of person
@@ -78,7 +78,7 @@ namespace ModelLab1Classes
         /// <param name="surname">Surname of person</param>
         /// <param name="age">Age of person</param>
         /// <param name="gender">Gender of person</param>
-        public Person(string name, string surname, int age,
+        public PersonBase(string name, string surname, int age,
             PersonGender gender)
         {
             Name = name;
@@ -90,7 +90,7 @@ namespace ModelLab1Classes
         /// <summary>
         /// Default constructor
         /// </summary>
-        public Person() : this ("Fanit", "Zagitov", MaxAge - 10,
+        public PersonBase() : this ("Fanit", "Zagitov", MaxAge - 10,
             PersonGender.Male)
         { }
 
@@ -99,7 +99,7 @@ namespace ModelLab1Classes
         /// </summary>
         /// <param name="age">Age of person</param>
         /// <param name="gender">Gender of person</param>
-        public Person(int age, PersonGender gender)
+        public PersonBase(int age, PersonGender gender)
         {
             Age = age;
             Gender = gender;
@@ -199,53 +199,8 @@ namespace ModelLab1Classes
         }
 
         /// <summary>
-        /// Create random instance of person 
-        /// </summary>
-        /// <returns>Instance of person</returns>
-        public static Person GetRandomPerson()
-        {
-            Random rnd = new Random();
-
-            string[] namesMale = {
-                "Karl", "Fanit", "Peter",
-                "Robert","Joseph","Gendry",
-                "Tom","Ron","Harry"
-            };
-
-            string[] surenames = {
-                "Potter", "Zagitov", "Griffin",
-                "Stalin","Churchill","Pitt",
-                "Putin","Glinka","Snow"
-            };
-
-            string[] namesFemale = {
-                "Dora", "Anna", "Elizabeth",
-                "Maria","Marina","Lana",
-                "Krista","Sasha","Lara"
-            };
-
-            int rndAge = rnd.Next(MaxAge);
-            
-            int rndGender = rnd.Next(namesMale.Length);
-
-            if (rndGender % 2 == 0)
-            {
-                return new Person(namesMale[rnd.Next(namesMale.Length)],
-                    surenames[rnd.Next(surenames.Length)], rndAge, PersonGender.Male);
-            }
-            else
-            {
-                return new Person(namesFemale[rnd.Next(namesFemale.Length)],
-                    surenames[rnd.Next(surenames.Length)], rndAge, PersonGender.Female);
-            }
-        }
-
-        /// <summary>
         /// Info about person
         /// </summary>
-        public string Info()
-        {
-            return $"{this._name} {this._surname} {this._age} {this.Gender}";
-        }
+        public abstract string Info();
     }
 }

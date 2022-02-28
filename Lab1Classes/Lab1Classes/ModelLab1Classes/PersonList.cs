@@ -11,7 +11,7 @@ namespace ModelLab1Classes
         /// <summary>
         /// Array of person
         /// </summary>
-        private Person[] _personArray = new Person[0];
+        private PersonBase[] _personArray = new PersonBase[0];
         
         /// <summary>
         /// Length of PersonList
@@ -22,7 +22,7 @@ namespace ModelLab1Classes
         /// Add new instanse in PersonList
         /// </summary>
         /// <param name="person">Instanse of added person</param>
-        public void Add(Person person)
+        public void Add(PersonBase person)
         {
             int countArray = _personArray.Length;
             Array.Resize(ref _personArray, countArray + 1);
@@ -57,7 +57,7 @@ namespace ModelLab1Classes
         /// </summary>
         /// <param name="index">Index of element</param>
         /// <returns>Element of PersonList</returns>
-        public Person SearchByIndex(int index)
+        public PersonBase SearchByIndex(int index)
         {
             return _personArray[index];
         }
@@ -67,7 +67,7 @@ namespace ModelLab1Classes
         /// </summary>
         /// <param name="person">Instanse Person</param>
         /// <returns>Index of element</returns>
-        public int SearchByName(Person person)
+        public int SearchByName(PersonBase person)
         {
             return Array.IndexOf(_personArray, person);
         }

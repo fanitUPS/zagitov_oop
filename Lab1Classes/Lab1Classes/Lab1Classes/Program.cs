@@ -17,109 +17,31 @@ namespace ViewLab1Classes
         /// <param name="args">Command line arguments</param>
         private static void Main(string[] args)
         {
-            
-
-
             System.Console.OutputEncoding = System.Text.Encoding.Unicode;
             System.Console.InputEncoding = System.Text.Encoding.Unicode;
 
-            var personList1 = new PersonList();
+            var rnd = new Random();
+            
+            var Adult1 = AdultPerson.GetRandomPerson(rnd);
+            var Adult2 = AdultPerson.GetRandomPerson(rnd);
+            var Adult3 = AdultPerson.GetRandomPerson(rnd);
 
-            var personList33 = new PersonList();
-            personList33.DeleteLast();
+            Console.WriteLine(Adult1.Info());
+            Console.WriteLine("");
+            Console.WriteLine(Adult2.Info());
+            Console.WriteLine("");
+            Console.WriteLine(Adult3.Info());
+            Console.WriteLine("");
+            ///Console.WriteLine(child1.Info());
+            Console.WriteLine("");
 
-            var person11 = new Person("fanit", "zagitov",
-                58, PersonGender.Male);
-            personList1.Add(person11);
+            var personList = new PersonList();
+            personList.Add(Adult3);
 
-            var person12 = new Person("elsa", "frozen",
-                18, PersonGender.Female);
-            personList1.Add(person12);
+            Console.WriteLine(personList.ListInfo());
 
-            try
-            {
-                var person33 = new Person("fhgh", "длждл",
-                    18, PersonGender.Female);
-                personList1.Add(person33);
-            }
-            catch (ArgumentException e)
-            {
-                Console.WriteLine(e.Message);
-            }
 
-            var person13 = new Person("elizabeth", "black",
-                25, PersonGender.Female);
-            personList1.Add(person13);
-
-            Console.WriteLine("Person in List 1");
-            OutputInConsole(personList1);
-
-            var personList2 = new PersonList();
-
-            var person21 = new Person("James", "Bond",
-                30, PersonGender.Male);
-            personList2.Add(person21);
-
-            var person22 = new Person("eva", "red-green",
-                23, PersonGender.Female);
-            personList2.Add(person22);
-
-            var person23 = new Person("athena", "greece",
-                88, PersonGender.Female);
-            personList2.Add(person23);
-
-            Console.WriteLine("Person in List 2");
-            OutputInConsole(personList2);
-
-            Console.ReadLine();
-            Console.Clear();
-
-            var person = Person.GetRandomPerson();
-
-            personList1.Add(person);
-
-            try
-            {
-                personList2.Add(personList1.SearchByIndex(1));
-            }
-            catch (IndexOutOfRangeException e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
-            Console.WriteLine("Person in List 1");
-            OutputInConsole(personList1);
-            Console.WriteLine("Person in List 2");
-            OutputInConsole(personList2);
-
-            Console.ReadLine();
-            Console.Clear();
-
-            personList1.DeleteByIndex(1);
-
-            Console.WriteLine("Person in List 1");
-            OutputInConsole(personList1);
-            Console.WriteLine("Person in List 2");
-            OutputInConsole(personList2);
-
-            Console.ReadLine();
-            Console.Clear();
-
-            personList2.Clear();
-
-            Console.WriteLine("Person in List 1");
-            OutputInConsole(personList1);
-            Console.WriteLine("Person in List 2");
-            OutputInConsole(personList2);
-
-            Console.ReadLine();
-            Console.Clear();
-
-            var newPerson = ReadPerson();
-            personList2.Add(newPerson);
-            Console.WriteLine("Person in List 2");
-            OutputInConsole(personList2);
-            Console.ReadLine();
+            Console.ReadKey();
         }
         
         /// <summary>
@@ -133,6 +55,7 @@ namespace ViewLab1Classes
             Console.WriteLine("-------------");
         }
 
+        /*
         /// <summary>
         /// Inter person from console
         /// </summary>
@@ -228,5 +151,6 @@ namespace ViewLab1Classes
                 }
             }
         }
+        */
     }
 }
