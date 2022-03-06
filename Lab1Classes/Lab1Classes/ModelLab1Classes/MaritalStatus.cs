@@ -1,5 +1,4 @@
-﻿
-namespace ModelLab1Classes
+﻿namespace ModelLab1Classes
 {
     /// <summary>
     /// Marital status of person

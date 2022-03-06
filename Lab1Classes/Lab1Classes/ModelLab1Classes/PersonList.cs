@@ -88,7 +88,7 @@ namespace ModelLab1Classes
             string infoList = "";
             foreach (var person in _personArray)
             {
-                 infoList = infoList + "\n" + person.Info();
+                 infoList = $"{infoList} \n{person.Info()}\n--------";
             }
             return infoList;
         }

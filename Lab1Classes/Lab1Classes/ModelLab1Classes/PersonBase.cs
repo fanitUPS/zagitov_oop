@@ -30,6 +30,16 @@ namespace ModelLab1Classes
         public const int MaxAge = 135;
 
         /// <summary>
+        /// Adult minimum age
+        /// </summary>
+        public const int AdultAge = 18;
+
+        /// <summary>
+        /// Mininmum age of person
+        /// </summary>
+        public const int MinAge = 0;
+
+        /// <summary>
         /// Name of person
         /// </summary>
         public string Name
@@ -49,20 +59,10 @@ namespace ModelLab1Classes
         /// <summary>
         /// Age of person
         /// </summary>
-        public int Age
+        public virtual int Age
         {
             get => _age;
-            set
-            {
-                if (value <= 0 || value > MaxAge)
-                {
-                    throw new ArgumentException
-                        ("Entered age is not valid. Valid age " +
-                        $"from 1 to {MaxAge} years.");
-                }
-
-                _age = value;
-            }
+            set => _age = value;
         }
 
         /// <summary>
@@ -94,14 +94,14 @@ namespace ModelLab1Classes
         { }
 
         /// <summary>
-        /// Constructor of person instance for input from console
+        /// Constructor of instance for common person
         /// </summary>
         /// <param name="age">Age of person</param>
         /// <param name="gender">Gender of person</param>
-        protected PersonBase(int age, PersonGender gender)
+        protected PersonBase(string surname ,int age)
         {
+            Surname = surname;
             Age = age;
-            Gender = gender;
         }
        
         /// <summary>
@@ -201,5 +201,21 @@ namespace ModelLab1Classes
         /// Info about person
         /// </summary>
         public abstract string Info();
+
+        /// <summary>
+        /// How person spend holydays
+        /// </summary>
+        public abstract void Holydays();
+
+        /// <summary>
+        /// Randomizer of names
+        /// </summary>
+        /// <param name="array">Array of names</param>
+        /// <param name="rnd">Randome number</param>
+        /// <returns>Name</returns>
+        public static string GetRandomName(string[] array, Random rnd)
+        {
+            return array[rnd.Next(array.Length)];
+        }
     }
 }
