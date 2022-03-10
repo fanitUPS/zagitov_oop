@@ -56,14 +56,11 @@ namespace ModelLab1Classes
             get => _surname;
             set => _surname = Validation(value);
         }
+
         /// <summary>
         /// Age of person
         /// </summary>
-        public virtual int Age
-        {
-            get => _age;
-            set => _age = value;
-        }
+        public virtual int Age { get; set; }
 
         /// <summary>
         /// Gender of person

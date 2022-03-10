@@ -1,8 +1,5 @@
 ﻿using ModelLab1Classes;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace ViewLab1Classes
 {

@@ -64,11 +64,7 @@ namespace ModelLab1Classes
         /// <summary>
         /// Name of kindergarten
         /// </summary>
-        public string KinderGarten
-        {
-            get => _kinderGarten;
-            set => _kinderGarten = value;
-        }
+        public string KinderGarten { get; set; }
 
         /// <summary>
         /// Constructor of child instance
