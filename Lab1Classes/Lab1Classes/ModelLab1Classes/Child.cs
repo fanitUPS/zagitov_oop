@@ -16,7 +16,7 @@ namespace ModelLab1Classes
             get => base.Age;
             set
             {
-                if (value <= MinAge || value > AdultAge)
+                if (value < MinAge || value > AdultAge)
                 {
                     throw new ArgumentException
                         ("Entered age is not valid. Valid age " +
@@ -85,9 +85,16 @@ namespace ModelLab1Classes
             KinderGarten = kindergarten;
         }
 
-        public Child(string surname, int age, PersonGender gender,
-            Adult mother, Adult father, string kindergarten)
-            : base(surname, age)
+        /// <summary>
+        /// Constructor of common child instance
+        /// </summary>
+        /// <param name="surname">Surname of child</param>
+        /// <param name="age">Age of child</param>
+        /// <param name="mother">Mother of child</param>
+        /// <param name="father">Father of child</param>
+        /// <param name="kindergarten">Name of kindergarten</param>
+        public Child(string surname, int age, Adult mother, Adult father,
+            string kindergarten) : base(surname, age)
         {
             Mother = mother;
             Father = father;
@@ -161,7 +168,15 @@ namespace ModelLab1Classes
                 "Isabella", "Mia", "Evelyn"
             };
 
+            var gender = new Dictionary<int, PersonGender>()
+            {
+                {0, PersonGender.Male},
+                {1, PersonGender.Female}
+            };
+
             var child = GetCommonChild(rnd);
+
+            child.Gender = gender[rnd.Next(2)];
 
             var nameMale = PersonBase.GetRandomName(namesMale, rnd);
 
@@ -188,12 +203,6 @@ namespace ModelLab1Classes
                 "Appletree", "Childtime", "EduKids",
                 "Harmony", "Kidspace", "Minnieland",
                 "MountainStar", "Serendipity", "Sunbeam"
-            };
-
-            var gender = new Dictionary<int, PersonGender>()
-            {
-                {0, PersonGender.Male},
-                {1, PersonGender.Female}
             };
 
             var parent = Adult.GetRandomPerson(rnd);
@@ -224,9 +233,7 @@ namespace ModelLab1Classes
 
             var kindergarten = PersonBase.GetRandomName(kindergartens, rnd);
 
-            var genderChild = gender[rnd.Next(2)];
-
-            return new Child(surname, rndAge, genderChild, mother, father, kindergarten);
+            return new Child(surname, rndAge, mother, father, kindergarten);
         }
 
         /// <summary>
