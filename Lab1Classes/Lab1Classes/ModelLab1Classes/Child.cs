@@ -36,12 +36,7 @@ namespace ModelLab1Classes
         /// Father of child
         /// </summary>
         private Adult _father;
-
-        /// <summary>
-        /// Name of kindergarten
-        /// </summary>
-        private string _kinderGarten;
-
+        
         /// <summary>
         /// Mother of child
         /// </summary>
@@ -59,8 +54,7 @@ namespace ModelLab1Classes
             get => _father;
             set => _father = GenderCheck(value, PersonGender.Male);
         }
-
-        //TODO: RSDN(+)
+        
         /// <summary>
         /// Name of kindergarten
         /// </summary>

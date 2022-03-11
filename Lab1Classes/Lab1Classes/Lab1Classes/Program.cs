@@ -32,6 +32,7 @@ namespace ViewLab1Classes
 
             OutputInConsole(personList);
 
+            //TODO:
             var person = personList.SearchByIndex(3);
             person.Holydays();
 

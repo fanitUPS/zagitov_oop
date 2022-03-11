@@ -18,12 +18,7 @@ namespace ModelLab1Classes
         /// Surname of person
         /// </summary>
         private string _surname;
-
-        /// <summary>
-        /// Age of person
-        /// </summary>
-        private int _age;
-
+        
         /// <summary>
         /// Max age of person
         /// </summary>
@@ -57,6 +52,7 @@ namespace ModelLab1Classes
             set => _surname = Validation(value);
         }
 
+        //TODO: abstract
         /// <summary>
         /// Age of person
         /// </summary>
@@ -90,6 +86,7 @@ namespace ModelLab1Classes
             PersonGender.Male)
         { }
 
+        //TODO: XML
         /// <summary>
         /// Constructor of instance for common person
         /// </summary>
@@ -199,6 +196,7 @@ namespace ModelLab1Classes
         /// </summary>
         public abstract string Info();
 
+        //TODO:
         /// <summary>
         /// How person spend holydays
         /// </summary>

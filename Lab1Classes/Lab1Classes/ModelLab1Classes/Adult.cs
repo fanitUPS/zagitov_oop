@@ -1,10 +1,8 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace ModelLab1Classes
 {
-    //TODO: RSDN(+)
     /// <summary>
     /// Class adult
     /// </summary>
@@ -43,12 +41,7 @@ namespace ModelLab1Classes
         /// Patner of adult person
         /// </summary>
         private Adult _partner = null;
-
-        /// <summary>
-        /// Place of employment 
-        /// </summary>
-        private string _job;
-
+        
         /// <summary>
         /// Min ID
         /// </summary>
@@ -158,8 +151,7 @@ namespace ModelLab1Classes
             
             return info;
         }
-
-        //TODO: Дубликат(+)
+        
         /// <summary>
         /// Create random instance of adult person
         /// </summary>
@@ -250,7 +242,7 @@ namespace ModelLab1Classes
 
             var surname = PersonBase.GetRandomName(surenames, rnd);
 
-            var status = martialStatus[rnd.Next(1, 5)];
+            var status = martialStatus[rnd.Next(1, martialStatus.Count + 1 )];
 
             var job = PersonBase.GetRandomName(jobs, rnd);
 
