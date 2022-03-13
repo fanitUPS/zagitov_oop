@@ -11,9 +11,14 @@ namespace ModelLab1Classes
         /// <summary>
         /// Age of child
         /// </summary>
+        private int _age;
+        
+        /// <summary>
+        /// Age of child
+        /// </summary>
         public override int Age
         {
-            get => base.Age;
+            get => _age;
             set
             {
                 if (value < MinAge || value > AdultAge)
@@ -23,7 +28,7 @@ namespace ModelLab1Classes
                         $"from {MinAge} to {AdultAge} years.");
                 }
 
-                base.Age = value;
+                _age = value;
             }
         }
 
@@ -231,11 +236,11 @@ namespace ModelLab1Classes
         }
 
         /// <summary>
-        /// How person spend holydays
+        /// Child method
         /// </summary>
-        public override void Holydays()
+        public void EatCandy()
         {
-            Console.WriteLine("Plays with friends in forest (CHILD)");
+            Console.WriteLine("Going to eat candy (CHILD)");
         }
     }
 }

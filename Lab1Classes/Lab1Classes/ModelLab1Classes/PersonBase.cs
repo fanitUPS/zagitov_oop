@@ -52,11 +52,11 @@ namespace ModelLab1Classes
             set => _surname = Validation(value);
         }
 
-        //TODO: abstract
+        //TODO: abstract(+)
         /// <summary>
         /// Age of person
         /// </summary>
-        public virtual int Age { get; set; }
+        public abstract int Age { get; set; }
 
         /// <summary>
         /// Gender of person
@@ -86,12 +86,12 @@ namespace ModelLab1Classes
             PersonGender.Male)
         { }
 
-        //TODO: XML
+        //TODO: XML(+)
         /// <summary>
         /// Constructor of instance for common person
         /// </summary>
+        /// <param name="surname">Surname of person</param>
         /// <param name="age">Age of person</param>
-        /// <param name="gender">Gender of person</param>
         protected PersonBase(string surname ,int age)
         {
             Surname = surname;
@@ -195,12 +195,6 @@ namespace ModelLab1Classes
         /// Info about person
         /// </summary>
         public abstract string Info();
-
-        //TODO:
-        /// <summary>
-        /// How person spend holydays
-        /// </summary>
-        public abstract void Holydays();
 
         /// <summary>
         /// Randomizer of names

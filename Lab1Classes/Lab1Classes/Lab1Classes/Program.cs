@@ -32,10 +32,18 @@ namespace ViewLab1Classes
 
             OutputInConsole(personList);
 
-            //TODO:
+            //TODO:(+)
             var person = personList.SearchByIndex(3);
-            person.Holydays();
 
+            if (person is Adult)
+            {
+                (person as Adult).GoWithdrawDollars();
+            }
+            else
+            {
+                (person as Child).EatCandy();
+            }
+ 
             Console.ReadKey();
         }
         

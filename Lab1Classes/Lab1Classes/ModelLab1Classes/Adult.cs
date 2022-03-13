@@ -11,9 +11,14 @@ namespace ModelLab1Classes
         /// <summary>
         /// Age of adult
         /// </summary>
+        private int _age;
+        
+        /// <summary>
+        /// Age of adult
+        /// </summary>
         public override int Age
         {
-            get => base.Age;
+            get => _age;
             set
             {
                 if (value <= AdultAge || value > MaxAge)
@@ -23,7 +28,7 @@ namespace ModelLab1Classes
                         $"from {AdultAge} to {MaxAge} years.");
                 }
 
-                base.Age = value;
+                _age = value;
             }
         }
 
@@ -242,7 +247,7 @@ namespace ModelLab1Classes
 
             var surname = PersonBase.GetRandomName(surenames, rnd);
 
-            var status = martialStatus[rnd.Next(1, martialStatus.Count + 1 )];
+            var status = martialStatus[rnd.Next(1, martialStatus.Count + 1)];
 
             var job = PersonBase.GetRandomName(jobs, rnd);
 
@@ -252,11 +257,11 @@ namespace ModelLab1Classes
         }
 
         /// <summary>
-        /// How person spend holydays
+        /// Adult method
         /// </summary>
-        public override void Holydays()
+        public void GoWithdrawDollars()
         {
-            Console.WriteLine("All day watch TV (ADULT)");
+            Console.WriteLine("Going to bank (ADULT)");
         }
     }
 
