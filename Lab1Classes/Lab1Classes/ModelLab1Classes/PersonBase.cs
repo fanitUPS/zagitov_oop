@@ -51,8 +51,7 @@ namespace ModelLab1Classes
             get => _surname;
             set => _surname = Validation(value);
         }
-
-        //TODO: abstract(+)
+        
         /// <summary>
         /// Age of person
         /// </summary>
@@ -85,8 +84,7 @@ namespace ModelLab1Classes
         protected PersonBase() : this ("Fanit", "Zagitov", MaxAge - 10,
             PersonGender.Male)
         { }
-
-        //TODO: XML(+)
+        
         /// <summary>
         /// Constructor of instance for common person
         /// </summary>

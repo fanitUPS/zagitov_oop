@@ -31,17 +31,17 @@ namespace ViewLab1Classes
             }     
 
             OutputInConsole(personList);
-
-            //TODO:(+)
+            
             var person = personList.SearchByIndex(3);
 
-            if (person is Adult)
+            switch (person)
             {
-                (person as Adult).GoWithdrawDollars();
-            }
-            else
-            {
-                (person as Child).EatCandy();
+                case Adult adult:
+                    adult.GoWithdrawDollars();
+                    break;
+                case Child child:
+                    child.EatCandy();
+                    break;
             }
  
             Console.ReadKey();
