@@ -10,6 +10,7 @@ namespace Lab3Logic
     {
         static void Main(string[] args)
         {
+            
         }
     }
 }
