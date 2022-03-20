@@ -1,16 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ModelLab3Logic;
+using System;
 
-namespace Lab3Logic
+namespace ViewLab3Logic
 {
-    class Program
+    /// <summary>
+    /// Class program
+    /// </summary>
+    public class Program
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// Entry point of application
+        /// </summary>
+        /// <param name="args">Command line arguments</param>
+        private static void Main(string[] args)
         {
-            
+            var carD = new Car(7, 500, EngineType.Diesel, 200);
+
+            var carP = new Car(7, 500, EngineType.Petrol, 200);
+
+            var hybrid = new Hybrid(8, 500, EngineType.Hybrid, 0.5F);
+
+            var helicopter = new Helicopter(200, 500, EngineType.GasTurbine, 1800);
+
+            Console.WriteLine(carD.GetConsuption());
+            Console.WriteLine(carP.GetConsuption());
+            Console.WriteLine(hybrid.GetConsuption());
+            Console.WriteLine(helicopter.GetConsuption());
+
+            Console.ReadKey();
         }
     }
 }

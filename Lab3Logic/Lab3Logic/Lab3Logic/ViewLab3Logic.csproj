@@ -49,5 +49,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ModelLab3Logic\ModelLab3Logic.csproj">
+      <Project>{dea2328d-d70e-4e20-9b57-940e1eb76cf4}</Project>
+      <Name>ModelLab3Logic</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

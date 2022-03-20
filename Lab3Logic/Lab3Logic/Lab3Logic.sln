@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab3Logic", "Lab3Logic\Lab3Logic.csproj", "{7BE8D787-1F53-49F4-9DB6-F41C0E350F06}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewLab3Logic", "Lab3Logic\ViewLab3Logic.csproj", "{7BE8D787-1F53-49F4-9DB6-F41C0E350F06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelLab3Logic", "ModelLab3Logic\ModelLab3Logic.csproj", "{DEA2328D-D70E-4E20-9B57-940E1EB76CF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{7BE8D787-1F53-49F4-9DB6-F41C0E350F06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BE8D787-1F53-49F4-9DB6-F41C0E350F06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BE8D787-1F53-49F4-9DB6-F41C0E350F06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEA2328D-D70E-4E20-9B57-940E1EB76CF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEA2328D-D70E-4E20-9B57-940E1EB76CF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEA2328D-D70E-4E20-9B57-940E1EB76CF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEA2328D-D70E-4E20-9B57-940E1EB76CF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
