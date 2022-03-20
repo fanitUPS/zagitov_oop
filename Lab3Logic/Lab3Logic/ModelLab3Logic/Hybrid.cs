@@ -25,7 +25,7 @@
         public const int MaxPercent = 1;
 
         /// <summary>
-        /// Min percent distance on electric enfgne
+        /// Min percent distance on electric engine
         /// </summary>
         public const int MinPercent = 0;
 
