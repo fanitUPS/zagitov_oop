@@ -1,6 +1,7 @@
 ﻿using ModelLab3Logic;
 using System;
 
+//TODO:
 namespace ViewLab3Logic
 {
     /// <summary>
