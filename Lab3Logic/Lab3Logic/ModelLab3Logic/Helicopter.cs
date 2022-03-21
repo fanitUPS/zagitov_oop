@@ -1,4 +1,6 @@
-﻿namespace ModelLab3Logic
+﻿using System;
+
+namespace ModelLab3Logic
 {
     public class Helicopter : TransportBase
     {
@@ -13,7 +15,7 @@
         public override EngineType EngineType
         {
             get => _engineType;
-            set => _engineType = CheckEngine(value, this);
+            set => _engineType = CheckEngine(value);
         }
 
         /// <summary>
@@ -43,35 +45,53 @@
         /// <summary>
         /// Constuctor of instance helicopter
         /// </summary>
-        /// <param name="consaption">Fuel consumption per 100 km</param>
-        /// <param name="distanse">Distance of travel</param>
+        /// <param name="consumption">Fuel consumption per 100 km</param>
+        /// <param name="distance">Distance of travel</param>
         /// <param name="engine">Type of engine</param>
         /// <param name="load">Load of helicopter</param>
-        public Helicopter(float consaption, float distanse,
+        public Helicopter(float consumption, float distance,
             EngineType engine, float load)
-            : base(consaption, distanse, engine)
+            : base(consumption, distance, engine)
         {
             Load = load;
         }
 
         /// <summary>
-        /// Calculation of consupted fuel
+        /// Consumption of fuel
         /// </summary>
-        /// <returns>Consupted fuel</returns>
-        public override float GetConsuption()
+        public override float Consumption
         {
-            float fuelCoeff = 1;
-
-            if (this.Load <= 700)
+            get
             {
-                fuelCoeff = 0.8F;
+                float loadCoeff = 1;
+
+                if (this.Load <= 700)
+                {
+                    loadCoeff = 0.8F;
+                }
+                else if (this.Load >= 1600)
+                {
+                    loadCoeff = 1.2F;
+                }
+
+                return loadCoeff * this.ConsumptionPerKm * (this.Distance / 100);
             }
-            else if (this.Load >= 1600)
+        }
+
+        /// <summary>
+        /// Check type of engine
+        /// </summary>
+        /// <param name="engine">Engine type</param>
+        /// <returns>Valid engine type</returns>
+        private EngineType CheckEngine(EngineType engine)
+        {
+            if (engine != EngineType.GasTurbine)
             {
-                fuelCoeff = 1.2F;
+                throw new ArgumentException
+                    ("Engine type must be Turbine for Helicopter");
             }
 
-            return fuelCoeff * this.ConsPerKm * (this.Distance / 100);
+            return engine;
         }
     }
 }

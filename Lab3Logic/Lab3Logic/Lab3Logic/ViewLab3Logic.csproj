@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{7BE8D787-1F53-49F4-9DB6-F41C0E350F06}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Lab3Logic</RootNamespace>
-    <AssemblyName>Lab3Logic</AssemblyName>
+    <RootNamespace>ViewLab3Logic</RootNamespace>
+    <AssemblyName>ViewLab3Logic</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

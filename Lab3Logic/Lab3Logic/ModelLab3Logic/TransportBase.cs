@@ -8,20 +8,20 @@ namespace ModelLab3Logic
     /// </summary>
     public abstract class TransportBase
     {
-        //TODO: RSDN
+        //TODO: RSDN(+)
         /// <summary>
-        /// Tranport fuel consumption per 100 km
+        /// Transport fuel consumption per 100 km
         /// </summary>
-        private float _consPerKm;
+        private float _consumptionPerKm;
 
-        //TODO: RSDN
+        //TODO: RSDN(+)
         /// <summary>
-        /// Tranport fuel consumption per 100 km
+        /// Transport fuel consumption per 100 km
         /// </summary>
-        public float ConsPerKm
+        public float ConsumptionPerKm
         {
-            get => _consPerKm;
-            set => _consPerKm = CheckValue(value);
+            get => _consumptionPerKm;
+            set => _consumptionPerKm = CheckValue(value);
         }
 
         /// <summary>
@@ -46,14 +46,14 @@ namespace ModelLab3Logic
         /// <summary>
         /// Base constructor
         /// </summary>
-        /// <param name="consaption">Fuel consumption per 100 km</param>
-        /// <param name="distanse">Distance of travel</param>
+        /// <param name="consumptionPerKm">Fuel consumption per 100 km</param>
+        /// <param name="distance">Distance of travel</param>
         /// <param name="engine">Type of engine</param>
-        protected TransportBase(float consaption, float distanse,
+        protected TransportBase(float consumptionPerKm, float distance,
             EngineType engine)
         {
-            ConsPerKm = consaption;
-            Distance = distanse;
+            ConsumptionPerKm = consumptionPerKm;
+            Distance = distance;
             EngineType = engine;
         }
 
@@ -91,63 +91,13 @@ namespace ModelLab3Logic
             return value;
         }
 
-        //TODO: property
+        //TODO: property(+)
         /// <summary>
-        /// Calculation of consupted fuel
+        /// Consumption of fuel
         /// </summary>
-        /// <returns>Spented fuel</returns>
-        public abstract float GetConsuption();
+        public abstract float Consumption { get; }
 
-        //TODO:
-        /// <summary>
-        /// Validation of engine type and transport type
-        /// </summary>
-        /// <param name="engine">Engine type</param>
-        /// <param name="transportBase">Instance of TransportBase</param>
-        /// <returns>Valid engine type</returns>
-        public EngineType CheckEngine(EngineType engine,
-            TransportBase transportBase)
-        {
-            var exceptionMessege = new Dictionary<int, string>()
-            {
-                {1, "Engine type must be Diesel or Petrol for Car"},
-                {2, "Engine type must be Hybrid for Hybrid"},
-                {3, "Engine type must be Turbine for Helicopter"},
-                {4, "Unknown type of transport"}
-            };
-
-            switch (transportBase)
-            {
-                case Car car:
-                    if (engine != EngineType.Diesel &&
-                        engine != EngineType.Petrol)
-                    {
-                        throw new ArgumentException
-                            (exceptionMessege[1]);
-                    }
-                    return engine;
-
-                case Hybrid hybrid:
-                    if (engine != EngineType.Hybrid)
-                    {
-                        throw new ArgumentException
-                            (exceptionMessege[2]);
-                    }
-                    return engine;
-
-                case Helicopter helicopter:
-                    if (engine != EngineType.GasTurbine)
-                    {
-                        throw new ArgumentException
-                            (exceptionMessege[3]);
-                    }
-                    return engine;
-
-                default:
-                    throw new ArgumentException
-                        (exceptionMessege[4]);
-            }
-        }
+        //TODO:(убрал проверку двигателя дочерних классов в сами классы)
     }
 }
 

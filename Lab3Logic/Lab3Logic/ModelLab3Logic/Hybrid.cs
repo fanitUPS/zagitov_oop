@@ -1,4 +1,6 @@
-﻿namespace ModelLab3Logic
+﻿using System;
+
+namespace ModelLab3Logic
 {
     /// <summary>
     /// Class Hybrid
@@ -16,7 +18,7 @@
         public override EngineType EngineType
         {
             get => _engineType;
-            set => _engineType = CheckEngine(value, this);
+            set => _engineType = CheckEngine(value);
         }
 
         /// <summary>
@@ -47,27 +49,45 @@
         /// <summary>
         /// Constuctor of hybrid instance
         /// </summary>
-        /// <param name="consaption">Fuel consumption per 100 km</param>
-        /// <param name="distanse">Distance of travel</param>
+        /// <param name="consumption">Fuel consumption per 100 km</param>
+        /// <param name="distance">Distance of travel</param>
         /// <param name="engine">Type of engine</param>
         /// <param name="percentOnElectric">Percent distance on electric engine</param>
-        public Hybrid(float consaption, float distanse,
+        public Hybrid(float consumption, float distance,
             EngineType engine, float percentOnElectric)
-            : base(consaption, distanse, engine)
+            : base(consumption, distance, engine)
         {
             PercentOnElectric = percentOnElectric;
         }
 
         /// <summary>
-        /// Calculation of consupted fuel
+        /// Consumption of fuel
         /// </summary>
-        /// <returns>Consupted fuel</returns>
-        public override float GetConsuption()
+        public override float Consumption
         {
-            float fuelCoeff = 1;
+            get
+            {
+                float engineCoeff = 1;
 
-            return (fuelCoeff - this.PercentOnElectric) * this.ConsPerKm
-                * (this.Distance / 100);
+                return (engineCoeff - this.PercentOnElectric) * this.ConsumptionPerKm
+                    * (this.Distance / 100);
+            }
+        }
+
+        /// <summary>
+        /// Check type of engine
+        /// </summary>
+        /// <param name="engine">Engine type</param>
+        /// <returns>Valid engine type</returns>
+        private EngineType CheckEngine(EngineType engine)
+        {
+            if (engine != EngineType.Hybrid)
+            {
+                throw new ArgumentException
+                    ("Engine type must be Hybrid for Hybrid");
+            }
+            
+            return engine;
         }
     }
 }

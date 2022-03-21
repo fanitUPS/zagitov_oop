@@ -1,7 +1,8 @@
 ﻿using ModelLab3Logic;
 using System;
+using System.Collections.Generic;
 
-//TODO:
+//TODO:(+)
 namespace ViewLab3Logic
 {
     /// <summary>
@@ -15,19 +16,19 @@ namespace ViewLab3Logic
         /// <param name="args">Command line arguments</param>
         private static void Main(string[] args)
         {
-            //TODO: где полиморфизм?
-            var carDiesel = new Car(7, 500, EngineType.Diesel, 200);
+            //TODO: где полиморфизм?(+)
+            var transportList = new List<TransportBase>()
+            {
+                new Car(7, 500, EngineType.Diesel, 200),
+                new Car(7, 500, EngineType.Electric, 200),
+                new Hybrid(7, 500, EngineType.Hybrid, 0.7F),
+                new Helicopter(200, 500, EngineType.GasTurbine, 1800)
+            };
 
-            var carPetrol = new Car(7, 500, EngineType.Petrol, 200);
-
-            var hybrid = new Hybrid(7, 500, EngineType.Hybrid, 0.7F);
-
-            var helicopter = new Helicopter(200, 500, EngineType.GasTurbine, 1800);
-
-            Console.WriteLine(carDiesel.GetConsuption());
-            Console.WriteLine(carPetrol.GetConsuption());
-            Console.WriteLine(hybrid.GetConsuption());
-            Console.WriteLine(helicopter.GetConsuption());
+            foreach (var transport in transportList)
+            {
+                Console.WriteLine(transport.Consumption);
+            }
 
             Console.ReadKey();
         }

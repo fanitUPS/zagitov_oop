@@ -1,4 +1,6 @@
-﻿namespace ModelLab3Logic
+﻿using System;
+
+namespace ModelLab3Logic
 {
     /// <summary>
     /// Car class
@@ -21,7 +23,7 @@
         public override EngineType EngineType
         {
             get => _engineType;
-            set => _engineType = CheckEngine(value, this);
+            set => _engineType = CheckEngine(value);
         }
 
         /// <summary>
@@ -36,31 +38,50 @@
         /// <summary>
         /// Constuctor of instance Car
         /// </summary>
-        /// <param name="consaption">Fuel consumption per 100 km</param>
-        /// <param name="distanse">Distance of travel</param>
+        /// <param name="consumption">Fuel consumption per 100 km</param>
+        /// <param name="distance">Distance of travel</param>
         /// <param name="engine">Type of engine</param>
         /// <param name="tank">Gas tank volume</param>
-        public Car(float consaption, float distanse,
+        public Car(float consumption, float distance,
             EngineType engine, float tank)
-            : base (consaption, distanse, engine)
+            : base (consumption, distance, engine)
         {
             GasTankVolume = tank;
         }
 
         /// <summary>
-        /// Calculation of consupted fuel
+        /// Consumption of fuel
         /// </summary>
-        /// <returns>Consupted fuel</returns>
-        public override float GetConsuption()
+        public override float Consumption
         {
-            float coeff = 1;
-
-            if (this.EngineType == EngineType.Diesel)
+            get 
             {
-                coeff = 0.8F;
+                float engineCoeff = 1;
+
+                if (this.EngineType == EngineType.Diesel)
+                {
+                    engineCoeff = 0.8F;
+                }
+
+                return engineCoeff * this.ConsumptionPerKm * (this.Distance / 100);
             }
-            
-            return coeff * this.ConsPerKm * (this.Distance / 100);
+        }
+
+        /// <summary>
+        /// Check type of engine
+        /// </summary>
+        /// <param name="engine">Engine type</param>
+        /// <returns>Valid engine type</returns>
+        private EngineType CheckEngine(EngineType engine)
+        {
+            if (engine != EngineType.Diesel &&
+                engine != EngineType.Petrol)
+            {
+                throw new ArgumentException
+                    ("Engine type must be Diesel or Petrol for Car");
+            }
+
+            return engine;
         }
     }
 }
