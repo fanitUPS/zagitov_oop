@@ -14,6 +14,7 @@ namespace ViewLab3Logic
         /// <param name="args">Command line arguments</param>
         private static void Main(string[] args)
         {
+            //TODO: где полиморфизм?
             var carDiesel = new Car(7, 500, EngineType.Diesel, 200);
 
             var carPetrol = new Car(7, 500, EngineType.Petrol, 200);

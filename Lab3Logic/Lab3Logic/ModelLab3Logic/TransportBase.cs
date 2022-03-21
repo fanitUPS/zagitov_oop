@@ -8,11 +8,13 @@ namespace ModelLab3Logic
     /// </summary>
     public abstract class TransportBase
     {
+        //TODO: RSDN
         /// <summary>
         /// Tranport fuel consumption per 100 km
         /// </summary>
         private float _consPerKm;
 
+        //TODO: RSDN
         /// <summary>
         /// Tranport fuel consumption per 100 km
         /// </summary>
@@ -89,12 +91,14 @@ namespace ModelLab3Logic
             return value;
         }
 
+        //TODO: property
         /// <summary>
         /// Calculation of consupted fuel
         /// </summary>
         /// <returns>Spented fuel</returns>
         public abstract float GetConsuption();
 
+        //TODO:
         /// <summary>
         /// Validation of engine type and transport type
         /// </summary>
