@@ -18,7 +18,7 @@ namespace ViewLab3Logic
             var transportList = new List<TransportBase>()
             {
                 new Car(7, 500, EngineType.Diesel, 200),
-                new Car(7, 500, EngineType.Electric, 200),
+                new Car(7, 500, EngineType.Petrol, 200),
                 new Hybrid(7, 500, EngineType.Hybrid, 0.7F),
                 new Helicopter(200, 500, EngineType.GasTurbine, 1800)
             };
