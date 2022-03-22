@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 
-//TODO:(+)
 namespace ViewLab3Logic
 {
     /// <summary>
@@ -16,7 +15,6 @@ namespace ViewLab3Logic
         /// <param name="args">Command line arguments</param>
         private static void Main(string[] args)
         {
-            //TODO: где полиморфизм?(+)
             var transportList = new List<TransportBase>()
             {
                 new Car(7, 500, EngineType.Diesel, 200),
