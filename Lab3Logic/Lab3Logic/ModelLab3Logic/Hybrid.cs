@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ModelLab3Logic
+namespace ModelLab4WinForms
 {
     /// <summary>
     /// Class Hybrid

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ModelLab3Logic
+namespace ModelLab4WinForms
 {
     /// <summary>
     /// Abstract class TransportBase

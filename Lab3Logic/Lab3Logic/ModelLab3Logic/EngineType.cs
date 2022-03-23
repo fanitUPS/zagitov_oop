@@ -1,4 +1,4 @@
-﻿namespace ModelLab3Logic
+﻿namespace ModelLab4WinForms
 {
     /// <summary>
     /// Enum of engine type

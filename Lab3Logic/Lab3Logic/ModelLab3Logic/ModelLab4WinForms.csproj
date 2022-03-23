@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7BE8D787-1F53-49F4-9DB6-F41C0E350F06}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>ViewLab3Logic</RootNamespace>
-    <AssemblyName>ViewLab3Logic</AssemblyName>
+    <ProjectGuid>{DEA2328D-D70E-4E20-9B57-940E1EB76CF4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ModelLab4WinForms</RootNamespace>
+    <AssemblyName>ModelLab4WinForms</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,17 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Car.cs" />
+    <Compile Include="EngineType.cs" />
+    <Compile Include="Helicopter.cs" />
+    <Compile Include="Hybrid.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransportBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ModelLab3Logic\ModelLab4WinForms.csproj">
-      <Project>{dea2328d-d70e-4e20-9b57-940e1eb76cf4}</Project>
-      <Name>ModelLab4WinForms</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
