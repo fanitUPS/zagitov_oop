@@ -6,14 +6,23 @@ using ModelLab4WinForms;
 
 namespace ViewLab4WinForms
 {
+    /// <summary>
+    /// Class MainForm
+    /// </summary>
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// List of BaseTransport
+        /// </summary>
         private BindingList<TransportBase> _transportList =
             new BindingList<TransportBase>()
             {
                 new Car(7, 550, EngineType.Diesel,500)
             };
 
+        /// <summary>
+        /// Add Transport in list
+        /// </summary>
         internal TransportBase TransportList
         {
             set
@@ -22,11 +31,19 @@ namespace ViewLab4WinForms
             }
         }
 
+        /// <summary>
+        /// MainForm
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Load of MainForm
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event</param>
         private void MainForm_Load(object sender, EventArgs e)
         {
             dataGridViewData.RowHeadersVisible = false;
@@ -39,10 +56,13 @@ namespace ViewLab4WinForms
             dataGridViewData.Columns.Add("type",
                 "Transport type");
             dataGridViewData.Columns[4].Width = 100;
-
-
         }
 
+        /// <summary>
+        /// Click on button addTransport
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event</param>
         private void addTransport_Click(object sender, EventArgs e)
         {
             AddForm addForm = new AddForm();
@@ -51,6 +71,11 @@ namespace ViewLab4WinForms
             this.Hide();
         }
 
+        /// <summary>
+        /// Click on button buttonShowTransport
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event</param>
         private void buttonShowTransport_Click(object sender, EventArgs e)
         {
             var transportTypeDict = new Dictionary<string, string>
@@ -67,6 +92,11 @@ namespace ViewLab4WinForms
             }
         }
 
+        /// <summary>
+        /// Click on button Remove
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event</param>
         private void button2_Click(object sender, EventArgs e)
         {
             var selectedIndex = 0;
