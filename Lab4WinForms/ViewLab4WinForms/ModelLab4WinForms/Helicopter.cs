@@ -10,6 +10,11 @@ namespace ModelLab4WinForms
         private EngineType _engineType;
 
         /// <summary>
+        /// Type
+        /// </summary>
+        public override string Type => "Helicopter";
+
+        /// <summary>
         /// Engine type
         /// </summary>
         public override EngineType EngineType
@@ -40,6 +45,13 @@ namespace ModelLab4WinForms
         {
             get => _load;
             set => _load = CheckMinMax(MinLoad, MaxLoad, value);
+        }
+
+        /// <summary>
+        /// Constructor for XML
+        /// </summary>
+        public Helicopter()
+        {
         }
 
         /// <summary>

@@ -1,11 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace ModelLab4WinForms
 {
     /// <summary>
     /// Abstract class TransportBase
     /// </summary>
+    [XmlInclude(typeof(Car))]
+    [XmlInclude(typeof(Helicopter))]
+    [XmlInclude(typeof(Hybrid))]
     public abstract class TransportBase
     {
         /// <summary>
@@ -40,6 +43,13 @@ namespace ModelLab4WinForms
         /// Enum of engine types
         /// </summary>
         public abstract EngineType EngineType { get; set; }
+
+        /// <summary>
+        /// Constructor for XML
+        /// </summary>
+        protected TransportBase()
+        {
+        }
 
         /// <summary>
         /// Base constructor
@@ -93,6 +103,11 @@ namespace ModelLab4WinForms
         /// Consumption of fuel
         /// </summary>
         public abstract float Consumption { get; }
+
+        /// <summary>
+        /// Type of transport
+        /// </summary>
+        public abstract string Type { get; }
     }
 }
 

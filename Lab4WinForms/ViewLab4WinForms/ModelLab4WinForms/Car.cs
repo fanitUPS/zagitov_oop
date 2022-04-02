@@ -36,6 +36,13 @@ namespace ModelLab4WinForms
         }
 
         /// <summary>
+        /// Constructor for XML
+        /// </summary>
+        public Car()
+        {
+        }
+
+        /// <summary>
         /// Constuctor of instance Car
         /// </summary>
         /// <param name="consumption">Fuel consumption per 100 km</param>
@@ -83,5 +90,10 @@ namespace ModelLab4WinForms
 
             return engine;
         }
+
+        /// <summary>
+        /// Type
+        /// </summary>
+        public override string Type => "Car";
     }
 }

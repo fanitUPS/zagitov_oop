@@ -13,6 +13,11 @@ namespace ModelLab4WinForms
         private EngineType _engineType;
 
         /// <summary>
+        /// Type
+        /// </summary>
+        public override string Type => "Hybrid";
+
+        /// <summary>
         /// Engine type
         /// </summary>
         public override EngineType EngineType
@@ -44,6 +49,13 @@ namespace ModelLab4WinForms
             get => _percentOnElectric;
             set => _percentOnElectric = CheckMinMax
                 (MinPercent, MaxPercent, value);
+        }
+
+        /// <summary>
+        /// Constructor for XML
+        /// </summary>
+        public Hybrid()
+        {
         }
 
         /// <summary>

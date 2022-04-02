@@ -19,7 +19,7 @@ namespace ViewLab4WinForms
         }
 
         /// <summary>
-        /// Clicl on cancelButton
+        /// Click on cancelButton
         /// </summary>
         /// <param name="sender">Sender</param>
         /// <param name="e">Event</param>
@@ -95,6 +95,9 @@ namespace ViewLab4WinForms
             comboBoxEngineType.Items.Add("Petrol");
             comboBoxEngineType.Items.Add("Hybrid");
             comboBoxEngineType.Items.Add("GasTurbine");
+
+            dataGridViewAddData.RowsDefaultCellStyle.Alignment 
+                = DataGridViewContentAlignment.MiddleCenter;
         }
 
         /// <summary>
@@ -224,7 +227,6 @@ namespace ViewLab4WinForms
                         mainForm.TransportList = helicopter;
                         break;
                 }
-
                 mainForm.Show();
                 this.Close();
             }
@@ -235,15 +237,14 @@ namespace ViewLab4WinForms
             catch (System.NullReferenceException nullError)
             {
                 ErrorMessageBox(nullError.Message);
-            }
-            
+            } 
         }
 
         /// <summary>
         /// Throw new Exception
         /// </summary>
         /// <param name="flag">Bool</param>
-        private void FloatException(bool flag)
+        internal void FloatException(bool flag)
         {
             if (!flag)
             {
@@ -259,6 +260,12 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         private void buttonRandomData_Click(object sender, EventArgs e)
         {
+            if (comboBoxTransportType.SelectedIndex == -1)
+            {
+                ErrorMessageBox("You must choose type of transport!");
+                return;
+            }
+
             string selectedStateTransport = comboBoxTransportType.SelectedItem.
                 ToString();
 
@@ -270,8 +277,8 @@ namespace ViewLab4WinForms
 
             var rnd = new Random();
 
-            var consuptionPerKm = rnd.Next(50);
-            var distance = rnd.Next(1000);
+            var consuptionPerKm = rnd.Next(1, 50);
+            var distance = rnd.Next(1, 1000);
 
             dataGridViewAddData.Rows[0].Cells["consumptionPerKm"].Value =
                 consuptionPerKm.ToString();
@@ -308,14 +315,14 @@ namespace ViewLab4WinForms
         /// Show MessageBox
         /// </summary>
         /// <param name="text">Text of error</param>
-        private void ErrorMessageBox(string text)
+        internal void ErrorMessageBox(string text)
         {
-            MessageBox.Show(text,
-                        "Error!",
-                         MessageBoxButtons.OK,
-                         MessageBoxIcon.Error,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.DefaultDesktopOnly);
+            MessageBox.Show(text, 
+                "Error!",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error,
+                MessageBoxDefaultButton.Button1,
+                MessageBoxOptions.DefaultDesktopOnly);
         }
     }
 }
