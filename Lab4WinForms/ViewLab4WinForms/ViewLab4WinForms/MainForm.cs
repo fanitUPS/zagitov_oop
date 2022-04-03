@@ -186,6 +186,11 @@ namespace ViewLab4WinForms
 
             string path = fileBrowser.FileName;
 
+            if (string.IsNullOrEmpty(path))
+            {
+                return;
+            }
+
             XmlSerializer xmlSerialaizer = 
                 new XmlSerializer(typeof(BindingList<TransportBase>));
 
