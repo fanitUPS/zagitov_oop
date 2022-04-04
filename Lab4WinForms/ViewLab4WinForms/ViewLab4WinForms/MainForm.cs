@@ -23,11 +23,14 @@ namespace ViewLab4WinForms
                 new Helicopter(200, 1000, EngineType.GasTurbine, 1000)
             };
 
+        //TODO: нарушение инкапсуляции
+        //TODO: XML
         internal BindingList<TransportBase> GetTransportBases
         {
             get => _transportList;
         }
 
+        //TODO: нарушение инкапсуляции
         /// <summary>
         /// Add Transport in list
         /// </summary>
@@ -68,6 +71,7 @@ namespace ViewLab4WinForms
                 = DataGridViewContentAlignment.MiddleCenter;
         }
 
+        //TODO: RSDN
         /// <summary>
         /// Click on button addTransport
         /// </summary>
@@ -76,11 +80,16 @@ namespace ViewLab4WinForms
         private void addTransport_Click(object sender, EventArgs e)
         {
             AddForm addForm = new AddForm();
+            addForm.TransportAdded += (o, args) =>
+            {
+                _transportList.Add(args.Transport);
+            };
             addForm.Owner = this;
             addForm.Show();
             this.Hide();
         }
 
+        //TODO: RSDN
         /// <summary>
         /// Click on button Remove
         /// </summary>
@@ -111,6 +120,7 @@ namespace ViewLab4WinForms
             _transportList.RemoveAt(selectedIndex);            
         }
 
+        //TODO: RSDN
         /// <summary>
         /// Event click on cell
         /// </summary>
@@ -118,9 +128,11 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         private void dataGridViewData_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            //BUG: падает при выделении колонки
             dataGridViewData.Rows[e.RowIndex].Selected = true;
         }
 
+        //TODO: RSDN
         /// <summary>
         /// Click on buttonSearch
         /// </summary>
@@ -134,12 +146,14 @@ namespace ViewLab4WinForms
             this.Hide();
         }
 
+        //TODO: RSDN
         /// <summary>
         /// DataBindingComplete
         /// </summary>
         /// <param name="sender">Sender</param>
         /// <param name="e">Event</param>
-        private void dataGridViewData_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        private void dataGridViewData_DataBindingComplete(object sender, 
+            DataGridViewBindingCompleteEventArgs e)
         {
             for (int i = 0; i < dataGridViewData.Rows.Count; i++)
             {
@@ -173,6 +187,7 @@ namespace ViewLab4WinForms
             fw.Close();
         }
 
+        //TODO: RSDN
         /// <summary>
         /// Click on buttonLoad
         /// </summary>
@@ -183,7 +198,7 @@ namespace ViewLab4WinForms
             var fileBrowser = new OpenFileDialog();
             fileBrowser.Filter = "TransportBase (*.trnbs)|*.trnbs";
             fileBrowser.ShowDialog();
-
+            
             string path = fileBrowser.FileName;
 
             if (string.IsNullOrEmpty(path))
@@ -194,8 +209,10 @@ namespace ViewLab4WinForms
             XmlSerializer xmlSerialaizer = 
                 new XmlSerializer(typeof(BindingList<TransportBase>));
 
+            //TODO: using
             FileStream fr = new FileStream(path, FileMode.Open);
 
+            //BUG: падает при некорректном файле
             _transportList = (BindingList<TransportBase>)
                 xmlSerialaizer.Deserialize(fr);
 

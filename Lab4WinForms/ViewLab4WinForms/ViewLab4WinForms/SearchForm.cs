@@ -32,6 +32,7 @@ namespace ViewLab4WinForms
                 = DataGridViewContentAlignment.MiddleCenter;
         }
 
+        //TODO: RSDN
         /// <summary>
         /// Click on buttonCancel 
         /// </summary>
@@ -39,11 +40,13 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         private void buttonCancel_Click(object sender, EventArgs e)
         {
+            //TODO: нарушение инкапсуляции
             MainForm mainForm = this.Owner as MainForm;
             mainForm.Show();
             this.Close();
         }
 
+        //TODO: RSDN
         /// <summary>
         /// Click on buttonSearch 
         /// </summary>
@@ -51,11 +54,20 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         private void buttonSearch_Click(object sender, EventArgs e)
         {
+            //TODO:
             var selectedState = "Uknown";
 
             if (comboBoxSearch.SelectedIndex != -1)
             {
                 selectedState = comboBoxSearch.SelectedItem.ToString();
+                // if (selectedState == "Uknown")
+                // {
+                //     ErrorMessageBox("Choose item in comboBox");
+                // }
+                // else
+                // {
+                //     SearchObject(textBoxValue.Text, selectedState);
+                // }
             }
 
             switch (selectedState)
@@ -93,6 +105,7 @@ namespace ViewLab4WinForms
         /// <param name="columnName">Search column</param>
         private void SearchObject(string value, string columnName)
         {
+            //TODO: нарушение инкапсуляции
             MainForm mainForm = this.Owner as MainForm;
             FillDataGridView(mainForm.GetTransportBases);
 
@@ -124,6 +137,7 @@ namespace ViewLab4WinForms
             dataGridViewSearch.RowHeadersVisible = false;
             dataGridViewSearch.Width = 466;
 
+            //TODO: строковые ключи, поубирать
             dataGridViewSearch.Columns.Add
                 ("ConsumptionPerKm", "Consumption per 100 km");
             dataGridViewSearch.Columns[0].Width = 150;
@@ -149,6 +163,7 @@ namespace ViewLab4WinForms
                 dataGridViewSearch.Rows.Add();
             }
 
+            //TODO: строковые ключи, поубирать
             for (int i = 0; i < dataGridViewSearch.Rows.Count; i++)
             {
                 dataGridViewSearch.Rows[i].Cells["ConsumptionPerKm"].Value =
@@ -164,6 +179,7 @@ namespace ViewLab4WinForms
             }
         }
 
+        //TODO: duplication
         /// <summary>
         /// Show MessageBox
         /// </summary>

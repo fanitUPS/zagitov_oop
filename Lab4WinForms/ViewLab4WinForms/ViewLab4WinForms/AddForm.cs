@@ -9,7 +9,9 @@ namespace ViewLab4WinForms
     /// Class AddForm
     /// </summary>
     public partial class AddForm : Form
-    {       
+    {
+        internal EventHandler<TransportEventArgs> TransportAdded;
+
         /// <summary>
         /// AddForm
         /// </summary>
@@ -25,6 +27,7 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         internal void cancelButton_Click(object sender, EventArgs e)
         {
+            //TODO: нарушение инкапсуляции
             MainForm mainForm = this.Owner as MainForm;
             mainForm.Show();
             this.Close();
@@ -45,6 +48,7 @@ namespace ViewLab4WinForms
 
             switch (selectedState)
             {
+                //TODO: строковые ключи
                 case "Car":
                     groupBoxData.Visible = true;
                     AddStandartColumn();
@@ -84,6 +88,7 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         private void AddForm_Load(object sender, EventArgs e)
         {
+            //TODO: строковые ключи
             comboBoxTransportType.Items.Add("Car");
             comboBoxTransportType.Items.Add("Hybrid");
             comboBoxTransportType.Items.Add("Helicopter");
@@ -109,6 +114,7 @@ namespace ViewLab4WinForms
             dataGridViewAddData.Columns.Clear();
             dataGridViewAddData.Refresh();
 
+            //TODO: строковые ключи
             dataGridViewAddData.Columns.Add("consumptionPerKm",
                 "Consumption per 100 km");
             dataGridViewAddData.Columns[0].Width = 150;
@@ -135,6 +141,7 @@ namespace ViewLab4WinForms
                 return;
             }
 
+            //TODO: строковые ключи
             if (dataGridViewAddData.Rows[0].Cells["consumptionPerKm"].Value == null
                 || dataGridViewAddData.Rows[0].Cells["distance"].Value == null)
             {
@@ -151,6 +158,7 @@ namespace ViewLab4WinForms
                 string selectedStateEngine = comboBoxEngineType.SelectedItem.
                     ToString();
 
+                //TODO: нарушение инкапсуляции
                 var engineTypes = new Dictionary<string, EngineType>()
                 {
                     { "Diesel", EngineType.Diesel },
@@ -160,12 +168,14 @@ namespace ViewLab4WinForms
                     { "GasTurbine", EngineType.GasTurbine }
                 };
 
+                //TODO:
                 float consumptionPerKm;
                 float distance;
                 float tank;
                 float percentOnElectric;
                 float load;
 
+                //TODO: строковые ключи
                 FloatException(float.TryParse(dataGridViewAddData.Rows[0]
                     .Cells["consumptionPerKm"].Value.ToString(),
                     out consumptionPerKm));
@@ -178,6 +188,7 @@ namespace ViewLab4WinForms
 
                 switch (selectedStateTransport)
                 {
+                    //TODO: строковые ключи
                     case "Car":
                         if (dataGridViewAddData.Rows[0].Cells["tank"].Value == null)
                         {
@@ -227,6 +238,7 @@ namespace ViewLab4WinForms
                         mainForm.TransportList = helicopter;
                         break;
                 }
+                TransportAdded.Invoke(this, new TransportEventArgs(new Car()));
                 mainForm.Show();
                 this.Close();
             }
@@ -253,6 +265,7 @@ namespace ViewLab4WinForms
             }
         }
 
+        //TODO: RSDN
         /// <summary>
         /// Click on buttonRandomData
         /// </summary>
@@ -287,6 +300,7 @@ namespace ViewLab4WinForms
 
             switch (selectedStateTransport)
             {
+                //TODO: строковые ключи
                 case "Car":
                     var tank = rnd.Next(500);
                     var engine = engineDict[rnd.Next(2)];
@@ -311,6 +325,7 @@ namespace ViewLab4WinForms
             }
         }
 
+        //TODO: duplication
         /// <summary>
         /// Show MessageBox
         /// </summary>
