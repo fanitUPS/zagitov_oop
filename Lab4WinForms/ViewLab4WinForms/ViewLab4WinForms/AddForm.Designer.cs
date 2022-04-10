@@ -31,7 +31,7 @@ namespace ViewLab4WinForms
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddForm));
             this.cancelButton = new System.Windows.Forms.Button();
-            this.dataGridViewAddData = new System.Windows.Forms.DataGridView();
+            this.dataTable = new System.Windows.Forms.DataGridView();
             this.comboBoxEngineType = new System.Windows.Forms.ComboBox();
             this.labelEngineType = new System.Windows.Forms.Label();
             this.groupBoxData = new System.Windows.Forms.GroupBox();
@@ -41,8 +41,10 @@ namespace ViewLab4WinForms
             this.radioButtonCar = new System.Windows.Forms.RadioButton();
             this.radioButtonHybrid = new System.Windows.Forms.RadioButton();
             this.radioButtonHelicopter = new System.Windows.Forms.RadioButton();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAddData)).BeginInit();
+            this.groupBoxRadioButtons = new System.Windows.Forms.GroupBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dataTable)).BeginInit();
             this.groupBoxData.SuspendLayout();
+            this.groupBoxRadioButtons.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -55,18 +57,20 @@ namespace ViewLab4WinForms
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.CancelButtonClick);
             // 
-            // dataGridViewAddData
+            // dataTable
             // 
-            this.dataGridViewAddData.AllowUserToDeleteRows = false;
-            this.dataGridViewAddData.AllowUserToResizeColumns = false;
-            this.dataGridViewAddData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAddData.Location = new System.Drawing.Point(133, 29);
-            this.dataGridViewAddData.Name = "dataGridViewAddData";
-            this.dataGridViewAddData.RowHeadersWidth = 25;
-            this.dataGridViewAddData.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dataGridViewAddData.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.dataGridViewAddData.Size = new System.Drawing.Size(291, 43);
-            this.dataGridViewAddData.TabIndex = 1;
+            this.dataTable.AllowUserToDeleteRows = false;
+            this.dataTable.AllowUserToResizeColumns = false;
+            this.dataTable.AllowUserToResizeRows = false;
+            this.dataTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataTable.Location = new System.Drawing.Point(133, 29);
+            this.dataTable.Name = "dataTable";
+            this.dataTable.RowHeadersWidth = 25;
+            this.dataTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dataTable.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.dataTable.Size = new System.Drawing.Size(291, 43);
+            this.dataTable.TabIndex = 1;
+            this.dataTable.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataTableCellLeave);
             // 
             // comboBoxEngineType
             // 
@@ -88,7 +92,7 @@ namespace ViewLab4WinForms
             // 
             // groupBoxData
             // 
-            this.groupBoxData.Controls.Add(this.dataGridViewAddData);
+            this.groupBoxData.Controls.Add(this.dataTable);
             this.groupBoxData.Controls.Add(this.labelEngineType);
             this.groupBoxData.Controls.Add(this.comboBoxEngineType);
             this.groupBoxData.Location = new System.Drawing.Point(31, 107);
@@ -130,7 +134,7 @@ namespace ViewLab4WinForms
             // radioButtonCar
             // 
             this.radioButtonCar.AutoSize = true;
-            this.radioButtonCar.Location = new System.Drawing.Point(30, 38);
+            this.radioButtonCar.Location = new System.Drawing.Point(15, 19);
             this.radioButtonCar.Name = "radioButtonCar";
             this.radioButtonCar.Size = new System.Drawing.Size(41, 17);
             this.radioButtonCar.TabIndex = 9;
@@ -142,7 +146,7 @@ namespace ViewLab4WinForms
             // radioButtonHybrid
             // 
             this.radioButtonHybrid.AutoSize = true;
-            this.radioButtonHybrid.Location = new System.Drawing.Point(30, 61);
+            this.radioButtonHybrid.Location = new System.Drawing.Point(71, 19);
             this.radioButtonHybrid.Name = "radioButtonHybrid";
             this.radioButtonHybrid.Size = new System.Drawing.Size(55, 17);
             this.radioButtonHybrid.TabIndex = 10;
@@ -154,7 +158,7 @@ namespace ViewLab4WinForms
             // radioButtonHelicopter
             // 
             this.radioButtonHelicopter.AutoSize = true;
-            this.radioButtonHelicopter.Location = new System.Drawing.Point(30, 84);
+            this.radioButtonHelicopter.Location = new System.Drawing.Point(132, 19);
             this.radioButtonHelicopter.Name = "radioButtonHelicopter";
             this.radioButtonHelicopter.Size = new System.Drawing.Size(73, 17);
             this.radioButtonHelicopter.TabIndex = 11;
@@ -163,14 +167,24 @@ namespace ViewLab4WinForms
             this.radioButtonHelicopter.UseVisualStyleBackColor = true;
             this.radioButtonHelicopter.CheckedChanged += new System.EventHandler(this.RadioButtonHelicopterCheckedChanged);
             // 
+            // groupBoxRadioButtons
+            // 
+            this.groupBoxRadioButtons.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.groupBoxRadioButtons.Controls.Add(this.radioButtonCar);
+            this.groupBoxRadioButtons.Controls.Add(this.radioButtonHelicopter);
+            this.groupBoxRadioButtons.Controls.Add(this.radioButtonHybrid);
+            this.groupBoxRadioButtons.Location = new System.Drawing.Point(31, 39);
+            this.groupBoxRadioButtons.Name = "groupBoxRadioButtons";
+            this.groupBoxRadioButtons.Size = new System.Drawing.Size(333, 53);
+            this.groupBoxRadioButtons.TabIndex = 12;
+            this.groupBoxRadioButtons.TabStop = false;
+            // 
             // AddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(644, 237);
-            this.Controls.Add(this.radioButtonHelicopter);
-            this.Controls.Add(this.radioButtonHybrid);
-            this.Controls.Add(this.radioButtonCar);
+            this.Controls.Add(this.groupBoxRadioButtons);
             this.Controls.Add(this.buttonRandomData);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonAdd);
@@ -182,9 +196,11 @@ namespace ViewLab4WinForms
             this.Text = "AddTransportForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddFormFormClosed);
             this.Load += new System.EventHandler(this.AddFormLoad);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAddData)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataTable)).EndInit();
             this.groupBoxData.ResumeLayout(false);
             this.groupBoxData.PerformLayout();
+            this.groupBoxRadioButtons.ResumeLayout(false);
+            this.groupBoxRadioButtons.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -193,7 +209,7 @@ namespace ViewLab4WinForms
         #endregion
 
         private System.Windows.Forms.Button cancelButton;
-        private System.Windows.Forms.DataGridView dataGridViewAddData;
+        private System.Windows.Forms.DataGridView dataTable;
         private System.Windows.Forms.ComboBox comboBoxEngineType;
         private System.Windows.Forms.Label labelEngineType;
         private System.Windows.Forms.GroupBox groupBoxData;
@@ -203,5 +219,6 @@ namespace ViewLab4WinForms
         private System.Windows.Forms.RadioButton radioButtonCar;
         private System.Windows.Forms.RadioButton radioButtonHybrid;
         private System.Windows.Forms.RadioButton radioButtonHelicopter;
+        private System.Windows.Forms.GroupBox groupBoxRadioButtons;
     }
 }

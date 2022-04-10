@@ -45,12 +45,6 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         private void SearchFormLoad(object sender, EventArgs e)
         {
-            comboBoxSearch.Items.Add("ConsumptionPerKm");
-            comboBoxSearch.Items.Add("Distance");
-            comboBoxSearch.Items.Add("EngineType");
-            comboBoxSearch.Items.Add("Type");
-            comboBoxSearch.Items.Add("Consumption");
-
             dataGridViewSearch.RowsDefaultCellStyle.Alignment
                 = DataGridViewContentAlignment.MiddleCenter;
 
@@ -59,17 +53,22 @@ namespace ViewLab4WinForms
                 foreach (var transport in args.GetTransportList)
                 {
                     _dataSource.Add(transport);
-                }    
+                }
             };
 
             dataGridViewSearch.RowHeadersVisible = false;
             dataGridViewSearch.Width = 466;
-            dataGridViewSearch.DataSource = _dataSource;    
+            dataGridViewSearch.DataSource = _dataSource;
             dataGridViewSearch.Columns[0].Width = 150;
             dataGridViewSearch.Columns[1].Width = 55;
             dataGridViewSearch.Columns[2].Width = 80;
             dataGridViewSearch.Columns[3].Width = 80;
             dataGridViewSearch.Columns[4].Width = 100;
+
+            foreach (DataGridViewColumn col in dataGridViewSearch.Columns)
+            {
+                comboBoxSearch.Items.Add(col.Name);
+            }
         }
 
         //TODO: RSDN(+)

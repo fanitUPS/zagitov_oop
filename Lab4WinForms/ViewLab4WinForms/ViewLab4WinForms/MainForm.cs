@@ -249,34 +249,29 @@ namespace ViewLab4WinForms
         /// </summary>
         internal void DataGridViewValidating()
         {
-            int columnWithFloatData = 3;
+            int columnWithFloatData = 2;
 
             for (int i = 0; i < dataGridViewData.RowCount; i++)
             {
                 for (int j = 0; j < columnWithFloatData; j++)
                 {
                     if (string.IsNullOrEmpty
-                        (dataGridViewData.Rows[i].Cells[j].Value.ToString()))
-                    {
-                        ErrorMessageBox("Loaded file has null or empty data");
-                        dataGridViewData.DataSource = null;
-                    }
-
-                    if (!float.TryParse
+                        (dataGridViewData.Rows[i].Cells[j].Value.ToString()) ||
+                        !float.TryParse
                         ((dataGridViewData.Rows[i].Cells[j].Value.ToString()), out var _))
                     {
-                        ErrorMessageBox("Loaded file has wrong data");
-                        dataGridViewData.DataSource = null;
+                        ErrorMessageBox("Loaded file has null, empty or wrong data");
+                        return;
                     }
                 }
 
-                for (int k = 3; k < dataGridViewData.ColumnCount; k++)
+                for (int k = 2; k < dataGridViewData.ColumnCount; k++)
                 {
                     if (string.IsNullOrEmpty
                         (dataGridViewData.Rows[i].Cells[k].Value.ToString()))
                     {
                         ErrorMessageBox("Loaded file has null or empty data");
-                        dataGridViewData.DataSource = null;
+                        return;
                     }
                 }
             }

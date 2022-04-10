@@ -100,14 +100,14 @@ namespace ModelLab4WinForms
         }
 
         /// <summary>
-        /// Consumption of fuel
-        /// </summary>
-        public abstract float Consumption { get; }
-
-        /// <summary>
         /// Type of transport
         /// </summary>
         public abstract string Type { get; }
+
+        /// <summary>
+        /// Consumption of fuel
+        /// </summary>
+        public abstract float Consumption { get; }
     }
 }
 
