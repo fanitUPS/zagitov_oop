@@ -32,26 +32,28 @@ namespace ViewLab4WinForms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddForm));
             this.cancelButton = new System.Windows.Forms.Button();
             this.dataGridViewAddData = new System.Windows.Forms.DataGridView();
-            this.comboBoxTransportType = new System.Windows.Forms.ComboBox();
             this.comboBoxEngineType = new System.Windows.Forms.ComboBox();
             this.labelEngineType = new System.Windows.Forms.Label();
             this.groupBoxData = new System.Windows.Forms.GroupBox();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonRandomData = new System.Windows.Forms.Button();
+            this.radioButtonCar = new System.Windows.Forms.RadioButton();
+            this.radioButtonHybrid = new System.Windows.Forms.RadioButton();
+            this.radioButtonHelicopter = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAddData)).BeginInit();
             this.groupBoxData.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(112, 171);
+            this.cancelButton.Location = new System.Drawing.Point(112, 202);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 0;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            this.cancelButton.Click += new System.EventHandler(this.CancelButtonClick);
             // 
             // dataGridViewAddData
             // 
@@ -66,17 +68,9 @@ namespace ViewLab4WinForms
             this.dataGridViewAddData.Size = new System.Drawing.Size(291, 43);
             this.dataGridViewAddData.TabIndex = 1;
             // 
-            // comboBoxTransportType
-            // 
-            this.comboBoxTransportType.FormattingEnabled = true;
-            this.comboBoxTransportType.Location = new System.Drawing.Point(31, 39);
-            this.comboBoxTransportType.Name = "comboBoxTransportType";
-            this.comboBoxTransportType.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxTransportType.TabIndex = 2;
-            this.comboBoxTransportType.SelectedIndexChanged += new System.EventHandler(this.comboBoxTransportType_SelectedIndexChanged);
-            // 
             // comboBoxEngineType
             // 
+            this.comboBoxEngineType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxEngineType.FormattingEnabled = true;
             this.comboBoxEngineType.Location = new System.Drawing.Point(6, 51);
             this.comboBoxEngineType.Name = "comboBoxEngineType";
@@ -97,7 +91,7 @@ namespace ViewLab4WinForms
             this.groupBoxData.Controls.Add(this.dataGridViewAddData);
             this.groupBoxData.Controls.Add(this.labelEngineType);
             this.groupBoxData.Controls.Add(this.comboBoxEngineType);
-            this.groupBoxData.Location = new System.Drawing.Point(31, 76);
+            this.groupBoxData.Location = new System.Drawing.Point(31, 107);
             this.groupBoxData.Name = "groupBoxData";
             this.groupBoxData.Size = new System.Drawing.Size(545, 89);
             this.groupBoxData.TabIndex = 5;
@@ -106,18 +100,18 @@ namespace ViewLab4WinForms
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(31, 171);
+            this.buttonAdd.Location = new System.Drawing.Point(31, 202);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(75, 23);
             this.buttonAdd.TabIndex = 6;
             this.buttonAdd.Text = "Add transport";
             this.buttonAdd.UseVisualStyleBackColor = true;
-            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            this.buttonAdd.Click += new System.EventHandler(this.ButtonAddClick);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(31, 13);
+            this.label1.Location = new System.Drawing.Point(27, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(87, 13);
             this.label1.TabIndex = 7;
@@ -125,29 +119,69 @@ namespace ViewLab4WinForms
             // 
             // buttonRandomData
             // 
-            this.buttonRandomData.Location = new System.Drawing.Point(193, 171);
+            this.buttonRandomData.Location = new System.Drawing.Point(193, 202);
             this.buttonRandomData.Name = "buttonRandomData";
             this.buttonRandomData.Size = new System.Drawing.Size(79, 23);
             this.buttonRandomData.TabIndex = 8;
             this.buttonRandomData.Text = "Random data";
             this.buttonRandomData.UseVisualStyleBackColor = true;
-            this.buttonRandomData.Click += new System.EventHandler(this.buttonRandomData_Click);
+            this.buttonRandomData.Click += new System.EventHandler(this.ButtonRandomDataClick);
+            // 
+            // radioButtonCar
+            // 
+            this.radioButtonCar.AutoSize = true;
+            this.radioButtonCar.Location = new System.Drawing.Point(30, 38);
+            this.radioButtonCar.Name = "radioButtonCar";
+            this.radioButtonCar.Size = new System.Drawing.Size(41, 17);
+            this.radioButtonCar.TabIndex = 9;
+            this.radioButtonCar.TabStop = true;
+            this.radioButtonCar.Text = "Car";
+            this.radioButtonCar.UseVisualStyleBackColor = true;
+            this.radioButtonCar.CheckedChanged += new System.EventHandler(this.RadioButtonCarCheckedChanged);
+            // 
+            // radioButtonHybrid
+            // 
+            this.radioButtonHybrid.AutoSize = true;
+            this.radioButtonHybrid.Location = new System.Drawing.Point(30, 61);
+            this.radioButtonHybrid.Name = "radioButtonHybrid";
+            this.radioButtonHybrid.Size = new System.Drawing.Size(55, 17);
+            this.radioButtonHybrid.TabIndex = 10;
+            this.radioButtonHybrid.TabStop = true;
+            this.radioButtonHybrid.Text = "Hybrid";
+            this.radioButtonHybrid.UseVisualStyleBackColor = true;
+            this.radioButtonHybrid.CheckedChanged += new System.EventHandler(this.RadioButtonHybridCheckedChanged);
+            // 
+            // radioButtonHelicopter
+            // 
+            this.radioButtonHelicopter.AutoSize = true;
+            this.radioButtonHelicopter.Location = new System.Drawing.Point(30, 84);
+            this.radioButtonHelicopter.Name = "radioButtonHelicopter";
+            this.radioButtonHelicopter.Size = new System.Drawing.Size(73, 17);
+            this.radioButtonHelicopter.TabIndex = 11;
+            this.radioButtonHelicopter.TabStop = true;
+            this.radioButtonHelicopter.Text = "Helicopter";
+            this.radioButtonHelicopter.UseVisualStyleBackColor = true;
+            this.radioButtonHelicopter.CheckedChanged += new System.EventHandler(this.RadioButtonHelicopterCheckedChanged);
             // 
             // AddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(644, 206);
+            this.ClientSize = new System.Drawing.Size(644, 237);
+            this.Controls.Add(this.radioButtonHelicopter);
+            this.Controls.Add(this.radioButtonHybrid);
+            this.Controls.Add(this.radioButtonCar);
             this.Controls.Add(this.buttonRandomData);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.groupBoxData);
-            this.Controls.Add(this.comboBoxTransportType);
             this.Controls.Add(this.cancelButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddForm";
             this.Text = "AddTransportForm";
-            this.Load += new System.EventHandler(this.AddForm_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddFormFormClosed);
+            this.Load += new System.EventHandler(this.AddFormLoad);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAddData)).EndInit();
             this.groupBoxData.ResumeLayout(false);
             this.groupBoxData.PerformLayout();
@@ -160,12 +194,14 @@ namespace ViewLab4WinForms
 
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.DataGridView dataGridViewAddData;
-        private System.Windows.Forms.ComboBox comboBoxTransportType;
         private System.Windows.Forms.ComboBox comboBoxEngineType;
         private System.Windows.Forms.Label labelEngineType;
         private System.Windows.Forms.GroupBox groupBoxData;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonRandomData;
+        private System.Windows.Forms.RadioButton radioButtonCar;
+        private System.Windows.Forms.RadioButton radioButtonHybrid;
+        private System.Windows.Forms.RadioButton radioButtonHelicopter;
     }
 }

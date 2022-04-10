@@ -1,21 +1,25 @@
 ﻿using ModelLab4WinForms;
+using System;
 
 namespace ViewLab4WinForms
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
+    /// <summary>
+    /// Class TransportEventArgs
+    /// </summary>
     internal class TransportEventArgs: EventArgs
     {
+        /// <summary>
+        /// Get added transport
+        /// </summary>
         public TransportBase Transport { get; }
 
+        /// <summary>
+        /// Constructor of TransportEventArgs
+        /// </summary>
+        /// <param name="transport">Add transport</param>
         public TransportEventArgs(TransportBase transport)
         {
             Transport = transport;
         }
-
     }
 }

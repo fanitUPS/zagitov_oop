@@ -31,12 +31,12 @@ namespace ViewLab4WinForms
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.buttonLoad = new System.Windows.Forms.Button();
             this.buttonSearch = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonRemove = new System.Windows.Forms.Button();
             this.addTransport = new System.Windows.Forms.Button();
             this.dataGridViewData = new System.Windows.Forms.DataGridView();
-            this.buttonLoad = new System.Windows.Forms.Button();
-            this.buttonSave = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewData)).BeginInit();
             this.SuspendLayout();
@@ -46,7 +46,7 @@ namespace ViewLab4WinForms
             this.groupBox1.Controls.Add(this.buttonSave);
             this.groupBox1.Controls.Add(this.buttonLoad);
             this.groupBox1.Controls.Add(this.buttonSearch);
-            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.buttonRemove);
             this.groupBox1.Controls.Add(this.addTransport);
             this.groupBox1.Controls.Add(this.dataGridViewData);
             this.groupBox1.Location = new System.Drawing.Point(49, 33);
@@ -56,6 +56,26 @@ namespace ViewLab4WinForms
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "All transport";
             // 
+            // buttonSave
+            // 
+            this.buttonSave.Location = new System.Drawing.Point(396, 337);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(90, 23);
+            this.buttonSave.TabIndex = 10;
+            this.buttonSave.Text = "Save";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.ButtonSaveClick);
+            // 
+            // buttonLoad
+            // 
+            this.buttonLoad.Location = new System.Drawing.Point(315, 337);
+            this.buttonLoad.Name = "buttonLoad";
+            this.buttonLoad.Size = new System.Drawing.Size(75, 23);
+            this.buttonLoad.TabIndex = 9;
+            this.buttonLoad.Text = "Load";
+            this.buttonLoad.UseVisualStyleBackColor = true;
+            this.buttonLoad.Click += new System.EventHandler(this.ButtonLoadClick);
+            // 
             // buttonSearch
             // 
             this.buttonSearch.Location = new System.Drawing.Point(234, 337);
@@ -64,17 +84,17 @@ namespace ViewLab4WinForms
             this.buttonSearch.TabIndex = 8;
             this.buttonSearch.Text = "Search";
             this.buttonSearch.UseVisualStyleBackColor = true;
-            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            this.buttonSearch.Click += new System.EventHandler(this.ButtonSearchClick);
             // 
-            // button2
+            // buttonRemove
             // 
-            this.button2.Location = new System.Drawing.Point(120, 337);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(108, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Remove Transport";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.buttonRemove.Location = new System.Drawing.Point(120, 337);
+            this.buttonRemove.Name = "buttonRemove";
+            this.buttonRemove.Size = new System.Drawing.Size(108, 23);
+            this.buttonRemove.TabIndex = 2;
+            this.buttonRemove.Text = "Remove Transport";
+            this.buttonRemove.UseVisualStyleBackColor = true;
+            this.buttonRemove.Click += new System.EventHandler(this.ButtonRemoveClick);
             // 
             // addTransport
             // 
@@ -84,7 +104,7 @@ namespace ViewLab4WinForms
             this.addTransport.TabIndex = 1;
             this.addTransport.Text = "Add Transport";
             this.addTransport.UseVisualStyleBackColor = true;
-            this.addTransport.Click += new System.EventHandler(this.addTransport_Click);
+            this.addTransport.Click += new System.EventHandler(this.AddTransportClick);
             // 
             // dataGridViewData
             // 
@@ -101,28 +121,7 @@ namespace ViewLab4WinForms
             this.dataGridViewData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridViewData.Size = new System.Drawing.Size(480, 312);
             this.dataGridViewData.TabIndex = 0;
-            this.dataGridViewData.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewData_CellClick);
-            this.dataGridViewData.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewData_DataBindingComplete);
-            // 
-            // buttonLoad
-            // 
-            this.buttonLoad.Location = new System.Drawing.Point(315, 337);
-            this.buttonLoad.Name = "buttonLoad";
-            this.buttonLoad.Size = new System.Drawing.Size(75, 23);
-            this.buttonLoad.TabIndex = 9;
-            this.buttonLoad.Text = "Load";
-            this.buttonLoad.UseVisualStyleBackColor = true;
-            this.buttonLoad.Click += new System.EventHandler(this.buttonLoad_Click);
-            // 
-            // buttonSave
-            // 
-            this.buttonSave.Location = new System.Drawing.Point(396, 337);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(90, 23);
-            this.buttonSave.TabIndex = 10;
-            this.buttonSave.Text = "Save";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            this.dataGridViewData.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewDataCellClick);
             // 
             // MainForm
             // 
@@ -130,10 +129,11 @@ namespace ViewLab4WinForms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(586, 428);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "TransportForm";
-            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Load += new System.EventHandler(this.MainFormLoad);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewData)).EndInit();
             this.ResumeLayout(false);
@@ -144,7 +144,7 @@ namespace ViewLab4WinForms
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dataGridViewData;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonRemove;
         private System.Windows.Forms.Button addTransport;
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.Button buttonSave;

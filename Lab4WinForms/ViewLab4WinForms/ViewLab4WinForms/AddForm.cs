@@ -10,14 +10,43 @@ namespace ViewLab4WinForms
     /// </summary>
     public partial class AddForm : Form
     {
+        /// <summary>
+        /// Event of AddTransport
+        /// </summary>
         internal EventHandler<TransportEventArgs> TransportAdded;
+
+        /// <summary>
+        /// Event of close form
+        /// </summary>
+        internal EventHandler CloseAddForm;
+
+        /// <summary>
+        /// Event of close form
+        /// </summary>
+        internal EventHandler CancelAddForm;
+
+        /// <summary>
+        /// Link to main form
+        /// </summary>
+        private MainForm _mainForm;
+
+        private Dictionary<EngineType, string> _engineTypes = 
+            new Dictionary<EngineType, string>()
+            {
+                { EngineType.Diesel, "Diesel"  },
+                { EngineType.Electric, "Electric" },
+                { EngineType.Petrol ,"Petrol" },
+                { EngineType.Hybrid, "Hybrid" },
+                { EngineType.GasTurbine, "GasTurbine" }
+            };
 
         /// <summary>
         /// AddForm
         /// </summary>
-        public AddForm()
+        public AddForm(MainForm mainForm)
         {
             InitializeComponent();
+            _mainForm = mainForm;
         }
 
         /// <summary>
@@ -25,75 +54,28 @@ namespace ViewLab4WinForms
         /// </summary>
         /// <param name="sender">Sender</param>
         /// <param name="e">Event</param>
-        internal void cancelButton_Click(object sender, EventArgs e)
+        internal void CancelButtonClick(object sender, EventArgs e)
         {
-            //TODO: нарушение инкапсуляции
-            MainForm mainForm = this.Owner as MainForm;
-            mainForm.Show();
-            this.Close();
+            //TODO: нарушение инкапсуляции(+)
+            CancelAddForm?.Invoke(sender, e);
         }
 
-        /// <summary>
-        /// Change comboBox
-        /// </summary>
-        /// <param name="sender">Sender</param>
-        /// <param name="e">Event</param>
-        private void comboBoxTransportType_SelectedIndexChanged(object sender,
-            EventArgs e)
-        {
-            dataGridViewAddData.RowHeadersVisible = false;
 
-            string selectedState = comboBoxTransportType.SelectedItem.
-                ToString();
+      //TODO: строковые ключи(убрал комбобокс на radioButton)
 
-            switch (selectedState)
-            {
-                //TODO: строковые ключи
-                case "Car":
-                    groupBoxData.Visible = true;
-                    AddStandartColumn();
-   
-                    dataGridViewAddData.Width = 325;
-                    dataGridViewAddData.Columns.Add("tank",
-                        "Gas tank volume");
-                    dataGridViewAddData.Columns[2].Width = 120;
-                    break;
-
-                case "Hybrid":
-                    groupBoxData.Visible = true;
-                    AddStandartColumn();
-
-                    dataGridViewAddData.Width = 405;
-                    dataGridViewAddData.Columns.Add("percentOnElectric",
-                        "Percent distance on electric engine");
-                    dataGridViewAddData.Columns[2].Width = 200;
-                    break;
-
-                case "Helicopter":
-                    groupBoxData.Visible = true;
-                    AddStandartColumn();
-
-                    dataGridViewAddData.Width = 335;
-                    dataGridViewAddData.Columns.Add("load",
-                        "Load of helicopter");
-                    dataGridViewAddData.Columns[2].Width = 130;
-                    break;
-            }
-        }
 
         /// <summary>
         /// AddForm load
         /// </summary>
         /// <param name="sender">Sender</param>
         /// <param name="e">Event</param>
-        private void AddForm_Load(object sender, EventArgs e)
+        private void AddFormLoad(object sender, EventArgs e)
         {
             //TODO: строковые ключи
-            comboBoxTransportType.Items.Add("Car");
-            comboBoxTransportType.Items.Add("Hybrid");
-            comboBoxTransportType.Items.Add("Helicopter");
-
             groupBoxData.Visible = false;
+            dataGridViewAddData.RowHeadersVisible = false;
+
+            //var engine
 
             comboBoxEngineType.Items.Add("Diesel");
             comboBoxEngineType.Items.Add("Electric");
@@ -113,7 +95,7 @@ namespace ViewLab4WinForms
             dataGridViewAddData.Rows.Clear();
             dataGridViewAddData.Columns.Clear();
             dataGridViewAddData.Refresh();
-
+            groupBoxData.Visible = true;
             //TODO: строковые ключи
             dataGridViewAddData.Columns.Add("consumptionPerKm",
                 "Consumption per 100 km");
@@ -122,22 +104,32 @@ namespace ViewLab4WinForms
             dataGridViewAddData.Columns[1].Width = 55;
         }
 
+        private void AddSpecialColumn
+            (int tableWidth, string columnName, int columnWidth)
+        {
+            dataGridViewAddData.Width = tableWidth;
+            dataGridViewAddData.Columns.Add(columnName,
+                columnName);
+            dataGridViewAddData.Columns[2].Width = columnWidth;
+        }
+        
         /// <summary>
         /// Click on buttonAdd
         /// </summary>
         /// <param name="sender">Sender</param>
         /// <param name="e">Event</param>
-        private void buttonAdd_Click(object sender, EventArgs e)
+        private void ButtonAddClick(object sender, EventArgs e)
         {
+            /*
             if (comboBoxTransportType.SelectedIndex == -1)
             {
-                ErrorMessageBox("You must choose type of transport!");
+                _mainForm.ErrorMessageBox("You must choose type of transport!");
                 return;
             }
 
             if (comboBoxEngineType.SelectedIndex == -1)
             {
-                ErrorMessageBox("You must choose type of engine!");
+                _mainForm.ErrorMessageBox("You must choose type of engine!");
                 return;
             }
 
@@ -145,7 +137,7 @@ namespace ViewLab4WinForms
             if (dataGridViewAddData.Rows[0].Cells["consumptionPerKm"].Value == null
                 || dataGridViewAddData.Rows[0].Cells["distance"].Value == null)
             {
-                ErrorMessageBox("Data must be not null!");
+                _mainForm.ErrorMessageBox("Data must be not null!");
                 return;
             }
 
@@ -159,30 +151,17 @@ namespace ViewLab4WinForms
                     ToString();
 
                 //TODO: нарушение инкапсуляции
-                var engineTypes = new Dictionary<string, EngineType>()
-                {
-                    { "Diesel", EngineType.Diesel },
-                    { "Electric", EngineType.Electric },
-                    { "Petrol", EngineType.Petrol },
-                    { "Hybrid", EngineType.Hybrid },
-                    { "GasTurbine", EngineType.GasTurbine }
-                };
+                
 
-                //TODO:
-                float consumptionPerKm;
-                float distance;
-                float tank;
-                float percentOnElectric;
-                float load;
 
                 //TODO: строковые ключи
                 FloatException(float.TryParse(dataGridViewAddData.Rows[0]
                     .Cells["consumptionPerKm"].Value.ToString(),
-                    out consumptionPerKm));
+                    out float consumptionPerKm));
 
                 FloatException(float.TryParse(dataGridViewAddData.Rows[0]
                     .Cells["distance"].Value.ToString(),
-                    out distance));
+                    out float distance));
 
                 var engine = engineTypes[selectedStateEngine];
 
@@ -192,66 +171,68 @@ namespace ViewLab4WinForms
                     case "Car":
                         if (dataGridViewAddData.Rows[0].Cells["tank"].Value == null)
                         {
-                            ErrorMessageBox("Data must be not null!");
+                            _mainForm.ErrorMessageBox("Data must be not null!");
                             return;
                         }
 
                         FloatException(float.TryParse(dataGridViewAddData.Rows[0]
-                            .Cells["tank"].Value.ToString(), out tank));
+                            .Cells["tank"].Value.ToString(), out float tank));
                                               
                         var car = new Car(consumptionPerKm, distance, 
                             engine, tank);
                         
-                        mainForm.TransportList = car;
+                        //mainForm.TransportList = car;
                         break;
 
                     case "Hybrid":
                         if (dataGridViewAddData.Rows[0].Cells["percentOnElectric"].Value
                             == null)
                         {
-                            ErrorMessageBox("Data must be not null!");
+                            _mainForm.ErrorMessageBox("Data must be not null!");
                             return;
                         }
 
                         FloatException(float.TryParse(dataGridViewAddData.Rows[0]
-                            .Cells["percentOnElectric"].Value.ToString(), out percentOnElectric));
+                            .Cells["percentOnElectric"].Value.ToString(), out float percentOnElectric));
 
                         var hybrid = new Hybrid(consumptionPerKm, distance, 
                             engine, percentOnElectric);
 
-                        mainForm.TransportList = hybrid;
+                        //mainForm.TransportList = hybrid;
                         break;
 
                     case "Helicopter":
                         if (dataGridViewAddData.Rows[0].Cells["load"].Value == null)
                         {
-                            ErrorMessageBox("Data must be not null!");
+                            _mainForm.ErrorMessageBox("Data must be not null!");
                             return;
                         }
 
                         FloatException(float.TryParse(dataGridViewAddData.Rows[0]
-                            .Cells["load"].Value.ToString(), out load));
+                            .Cells["load"].Value.ToString(), out float load));
 
                         var helicopter = new Helicopter(consumptionPerKm, distance,
                             engine, load);
 
-                        mainForm.TransportList = helicopter;
+                        //mainForm.TransportList = helicopter;
                         break;
                 }
                 TransportAdded.Invoke(this, new TransportEventArgs(new Car()));
                 mainForm.Show();
                 this.Close();
+
             }
             catch (ArgumentException argumentError)
             {
-                ErrorMessageBox(argumentError.Message);
+                _mainForm.ErrorMessageBox(argumentError.Message);
             }
             catch (System.NullReferenceException nullError)
             {
-                ErrorMessageBox(nullError.Message);
-            } 
+                _mainForm.ErrorMessageBox(nullError.Message);
+            }
+            */
         }
-
+        
         /// <summary>
         /// Throw new Exception
         /// </summary>
@@ -265,17 +246,18 @@ namespace ViewLab4WinForms
             }
         }
 
-        //TODO: RSDN
+        //TODO: RSDN(+)
         /// <summary>
         /// Click on buttonRandomData
         /// </summary>
         /// <param name="sender">Sender</param>
         /// <param name="e">Event</param>
-        private void buttonRandomData_Click(object sender, EventArgs e)
+        private void ButtonRandomDataClick(object sender, EventArgs e)
         {
+            /*
             if (comboBoxTransportType.SelectedIndex == -1)
             {
-                ErrorMessageBox("You must choose type of transport!");
+                _mainForm.ErrorMessageBox("You must choose type of transport!");
                 return;
             }
 
@@ -323,21 +305,36 @@ namespace ViewLab4WinForms
                     comboBoxEngineType.SelectedIndex = 4; //Helicopter engine
                     break;
             }
+            */
         }
 
-        //TODO: duplication
+        //TODO: duplication(+)
         /// <summary>
-        /// Show MessageBox
+        /// Event of close form
         /// </summary>
-        /// <param name="text">Text of error</param>
-        internal void ErrorMessageBox(string text)
+        /// <param name="sender">Object</param>
+        /// <param name="e">Event</param>
+        private void AddFormFormClosed(object sender, FormClosedEventArgs e)
         {
-            MessageBox.Show(text, 
-                "Error!",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error,
-                MessageBoxDefaultButton.Button1,
-                MessageBoxOptions.DefaultDesktopOnly);
+            CloseAddForm?.Invoke(sender, e);
+        }
+
+        private void RadioButtonCarCheckedChanged(object sender, EventArgs e)
+        {
+            AddStandartColumn();
+            AddSpecialColumn(325, "tank", 120);
+        }
+
+        private void RadioButtonHybridCheckedChanged(object sender, EventArgs e)
+        {  
+            AddStandartColumn();
+            AddSpecialColumn(405, "percentOnElectric", 200);
+        }
+
+        private void RadioButtonHelicopterCheckedChanged(object sender, EventArgs e)
+        {
+            AddStandartColumn();
+            AddSpecialColumn(335, "load", 130);
         }
     }
 }

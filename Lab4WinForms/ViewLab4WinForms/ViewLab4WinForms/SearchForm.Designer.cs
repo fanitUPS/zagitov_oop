@@ -64,7 +64,7 @@ namespace ViewLab4WinForms
             this.buttonCancel.TabIndex = 1;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            this.buttonCancel.Click += new System.EventHandler(this.ButtonCancelClick);
             // 
             // textBoxValue
             // 
@@ -75,6 +75,7 @@ namespace ViewLab4WinForms
             // 
             // comboBoxSearch
             // 
+            this.comboBoxSearch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSearch.FormattingEnabled = true;
             this.comboBoxSearch.Location = new System.Drawing.Point(254, 158);
             this.comboBoxSearch.Name = "comboBoxSearch";
@@ -107,7 +108,7 @@ namespace ViewLab4WinForms
             this.buttonSearch.TabIndex = 9;
             this.buttonSearch.Text = "Search";
             this.buttonSearch.UseVisualStyleBackColor = true;
-            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            this.buttonSearch.Click += new System.EventHandler(this.ButtonSearchClick);
             // 
             // SearchForm
             // 
@@ -121,10 +122,12 @@ namespace ViewLab4WinForms
             this.Controls.Add(this.textBoxValue);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.dataGridViewSearch);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SearchForm";
             this.Text = "SearchForm";
-            this.Load += new System.EventHandler(this.SearchForm_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SearchFormFormClosed);
+            this.Load += new System.EventHandler(this.SearchFormLoad);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSearch)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
