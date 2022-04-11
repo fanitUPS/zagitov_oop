@@ -69,10 +69,10 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         internal void CancelButtonClick(object sender, EventArgs e)
         {
-            //TODO: нарушение инкапсуляции(+)
             CancelAddForm?.Invoke(sender, e);
         }
-      //TODO: строковые ключи(убрал комбобокс на radioButton)
+      
+        //TODO: строковые ключи(убрал комбобокс на radioButton)
         /// <summary>
         /// AddForm load
         /// </summary>
@@ -80,7 +80,6 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         private void AddFormLoad(object sender, EventArgs e)
         {
-            //TODO: строковые ключи(+)
             groupBoxData.Visible = false;
             dataTable.RowHeadersVisible = false;
 
@@ -102,7 +101,7 @@ namespace ViewLab4WinForms
             dataTable.Columns.Clear();
             dataTable.Refresh();
             groupBoxData.Visible = true;
-            //TODO: строковые ключи(+)
+
             foreach (var name in columnNames)
             {
                 dataTable.Columns.Add(name, name);
@@ -138,11 +137,10 @@ namespace ViewLab4WinForms
             {
                 return;
             }
-            //TODO: строковые ключи(+ убрал в ивент)
+
             string selectedStateEngine = comboBoxEngineType.SelectedItem.
                 ToString();
-            //TODO: нарушение инкапсуляции(+)
-            //TODO: строковые ключи(+)
+
             try
             {
                 var engine = _engineTypes[selectedStateEngine];
@@ -183,8 +181,7 @@ namespace ViewLab4WinForms
                 _mainForm.ErrorMessageBox(text.Message);
             }
         }
-
-        //TODO: RSDN(+)
+        
         /// <summary>
         /// Click on buttonRandomData
         /// </summary>
@@ -211,6 +208,7 @@ namespace ViewLab4WinForms
             var consuptionPerKm = rnd.Next(1, 50);
             var distance = rnd.Next(1, 1000);
             
+            //TODO:
             dataTable.Rows[0].Cells[0].Value =
                consuptionPerKm.ToString();
             dataTable.Rows[0].Cells[1].Value =
@@ -218,6 +216,7 @@ namespace ViewLab4WinForms
 
             if (radioButtonCar.Checked)
             {
+                //TODO:
                 var tank = rnd.Next(500);
                 var engine = engineDict[rnd.Next(2)];
                 dataTable.Rows[0].Cells[2].Value =
@@ -227,6 +226,7 @@ namespace ViewLab4WinForms
 
             if (radioButtonHybrid.Checked)
             {
+                //TODO:
                 double percentOnElectric = Math.Round(rnd.NextDouble(), 3);
                 dataTable.Rows[0].Cells[2].Value = percentOnElectric.ToString();
                 comboBoxEngineType.SelectedIndex = 3; //Hybrid engine
@@ -234,14 +234,13 @@ namespace ViewLab4WinForms
 
             if (radioButtonHelicopter.Checked)
             {
+                //TODO:
                 var load = rnd.Next(Helicopter.MaxLoad);
                 dataTable.Rows[0].Cells["load"].Value = load.ToString();
                 comboBoxEngineType.SelectedIndex = 4; //Helicopter engine
             }
-            //TODO: строковые ключи(+)
         }
-
-        //TODO: duplication(+)(removed)
+        
         /// <summary>
         /// Event of close form
         /// </summary>

@@ -70,8 +70,7 @@ namespace ViewLab4WinForms
                 comboBoxSearch.Items.Add(col.Name);
             }
         }
-
-        //TODO: RSDN(+)
+        
         /// <summary>
         /// Click on buttonCancel 
         /// </summary>
@@ -79,11 +78,9 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         private void ButtonCancelClick(object sender, EventArgs e)
         {
-            //TODO: нарушение инкапсуляции(+)
             CancelSearchForm?.Invoke(sender, e);
         }
-
-        //TODO: RSDN(+)
+        
         /// <summary>
         /// Click on buttonSearch 
         /// </summary>
@@ -91,7 +88,6 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         private void ButtonSearchClick(object sender, EventArgs e)
         {
-            //TODO:(+)
             var selectedState = "";
             if (comboBoxSearch.SelectedIndex != -1)
             {
@@ -111,7 +107,6 @@ namespace ViewLab4WinForms
         /// <param name="columnName">Search column</param>
         private void SearchObject(string value, string columnName)
         {
-            //TODO: нарушение инкапсуляции(+)
             dataGridViewSearch.DataSource = _dataSource;
             var foundTransport = new List<TransportBase>();
 
@@ -131,8 +126,6 @@ namespace ViewLab4WinForms
             }
             dataGridViewSearch.DataSource = foundTransport;
         }
-
-        //TODO: duplication(+)
 
         /// <summary>
         /// Event to close form

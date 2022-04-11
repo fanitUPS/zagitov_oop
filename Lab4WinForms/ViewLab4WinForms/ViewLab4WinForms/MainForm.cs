@@ -12,6 +12,7 @@ namespace ViewLab4WinForms
     /// </summary>
     public partial class MainForm : Form
     {
+        //TODO: XML
         internal EventHandler<GetTransportListEventArgs> TransportListEvent;
 
         /// <summary>
@@ -53,8 +54,7 @@ namespace ViewLab4WinForms
             dataGridViewData.RowsDefaultCellStyle.Alignment 
                 = DataGridViewContentAlignment.MiddleCenter;
         }
-
-        //TODO: RSDN(+)
+        
         /// <summary>
         /// Click on button addTransport
         /// </summary>
@@ -84,8 +84,7 @@ namespace ViewLab4WinForms
                 _transportList.Add(args.Transport);
             };
         }
-
-        //TODO: RSDN(+)
+        
         /// <summary>
         /// Click on button Remove
         /// </summary>
@@ -115,8 +114,7 @@ namespace ViewLab4WinForms
                 dataGridViewData.Rows[0].Selected = true;
             }
         }
-
-        //TODO: RSDN(+)
+        
         /// <summary>
         /// Event click on cell
         /// </summary>
@@ -124,7 +122,6 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         private void DataGridViewDataCellClick(object sender, DataGridViewCellEventArgs e)
         {
-            //BUG: падает при выделении колонки(+)
             try
             {
                 dataGridViewData.Rows[e.RowIndex].Selected = true;
@@ -134,8 +131,7 @@ namespace ViewLab4WinForms
                 ErrorMessageBox("Try to choose row instead of a column");
             } 
         }
-
-        //TODO: RSDN(+)
+        
         /// <summary>
         /// Click on buttonSearch
         /// </summary>
@@ -187,8 +183,7 @@ namespace ViewLab4WinForms
                 xmlSerialaizer.Serialize(fw, _transportList);
             };
         }
-
-        //TODO: RSDN(+)
+        
         /// <summary>
         /// Click on buttonLoad
         /// </summary>
@@ -210,12 +205,11 @@ namespace ViewLab4WinForms
             XmlSerializer xmlSerialaizer = 
                 new XmlSerializer(typeof(BindingList<TransportBase>));
 
-            //TODO: using(+)
             try
             {
+                //TODO: RSDN
                 using (FileStream fr = new FileStream(path, FileMode.Open))
                 {
-                    //BUG: падает при некорректном файле(+)
                     _transportList = (BindingList<TransportBase>)
                         xmlSerialaizer.Deserialize(fr);
                 };
@@ -230,6 +224,7 @@ namespace ViewLab4WinForms
             DataGridViewValidating();
         }
 
+        //TODO: Нарушение инкапсуляции -> private 
         /// <summary>
         /// Show MessageBox
         /// </summary>
@@ -244,6 +239,7 @@ namespace ViewLab4WinForms
                 MessageBoxDefaultButton.Button1);
         }
 
+        //TODO:
         /// <summary>
         /// Validating data in DataGridView
         /// </summary>

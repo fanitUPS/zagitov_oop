@@ -4,14 +4,10 @@ using System.ComponentModel;
 
 namespace ViewLab4WinForms
 {
+    //TODO: XML
+    //TODO: RSDN
     class GetTransportListEventArgs : EventArgs
     {
-        /// <summary>
-        /// Binding list
-        /// </summary>
-        private BindingList<TransportBase> _getTransportList =
-            new BindingList<TransportBase>();
-
         /// <summary>
         /// Get TransportList
         /// </summary>
@@ -23,12 +19,7 @@ namespace ViewLab4WinForms
         /// <param name="transportList">Transport list</param>
         public GetTransportListEventArgs(BindingList<TransportBase> transportList)
         {
-            foreach (var transport in transportList)
-            {
-                _getTransportList.Add(transport);
-            }
-
-            GetTransportList = _getTransportList;
+            GetTransportList = transportList;
         }
     }
 }
