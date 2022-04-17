@@ -38,10 +38,8 @@ namespace ViewLab4WinForms
             this.buttonAdd = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonRandomData = new System.Windows.Forms.Button();
-            this.radioButtonCar = new System.Windows.Forms.RadioButton();
-            this.radioButtonHybrid = new System.Windows.Forms.RadioButton();
-            this.radioButtonHelicopter = new System.Windows.Forms.RadioButton();
             this.groupBoxRadioButtons = new System.Windows.Forms.GroupBox();
+            this.comboBoxCarType = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataTable)).BeginInit();
             this.groupBoxData.SuspendLayout();
             this.groupBoxRadioButtons.SuspendLayout();
@@ -70,7 +68,7 @@ namespace ViewLab4WinForms
             this.dataTable.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dataTable.Size = new System.Drawing.Size(291, 43);
             this.dataTable.TabIndex = 1;
-            this.dataTable.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataTableCellLeave);
+            this.dataTable.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataTable_CellMouseLeave);
             // 
             // comboBoxEngineType
             // 
@@ -131,53 +129,25 @@ namespace ViewLab4WinForms
             this.buttonRandomData.UseVisualStyleBackColor = true;
             this.buttonRandomData.Click += new System.EventHandler(this.ButtonRandomDataClick);
             // 
-            // radioButtonCar
-            // 
-            this.radioButtonCar.AutoSize = true;
-            this.radioButtonCar.Location = new System.Drawing.Point(15, 19);
-            this.radioButtonCar.Name = "radioButtonCar";
-            this.radioButtonCar.Size = new System.Drawing.Size(41, 17);
-            this.radioButtonCar.TabIndex = 9;
-            this.radioButtonCar.TabStop = true;
-            this.radioButtonCar.Text = "Car";
-            this.radioButtonCar.UseVisualStyleBackColor = true;
-            this.radioButtonCar.CheckedChanged += new System.EventHandler(this.RadioButtonCarCheckedChanged);
-            // 
-            // radioButtonHybrid
-            // 
-            this.radioButtonHybrid.AutoSize = true;
-            this.radioButtonHybrid.Location = new System.Drawing.Point(71, 19);
-            this.radioButtonHybrid.Name = "radioButtonHybrid";
-            this.radioButtonHybrid.Size = new System.Drawing.Size(55, 17);
-            this.radioButtonHybrid.TabIndex = 10;
-            this.radioButtonHybrid.TabStop = true;
-            this.radioButtonHybrid.Text = "Hybrid";
-            this.radioButtonHybrid.UseVisualStyleBackColor = true;
-            this.radioButtonHybrid.CheckedChanged += new System.EventHandler(this.RadioButtonHybridCheckedChanged);
-            // 
-            // radioButtonHelicopter
-            // 
-            this.radioButtonHelicopter.AutoSize = true;
-            this.radioButtonHelicopter.Location = new System.Drawing.Point(132, 19);
-            this.radioButtonHelicopter.Name = "radioButtonHelicopter";
-            this.radioButtonHelicopter.Size = new System.Drawing.Size(73, 17);
-            this.radioButtonHelicopter.TabIndex = 11;
-            this.radioButtonHelicopter.TabStop = true;
-            this.radioButtonHelicopter.Text = "Helicopter";
-            this.radioButtonHelicopter.UseVisualStyleBackColor = true;
-            this.radioButtonHelicopter.CheckedChanged += new System.EventHandler(this.RadioButtonHelicopterCheckedChanged);
-            // 
             // groupBoxRadioButtons
             // 
             this.groupBoxRadioButtons.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.groupBoxRadioButtons.Controls.Add(this.radioButtonCar);
-            this.groupBoxRadioButtons.Controls.Add(this.radioButtonHelicopter);
-            this.groupBoxRadioButtons.Controls.Add(this.radioButtonHybrid);
-            this.groupBoxRadioButtons.Location = new System.Drawing.Point(31, 39);
+            this.groupBoxRadioButtons.Controls.Add(this.comboBoxCarType);
+            this.groupBoxRadioButtons.Location = new System.Drawing.Point(31, 25);
             this.groupBoxRadioButtons.Name = "groupBoxRadioButtons";
-            this.groupBoxRadioButtons.Size = new System.Drawing.Size(333, 53);
+            this.groupBoxRadioButtons.Size = new System.Drawing.Size(156, 53);
             this.groupBoxRadioButtons.TabIndex = 12;
             this.groupBoxRadioButtons.TabStop = false;
+            // 
+            // comboBoxCarType
+            // 
+            this.comboBoxCarType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCarType.FormattingEnabled = true;
+            this.comboBoxCarType.Location = new System.Drawing.Point(6, 19);
+            this.comboBoxCarType.Name = "comboBoxCarType";
+            this.comboBoxCarType.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxCarType.TabIndex = 0;
+            this.comboBoxCarType.SelectedIndexChanged += new System.EventHandler(this.comboBoxCarType_SelectedIndexChanged);
             // 
             // AddForm
             // 
@@ -200,7 +170,6 @@ namespace ViewLab4WinForms
             this.groupBoxData.ResumeLayout(false);
             this.groupBoxData.PerformLayout();
             this.groupBoxRadioButtons.ResumeLayout(false);
-            this.groupBoxRadioButtons.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -216,9 +185,7 @@ namespace ViewLab4WinForms
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonRandomData;
-        private System.Windows.Forms.RadioButton radioButtonCar;
-        private System.Windows.Forms.RadioButton radioButtonHybrid;
-        private System.Windows.Forms.RadioButton radioButtonHelicopter;
         private System.Windows.Forms.GroupBox groupBoxRadioButtons;
+        private System.Windows.Forms.ComboBox comboBoxCarType;
     }
 }

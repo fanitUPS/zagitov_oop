@@ -53,6 +53,8 @@ namespace ViewLab4WinForms
             dataGridViewData.Columns[4].Width = 100;
             dataGridViewData.RowsDefaultCellStyle.Alignment 
                 = DataGridViewContentAlignment.MiddleCenter;
+
+            this.MaximizeBox = false;
         }
         
         /// <summary>
@@ -62,7 +64,7 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         private void AddTransportClick(object sender, EventArgs e)
         {
-            var addForm = new AddForm(this);
+            var addForm = new AddForm();
             addForm.StartPosition = FormStartPosition.CenterScreen;
             addForm.Show();
 
@@ -82,6 +84,11 @@ namespace ViewLab4WinForms
             addForm.TransportAdded += (o, args) =>
             {
                 _transportList.Add(args.Transport);
+            };
+
+            addForm.MessageBox += (o, args) =>
+            {
+                this.ErrorMessageBox(o.ToString());
             };
         }
         
@@ -156,6 +163,11 @@ namespace ViewLab4WinForms
             };
 
             TransportListEvent?.Invoke(sender, new GetTransportListEventArgs(_transportList));
+
+            searchForm.MessageBox += (o, args) =>
+            {
+                this.ErrorMessageBox(o.ToString());
+            };
         }
 
         /// <summary>
@@ -178,9 +190,9 @@ namespace ViewLab4WinForms
                 return;
             }
 
-            using (FileStream fw = new FileStream(path, FileMode.Create))
+            using (FileStream fileWriter = new FileStream(path, FileMode.Create))
             {
-                xmlSerialaizer.Serialize(fw, _transportList);
+                xmlSerialaizer.Serialize(fileWriter, _transportList);
             };
         }
         
@@ -207,11 +219,11 @@ namespace ViewLab4WinForms
 
             try
             {
-                //TODO: RSDN
-                using (FileStream fr = new FileStream(path, FileMode.Open))
+                //TODO: RSDN(+)
+                using (FileStream fileReader = new FileStream(path, FileMode.Open))
                 {
                     _transportList = (BindingList<TransportBase>)
-                        xmlSerialaizer.Deserialize(fr);
+                        xmlSerialaizer.Deserialize(fileReader);
                 };
 
                 dataGridViewData.DataSource = _transportList;
@@ -220,8 +232,6 @@ namespace ViewLab4WinForms
             {
                 ErrorMessageBox("Loaded file damaged");
             }
-
-            DataGridViewValidating();
         }
 
         //TODO: Нарушение инкапсуляции -> private 
@@ -229,7 +239,7 @@ namespace ViewLab4WinForms
         /// Show MessageBox
         /// </summary>
         /// <param name="text">Text of error</param>
-        internal void ErrorMessageBox(string text)
+        private void ErrorMessageBox(string text)
         {
             MessageBox.Show(this,
                 text,
@@ -237,40 +247,6 @@ namespace ViewLab4WinForms
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error,
                 MessageBoxDefaultButton.Button1);
-        }
-
-        //TODO:
-        /// <summary>
-        /// Validating data in DataGridView
-        /// </summary>
-        internal void DataGridViewValidating()
-        {
-            int columnWithFloatData = 2;
-
-            for (int i = 0; i < dataGridViewData.RowCount; i++)
-            {
-                for (int j = 0; j < columnWithFloatData; j++)
-                {
-                    if (string.IsNullOrEmpty
-                        (dataGridViewData.Rows[i].Cells[j].Value.ToString()) ||
-                        !float.TryParse
-                        ((dataGridViewData.Rows[i].Cells[j].Value.ToString()), out var _))
-                    {
-                        ErrorMessageBox("Loaded file has null, empty or wrong data");
-                        return;
-                    }
-                }
-
-                for (int k = 2; k < dataGridViewData.ColumnCount; k++)
-                {
-                    if (string.IsNullOrEmpty
-                        (dataGridViewData.Rows[i].Cells[k].Value.ToString()))
-                    {
-                        ErrorMessageBox("Loaded file has null or empty data");
-                        return;
-                    }
-                }
-            }
         }
     }
 }

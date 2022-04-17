@@ -14,14 +14,19 @@ namespace ViewLab4WinForms
         internal EventHandler CloseSearchForm;
 
         /// <summary>
+        /// Main Form
+        /// </summary>
+        private MainForm _mainForm;
+
+        /// <summary>
+        /// EventHandler
+        /// </summary>
+        internal EventHandler MessageBox;
+
+        /// <summary>
         /// EventHandler
         /// </summary>
         internal EventHandler CancelSearchForm;
-
-        /// <summary>
-        /// Link to mainForm
-        /// </summary>
-        private MainForm _mainForm;
 
         /// <summary>
         /// DataSource
@@ -47,7 +52,7 @@ namespace ViewLab4WinForms
         {
             dataGridViewSearch.RowsDefaultCellStyle.Alignment
                 = DataGridViewContentAlignment.MiddleCenter;
-
+            
             _mainForm.TransportListEvent += (o, args) =>
             {
                 foreach (var transport in args.GetTransportList)
@@ -55,7 +60,7 @@ namespace ViewLab4WinForms
                     _dataSource.Add(transport);
                 }
             };
-
+            
             dataGridViewSearch.RowHeadersVisible = false;
             dataGridViewSearch.Width = 466;
             dataGridViewSearch.DataSource = _dataSource;
@@ -69,6 +74,8 @@ namespace ViewLab4WinForms
             {
                 comboBoxSearch.Items.Add(col.Name);
             }
+
+            this.MaximizeBox = false;
         }
         
         /// <summary>
@@ -96,7 +103,7 @@ namespace ViewLab4WinForms
             }
             else
             {
-                _mainForm.ErrorMessageBox("Choose item in comboBox");
+                MessageBox?.Invoke("Choose item in comboBox", e);
             }
         }
 

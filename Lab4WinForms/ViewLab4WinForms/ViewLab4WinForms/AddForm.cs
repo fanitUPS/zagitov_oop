@@ -21,26 +21,40 @@ namespace ViewLab4WinForms
         internal EventHandler CloseAddForm;
 
         /// <summary>
-        /// Event of close form
+        /// EventHandler
         /// </summary>
         internal EventHandler CancelAddForm;
 
         /// <summary>
-        /// Link to main form
+        /// EventHandler
         /// </summary>
-        private MainForm _mainForm;
+        internal EventHandler MessageBox;
 
         /// <summary>
         /// Dictionary of engine types
         /// </summary>
-        private Dictionary<string, EngineType> _engineTypes = 
-            new Dictionary<string, EngineType>()
+        private Dictionary<string, List<EngineType>> _engineTypes = 
+            new Dictionary<string, List<EngineType>>()
             {
-                { "Diesel", EngineType.Diesel },
-                { "Electric", EngineType.Electric },
-                { "Petrol", EngineType.Petrol },
-                { "Hybrid", EngineType.Hybrid },
-                { "GasTurbine", EngineType.GasTurbine }
+                { "Car", new List<EngineType>() 
+                    { EngineType.Diesel, EngineType.Petrol } },
+
+                { "Hybrid", new List<EngineType>() 
+                    { EngineType.Hybrid } },
+
+                { "Helicopter", new List<EngineType>() 
+                    { EngineType.GasTurbine } }
+            };
+
+        /// <summary>
+        /// List of transport types
+        /// </summary>
+        private List<string> _carType =
+            new List<string>()
+            {
+                "Car",
+                "Hybrid",
+                "Helicopter"
             };
 
         /// <summary>
@@ -49,17 +63,16 @@ namespace ViewLab4WinForms
         private List<string> _standardColumnNames =
             new List<string>()
             {
-                "consumptionPerKm",
-                "distance"
+                "Consumption per 100 km",
+                "Distance"
             };
 
         /// <summary>
         /// AddForm
         /// </summary>
-        public AddForm(MainForm mainForm)
+        public AddForm()
         {
             InitializeComponent();
-            _mainForm = mainForm;
         }
 
         /// <summary>
@@ -72,7 +85,7 @@ namespace ViewLab4WinForms
             CancelAddForm?.Invoke(sender, e);
         }
       
-        //TODO: строковые ключи(убрал комбобокс на radioButton)
+        //TODO: строковые ключи(+)
         /// <summary>
         /// AddForm load
         /// </summary>
@@ -83,13 +96,17 @@ namespace ViewLab4WinForms
             groupBoxData.Visible = false;
             dataTable.RowHeadersVisible = false;
 
-            foreach (var engine in _engineTypes)
+            foreach (var car in _carType)
             {
-                comboBoxEngineType.Items.Add(engine.Value.ToString());
+                comboBoxCarType.Items.Add(car);
             }
 
             dataTable.RowsDefaultCellStyle.Alignment 
                 = DataGridViewContentAlignment.MiddleCenter;
+
+            this.MaximizeBox = false;
+
+            dataTable.Width = 410;
         }
 
         /// <summary>
@@ -106,9 +123,6 @@ namespace ViewLab4WinForms
             {
                 dataTable.Columns.Add(name, name);
             }
-
-            dataTable.Columns[0].Width = 150;
-            dataTable.Columns[1].Width = 55;
         }
 
         /// <summary>
@@ -117,13 +131,10 @@ namespace ViewLab4WinForms
         /// <param name="tableWidth">Width of table</param>
         /// <param name="columnName">Column name</param>
         /// <param name="columnWidth">Column width</param>
-        private void AddSpecialColumn
-            (int tableWidth, string columnName, int columnWidth)
+        private void AddSpecialColumn(string columnName)
         {
-            dataTable.Width = tableWidth;
             dataTable.Columns.Add(columnName,
                 columnName);
-            dataTable.Columns[2].Width = columnWidth;
         }
         
         /// <summary>
@@ -133,6 +144,7 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         private void ButtonAddClick(object sender, EventArgs e)
         {
+            /*
             if (DataTableAddValidation())
             {
                 return;
@@ -146,7 +158,7 @@ namespace ViewLab4WinForms
                 var engine = _engineTypes[selectedStateEngine];
                 var consumptionPerKm = GetFloatValue(0);
                 var distance = GetFloatValue(1);
-                if (radioButtonCar.Checked)
+                if (comboBoxCarType.SelectedItem.ToString() == "Car")
                 {
                     var tank = GetFloatValue(2);
 
@@ -156,7 +168,7 @@ namespace ViewLab4WinForms
                     this.Close();
                 }
 
-                if (radioButtonHybrid.Checked)
+                if (comboBoxCarType.SelectedItem.ToString() == "Hybrid")
                 {
                     var percentOnElectric = GetFloatValue(2);
 
@@ -166,7 +178,7 @@ namespace ViewLab4WinForms
                     this.Close();
                 }
 
-                if (radioButtonHelicopter.Checked)
+                if (comboBoxCarType.SelectedItem.ToString() == "Helicopter")
                 {
                     var load = GetFloatValue(2);
 
@@ -178,8 +190,9 @@ namespace ViewLab4WinForms
             }
             catch (ArgumentException text)
             {
-                _mainForm.ErrorMessageBox(text.Message);
+                MessageBox?.Invoke(text.Message, e);
             }
+            */
         }
         
         /// <summary>
@@ -189,11 +202,9 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         private void ButtonRandomDataClick(object sender, EventArgs e)
         {
-            if (!radioButtonCar.Checked &&
-                !radioButtonHelicopter.Checked &&
-                !radioButtonHybrid.Checked)
+            if (comboBoxCarType.SelectedIndex == -1)
             {
-                _mainForm.ErrorMessageBox("You must choose type of transport!");
+                MessageBox?.Invoke("You must choose type of transport!", e);
                 return;
             }
 
@@ -214,7 +225,7 @@ namespace ViewLab4WinForms
             dataTable.Rows[0].Cells[1].Value =
                distance.ToString();
 
-            if (radioButtonCar.Checked)
+            if (comboBoxCarType.SelectedItem.ToString() == "Car")
             {
                 //TODO:
                 var tank = rnd.Next(500);
@@ -224,7 +235,7 @@ namespace ViewLab4WinForms
                 comboBoxEngineType.SelectedIndex = engine;
             }
 
-            if (radioButtonHybrid.Checked)
+            if (comboBoxCarType.SelectedItem.ToString() == "Hybrid")
             {
                 //TODO:
                 double percentOnElectric = Math.Round(rnd.NextDouble(), 3);
@@ -232,11 +243,11 @@ namespace ViewLab4WinForms
                 comboBoxEngineType.SelectedIndex = 3; //Hybrid engine
             }
 
-            if (radioButtonHelicopter.Checked)
+            if (comboBoxCarType.SelectedItem.ToString() == "Helicopter")
             {
                 //TODO:
                 var load = rnd.Next(Helicopter.MaxLoad);
-                dataTable.Rows[0].Cells["load"].Value = load.ToString();
+                dataTable.Rows[0].Cells[2].Value = load.ToString();
                 comboBoxEngineType.SelectedIndex = 4; //Helicopter engine
             }
         }
@@ -250,42 +261,6 @@ namespace ViewLab4WinForms
             (object sender, FormClosedEventArgs e)
         {
             CloseAddForm?.Invoke(sender, e);
-        }
-
-        /// <summary>
-        /// RadioButtonCarCheckedChanged
-        /// </summary>
-        /// <param name="sender">Object</param>
-        /// <param name="e">Event</param>
-        private void RadioButtonCarCheckedChanged
-            (object sender, EventArgs e)
-        {
-            AddStandartColumn(_standardColumnNames);
-            AddSpecialColumn(325, "tank", 120);
-        }
-
-        /// <summary>
-        /// RadioButtonHybridCheckedChanged
-        /// </summary>
-        /// <param name="sender">Object</param>
-        /// <param name="e">Event</param>
-        private void RadioButtonHybridCheckedChanged
-            (object sender, EventArgs e)
-        {  
-            AddStandartColumn(_standardColumnNames);
-            AddSpecialColumn(405, "percentOnElectric", 200);
-        }
-
-        /// <summary>
-        /// RadioButtonHelicopterCheckedChanged
-        /// </summary>
-        /// <param name="sender">Object</param>
-        /// <param name="e">Event</param>
-        private void RadioButtonHelicopterCheckedChanged
-            (object sender, EventArgs e)
-        {
-            AddStandartColumn(_standardColumnNames);
-            AddSpecialColumn(335, "load", 130);
         }
 
         /// <summary>
@@ -307,50 +282,81 @@ namespace ViewLab4WinForms
         }
 
         /// <summary>
-        /// DataTableCellLeave
-        /// </summary>
-        /// <param name="sender">Object</param>
-        /// <param name="e">Event</param>
-        private void DataTableCellLeave(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dataTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == null)
-            {
-                _mainForm.ErrorMessageBox
-                    ($"Data in {e.ColumnIndex + 1} cell must be not null!");
-                
-            }
-            else if (int.TryParse(dataTable.Rows[e.RowIndex]
-                .Cells[e.ColumnIndex].Value.ToString(), out int _))
-            {
-                return;
-            }
-            else if (!float.TryParse(dataTable.Rows[e.RowIndex]
-                .Cells[e.ColumnIndex].Value.ToString(), out float _))
-            {
-                _mainForm.ErrorMessageBox
-                        ($"Data in {e.ColumnIndex + 1} cell must be float!");
-            }
-        }
-
-        /// <summary>
         /// Validation of radioButton and comboBox
         /// </summary>
         private bool DataTableAddValidation()
         {
-            if (!radioButtonCar.Checked &&
-                !radioButtonHelicopter.Checked &&
-                !radioButtonHybrid.Checked)
+            if (comboBoxCarType.SelectedIndex == -1)
             {
-                _mainForm.ErrorMessageBox("You must choose type of transport!");
+                MessageBox?.Invoke("You must choose type of transport!", new EventArgs());
                 return true;
             }
 
             if (comboBoxEngineType.SelectedIndex == -1)
             {
-                _mainForm.ErrorMessageBox("You must choose type of engine!");
+                MessageBox?.Invoke("You must choose type of engine!", new EventArgs());
                 return true;
             }
             return false;
+        }
+
+        private void comboBoxCarType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AddStandartColumn(_standardColumnNames);
+            comboBoxEngineType.Items.Clear();
+            if (comboBoxCarType.SelectedItem.ToString() == "Car")
+            {
+                AddSpecialColumn("Tank");
+            }
+
+            if (comboBoxCarType.SelectedItem.ToString() == "Hybrid")
+            {
+                AddSpecialColumn("Percent on electric engine");
+            }
+
+            if (comboBoxCarType.SelectedItem.ToString() == "Helicopter")
+            {
+                AddSpecialColumn("Load");
+            }
+
+            foreach (var valuePair in _engineTypes)
+            {
+                if (comboBoxCarType.SelectedItem.ToString() == valuePair.Key)
+                {
+                    foreach (var engine in valuePair.Value)
+                    {
+                        comboBoxEngineType.Items.Add(engine.ToString());
+                    }
+                }
+            }
+        }
+
+        private void dataTable_CellMouseLeave(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (string.IsNullOrEmpty(e.FormattedValue as string))
+            {
+                e.Cancel = true;
+                MessageBox?.Invoke
+                    ($"Data in {e.ColumnIndex + 1} cell must be not null", e);
+            }
+            else if (int.TryParse(e.FormattedValue as string, out int intValue))
+            {
+                if (intValue < 0)
+                {
+                    e.Cancel = true;
+                    MessageBox?.Invoke
+                        ($"Data in {e.ColumnIndex + 1} cell must be positive", e);
+                }
+                    
+
+            }
+            else if (!float.TryParse(e.FormattedValue as string, out float floatValue))
+            {
+                
+                e.Cancel = true;
+                MessageBox?.Invoke
+                    ($"Data in {e.ColumnIndex + 1} cell must be float", e); 
+            }
         }
     }
 }
