@@ -61,6 +61,7 @@ namespace ViewLab4WinForms
                 }
             };
             
+
             dataGridViewSearch.RowHeadersVisible = false;
             dataGridViewSearch.Width = 466;
             dataGridViewSearch.DataSource = _dataSource;
