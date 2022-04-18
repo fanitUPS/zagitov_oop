@@ -12,7 +12,10 @@ namespace ViewLab4WinForms
     /// </summary>
     public partial class MainForm : Form
     {
-        //TODO: XML
+        //TODO: XML(+)
+        /// <summary>
+        /// EventHandler
+        /// </summary>
         internal EventHandler<GetTransportListEventArgs> TransportListEvent;
 
         /// <summary>
@@ -222,8 +225,15 @@ namespace ViewLab4WinForms
                 //TODO: RSDN(+)
                 using (FileStream fileReader = new FileStream(path, FileMode.Open))
                 {
-                    _transportList = (BindingList<TransportBase>)
+                    try
+                    {
+                        _transportList = (BindingList<TransportBase>)
                         xmlSerialaizer.Deserialize(fileReader);
+                    }
+                    catch (ArgumentException _)
+                    {
+                        ErrorMessageBox(_.Message);
+                    }
                 };
 
                 dataGridViewData.DataSource = _transportList;
@@ -232,9 +242,10 @@ namespace ViewLab4WinForms
             {
                 ErrorMessageBox("Loaded file damaged");
             }
+            
         }
 
-        //TODO: Нарушение инкапсуляции -> private 
+        //TODO: Нарушение инкапсуляции -> private (+)
         /// <summary>
         /// Show MessageBox
         /// </summary>

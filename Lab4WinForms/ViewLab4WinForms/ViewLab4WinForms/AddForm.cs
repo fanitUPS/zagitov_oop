@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 using ModelLab4WinForms;
 
@@ -47,17 +48,6 @@ namespace ViewLab4WinForms
             };
 
         /// <summary>
-        /// List of transport types
-        /// </summary>
-        private List<string> _carType =
-            new List<string>()
-            {
-                "Car",
-                "Hybrid",
-                "Helicopter"
-            };
-
-        /// <summary>
         /// List of column names
         /// </summary>
         private List<string> _standardColumnNames =
@@ -66,6 +56,17 @@ namespace ViewLab4WinForms
                 "Consumption per 100 km",
                 "Distance"
             };
+
+        private List<string> _specialColumnNames =
+            new List<string>()
+            {
+                "Tank",
+                "Percent on e-engine",
+                "Load"
+            };
+
+        private BindingList<TransportBase> _dataSource =
+            new BindingList<TransportBase>();
 
         /// <summary>
         /// AddForm
@@ -96,9 +97,9 @@ namespace ViewLab4WinForms
             groupBoxData.Visible = false;
             dataTable.RowHeadersVisible = false;
 
-            foreach (var car in _carType)
+            foreach (var keyValuePair in _engineTypes)
             {
-                comboBoxCarType.Items.Add(car);
+                comboBoxCarType.Items.Add(keyValuePair.Key);
             }
 
             dataTable.RowsDefaultCellStyle.Alignment 
@@ -106,7 +107,7 @@ namespace ViewLab4WinForms
 
             this.MaximizeBox = false;
 
-            dataTable.Width = 410;
+            dataTable.Width = 450;
         }
 
         /// <summary>
@@ -144,7 +145,6 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         private void ButtonAddClick(object sender, EventArgs e)
         {
-            /*
             if (DataTableAddValidation())
             {
                 return;
@@ -152,10 +152,10 @@ namespace ViewLab4WinForms
 
             string selectedStateEngine = comboBoxEngineType.SelectedItem.
                 ToString();
-
+            /*
             try
             {
-                var engine = _engineTypes[selectedStateEngine];
+                var engine = GetEngine(_engineTypes, selectedStateEngine);
                 var consumptionPerKm = GetFloatValue(0);
                 var distance = GetFloatValue(1);
                 if (comboBoxCarType.SelectedItem.ToString() == "Car")
@@ -194,7 +194,29 @@ namespace ViewLab4WinForms
             }
             */
         }
-        
+
+        /// <summary>
+        /// Get selected engine frim dictianory
+        /// </summary>
+        /// <param name="transportDict">Dictionary with engines</param>
+        /// <param name="selectedStateEngine">Selected engine</param>
+        /// <returns>EngineType, if engine not in dict, return default engine</returns>
+        private EngineType GetEngine(Dictionary<string, List<EngineType>> transportDict, string selectedStateEngine)
+        {
+            foreach (var keyValuePair in transportDict)
+            {
+                foreach (var value in keyValuePair.Value)
+                {
+                    if (selectedStateEngine == value.ToString())
+                    {
+                        var engine = value;
+                        return engine;
+                    }
+                }
+            }
+            return EngineType.Default;
+        }
+
         /// <summary>
         /// Click on buttonRandomData
         /// </summary>
@@ -202,37 +224,35 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         private void ButtonRandomDataClick(object sender, EventArgs e)
         {
-            if (comboBoxCarType.SelectedIndex == -1)
-            {
-                MessageBox?.Invoke("You must choose type of transport!", e);
-                return;
-            }
-
-            var engineDict = new Dictionary<int, int>
-            {
-                {0, 0 }, //Diesel
-                {1, 2 }  //Petrol
-            };
-
             var rnd = new Random();
+
+            comboBoxCarType.SelectedIndex = rnd.Next(comboBoxCarType.Items.Count);
 
             var consuptionPerKm = rnd.Next(1, 50);
             var distance = rnd.Next(1, 1000);
-            
+
             //TODO:
             dataTable.Rows[0].Cells[0].Value =
                consuptionPerKm.ToString();
             dataTable.Rows[0].Cells[1].Value =
                distance.ToString();
 
+            foreach (var keyValue in _constructorDict)
+            {
+                if (comboBoxCarType.SelectedItem.ToString() == keyValue.Key)
+                {
+                    keyValue.Value.Invoke();
+
+                }
+            }
+
             if (comboBoxCarType.SelectedItem.ToString() == "Car")
             {
                 //TODO:
                 var tank = rnd.Next(500);
-                var engine = engineDict[rnd.Next(2)];
                 dataTable.Rows[0].Cells[2].Value =
                 tank.ToString();
-                comboBoxEngineType.SelectedIndex = engine;
+                comboBoxEngineType.SelectedIndex = rnd.Next(2);
             }
 
             if (comboBoxCarType.SelectedItem.ToString() == "Hybrid")
@@ -240,7 +260,7 @@ namespace ViewLab4WinForms
                 //TODO:
                 double percentOnElectric = Math.Round(rnd.NextDouble(), 3);
                 dataTable.Rows[0].Cells[2].Value = percentOnElectric.ToString();
-                comboBoxEngineType.SelectedIndex = 3; //Hybrid engine
+                comboBoxEngineType.SelectedIndex = 0; //Hybrid engine
             }
 
             if (comboBoxCarType.SelectedItem.ToString() == "Helicopter")
@@ -248,8 +268,33 @@ namespace ViewLab4WinForms
                 //TODO:
                 var load = rnd.Next(Helicopter.MaxLoad);
                 dataTable.Rows[0].Cells[2].Value = load.ToString();
-                comboBoxEngineType.SelectedIndex = 4; //Helicopter engine
+                comboBoxEngineType.SelectedIndex = 0; //Helicopter engine
             }
+        }
+
+        /// <summary>
+        /// Create transport
+        /// </summary>
+        /// <param name="type">Selectet item in comboBoxCarType</param>
+        /// <param name="consuptionPerKm">consuptionPerKm</param>
+        /// <param name="distance">distance</param>
+        /// <param name="specialAttribute">specialAttribute</param>
+        /// <param name="engine">engine</param>
+        /// <returns>Transport</returns>
+        private void GetTransport(string type, float consuptionPerKm, 
+            float distance, float specialAttribute, EngineType engine)
+        {
+            TransportBase transport;
+            Dictionary<string, Action> _constructorDict =
+                new Dictionary<string, Action>()
+            {
+                { "Car", () => {transport = new Car(consuptionPerKm, distance, engine, specialAttribute); } },
+                { "Hybrid", () => {transport = new Hybrid(consuptionPerKm, distance, engine, specialAttribute); } },
+                { "Helicopter", () => {transport = new Helicopter(consuptionPerKm, distance, engine, specialAttribute); }}
+            };
+
+            _constructorDict[type].Invoke();
+            _dataSource.Add(transport); 
         }
         
         /// <summary>
@@ -264,59 +309,49 @@ namespace ViewLab4WinForms
         }
 
         /// <summary>
-        /// Try parse float value
-        /// </summary>
-        /// <param name="indexColumn">index of column with number</param>
-        /// <returns>Float value</returns>
-        private float GetFloatValue(int indexColumn)
-        {
-            if (dataTable.Rows[0].Cells[indexColumn].Value == null)
-            {
-                throw new ArgumentException
-                    ($"Data in {indexColumn + 1} cell must be float!");
-            }
-
-            float.TryParse(dataTable.Rows[0].Cells[indexColumn].Value.ToString(),
-                out float value);
-            return value;
-        }
-
-        /// <summary>
         /// Validation of radioButton and comboBox
         /// </summary>
         private bool DataTableAddValidation()
         {
             if (comboBoxCarType.SelectedIndex == -1)
             {
-                MessageBox?.Invoke("You must choose type of transport!", new EventArgs());
+                MessageBox?.Invoke("You must choose type of transport", new EventArgs());
                 return true;
             }
 
             if (comboBoxEngineType.SelectedIndex == -1)
             {
-                MessageBox?.Invoke("You must choose type of engine!", new EventArgs());
+                MessageBox?.Invoke("You must choose type of engine", new EventArgs());
                 return true;
+            }
+            foreach (DataGridViewColumn column in dataTable.Columns)
+            {
+                if (dataTable.Rows[0].Cells[column.Index].Value == null)
+                {
+                    MessageBox?.Invoke("Data in cells must be not null", new EventArgs());
+                    return true;
+                }
             }
             return false;
         }
 
-        private void comboBoxCarType_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Combo box changes
+        /// </summary>
+        /// <param name="sender">Object</param>
+        /// <param name="e">Event</param>
+        private void ComboBoxCarTypeSelectedIndexChanged(object sender, EventArgs e)
         {
             AddStandartColumn(_standardColumnNames);
             comboBoxEngineType.Items.Clear();
-            if (comboBoxCarType.SelectedItem.ToString() == "Car")
+            int i = 0;
+            foreach (var keyValuePair in _engineTypes)
             {
-                AddSpecialColumn("Tank");
-            }
-
-            if (comboBoxCarType.SelectedItem.ToString() == "Hybrid")
-            {
-                AddSpecialColumn("Percent on electric engine");
-            }
-
-            if (comboBoxCarType.SelectedItem.ToString() == "Helicopter")
-            {
-                AddSpecialColumn("Load");
+                if (comboBoxCarType.SelectedItem.ToString() == keyValuePair.Key)
+                {
+                    AddSpecialColumn(_specialColumnNames[i]);
+                }
+                i++;
             }
 
             foreach (var valuePair in _engineTypes)
@@ -329,9 +364,18 @@ namespace ViewLab4WinForms
                     }
                 }
             }
+            foreach (DataGridViewColumn column in dataTable.Columns)
+            {
+                column.Width = dataTable.Width / dataTable.ColumnCount;
+            }
         }
 
-        private void dataTable_CellMouseLeave(object sender, DataGridViewCellValidatingEventArgs e)
+        /// <summary>
+        /// DataTableCellMouseLeave
+        /// </summary>
+        /// <param name="sender">Object</param>
+        /// <param name="e">Event</param>
+        private void DataTableCellMouseLeave(object sender, DataGridViewCellValidatingEventArgs e)
         {
             if (string.IsNullOrEmpty(e.FormattedValue as string))
             {
@@ -347,15 +391,18 @@ namespace ViewLab4WinForms
                     MessageBox?.Invoke
                         ($"Data in {e.ColumnIndex + 1} cell must be positive", e);
                 }
-                    
-
             }
             else if (!float.TryParse(e.FormattedValue as string, out float floatValue))
             {
-                
                 e.Cancel = true;
                 MessageBox?.Invoke
-                    ($"Data in {e.ColumnIndex + 1} cell must be float", e); 
+                        ($"Data in {e.ColumnIndex + 1} cell must be float", e);
+            }
+            else if (floatValue < 0F)
+            {
+                e.Cancel = true;
+                MessageBox?.Invoke
+                    ($"Data in {e.ColumnIndex + 1} cell must be positive", e);
             }
         }
     }

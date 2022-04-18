@@ -66,9 +66,9 @@ namespace ViewLab4WinForms
             this.dataTable.RowHeadersWidth = 25;
             this.dataTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataTable.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.dataTable.Size = new System.Drawing.Size(291, 43);
+            this.dataTable.Size = new System.Drawing.Size(462, 43);
             this.dataTable.TabIndex = 1;
-            this.dataTable.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataTable_CellMouseLeave);
+            this.dataTable.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.DataTableCellMouseLeave);
             // 
             // comboBoxEngineType
             // 
@@ -95,7 +95,7 @@ namespace ViewLab4WinForms
             this.groupBoxData.Controls.Add(this.comboBoxEngineType);
             this.groupBoxData.Location = new System.Drawing.Point(31, 107);
             this.groupBoxData.Name = "groupBoxData";
-            this.groupBoxData.Size = new System.Drawing.Size(545, 89);
+            this.groupBoxData.Size = new System.Drawing.Size(601, 89);
             this.groupBoxData.TabIndex = 5;
             this.groupBoxData.TabStop = false;
             this.groupBoxData.Text = "Input data";
@@ -147,7 +147,7 @@ namespace ViewLab4WinForms
             this.comboBoxCarType.Name = "comboBoxCarType";
             this.comboBoxCarType.Size = new System.Drawing.Size(121, 21);
             this.comboBoxCarType.TabIndex = 0;
-            this.comboBoxCarType.SelectedIndexChanged += new System.EventHandler(this.comboBoxCarType_SelectedIndexChanged);
+            this.comboBoxCarType.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCarTypeSelectedIndexChanged);
             // 
             // AddForm
             // 

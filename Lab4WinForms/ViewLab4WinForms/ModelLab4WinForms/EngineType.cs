@@ -9,6 +9,7 @@
         Electric,
         Petrol,
         Hybrid,
-        GasTurbine
+        GasTurbine,
+        Default
     }
 }
