@@ -119,7 +119,7 @@ namespace ViewLab4WinForms
             var foundTransport = new List<TransportBase>();
 
             var indexOfFoundTransport = new List<int>();
-
+            //TODO:
             for (int i = 0; i < dataGridViewSearch.Rows.Count; i++)
             {
                 if (dataGridViewSearch.Rows[i].Cells[columnName]

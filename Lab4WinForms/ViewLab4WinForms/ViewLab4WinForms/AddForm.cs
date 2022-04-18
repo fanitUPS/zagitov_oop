@@ -57,6 +57,7 @@ namespace ViewLab4WinForms
                 "Distance"
             };
 
+        //TODO: XML
         private List<string> _specialColumnNames =
             new List<string>()
             {
@@ -65,6 +66,7 @@ namespace ViewLab4WinForms
                 "Load"
             };
 
+        //TODO: XML
         private BindingList<TransportBase> _dataSource =
             new BindingList<TransportBase>();
 
@@ -86,7 +88,6 @@ namespace ViewLab4WinForms
             CancelAddForm?.Invoke(sender, e);
         }
       
-        //TODO: строковые ключи(+)
         /// <summary>
         /// AddForm load
         /// </summary>
@@ -285,6 +286,7 @@ namespace ViewLab4WinForms
             float distance, float specialAttribute, EngineType engine)
         {
             TransportBase transport;
+            //TODO: func
             Dictionary<string, Action> _constructorDict =
                 new Dictionary<string, Action>()
             {

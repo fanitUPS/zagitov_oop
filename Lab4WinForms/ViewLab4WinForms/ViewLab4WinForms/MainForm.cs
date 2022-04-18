@@ -12,7 +12,6 @@ namespace ViewLab4WinForms
     /// </summary>
     public partial class MainForm : Form
     {
-        //TODO: XML(+)
         /// <summary>
         /// EventHandler
         /// </summary>
@@ -222,7 +221,6 @@ namespace ViewLab4WinForms
 
             try
             {
-                //TODO: RSDN(+)
                 using (FileStream fileReader = new FileStream(path, FileMode.Open))
                 {
                     try
@@ -230,6 +228,7 @@ namespace ViewLab4WinForms
                         _transportList = (BindingList<TransportBase>)
                         xmlSerialaizer.Deserialize(fileReader);
                     }
+                    //TODO: RSDN
                     catch (ArgumentException _)
                     {
                         ErrorMessageBox(_.Message);
@@ -244,8 +243,7 @@ namespace ViewLab4WinForms
             }
             
         }
-
-        //TODO: Нарушение инкапсуляции -> private (+)
+        
         /// <summary>
         /// Show MessageBox
         /// </summary>

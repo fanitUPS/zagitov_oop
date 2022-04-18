@@ -4,8 +4,6 @@ using System.ComponentModel;
 
 namespace ViewLab4WinForms
 {
-    //TODO: XML(+)
-    //TODO: RSDN(+)
     /// <summary>
     /// GetTransportListEvent
     /// </summary>
