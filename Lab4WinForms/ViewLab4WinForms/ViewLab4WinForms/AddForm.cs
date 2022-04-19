@@ -33,7 +33,7 @@ namespace ViewLab4WinForms
         /// <summary>
         /// List of column names
         /// </summary>
-        private List<string> _standardColumnNames =
+        private readonly List<string> _standardColumnNames =
             new List<string>()
             {
                 "Consumption per 100 km",
@@ -43,7 +43,7 @@ namespace ViewLab4WinForms
         /// <summary>
         /// Dictionary of engine types
         /// </summary>
-        private Dictionary<string, List<EngineType>> _engineTypes = 
+        private readonly Dictionary<string, List<EngineType>> _engineTypes = 
             new Dictionary<string, List<EngineType>>()
             {
                 { "Car", new List<EngineType>() 
@@ -148,7 +148,6 @@ namespace ViewLab4WinForms
             
             string selectedStateEngine = comboBoxEngineType.SelectedItem.
                 ToString();
-            //TODO:(+)
             try
             {
                 var engine = GetEngine(_engineTypes, selectedStateEngine);
@@ -185,8 +184,9 @@ namespace ViewLab4WinForms
             {
                 MessageBox?.Invoke(text.Message, e);
             }
-            catch (Exception _)
+            catch (Exception text1)
             {
+                MessageBox?.Invoke(text1.Message, e);
             }  
         }
 
@@ -196,6 +196,7 @@ namespace ViewLab4WinForms
         /// <param name="transportDict">Dictionary with engines</param>
         /// <param name="selectedStateEngine">Selected engine</param>
         /// <returns>EngineType, if engine not in dict, return default engine</returns>
+        /// //TODO: RSDN
         private EngineType GetEngine(Dictionary<string, List<EngineType>> transportDict, string selectedStateEngine)
         {
             foreach (var keyValuePair in transportDict)
@@ -262,7 +263,7 @@ namespace ViewLab4WinForms
         private TransportBase GetTransport(string type, float consuptionPerKm, 
             float distance, EngineType engine)
         {
-            //TODO: func(+)
+            //TODO: RSDN
             var _constructorDict = new Dictionary<string, Func<TransportBase>>()
             {
                 { "Car", () =>
@@ -294,6 +295,7 @@ namespace ViewLab4WinForms
         /// </summary>
         private bool DataTableAddValidation()
         {
+            //TODO: EventArgs.Empty
             if (comboBoxCarType.SelectedIndex == -1)
             {
                 MessageBox?.Invoke
@@ -332,12 +334,11 @@ namespace ViewLab4WinForms
             comboBoxEngineType.Items.Clear();
             foreach (var valuePair in _engineTypes)
             {
-                if (comboBoxCarType.SelectedItem.ToString() == valuePair.Key)
+                if (comboBoxCarType.SelectedItem.ToString() != valuePair.Key) continue;
+                
+                foreach (var engine in valuePair.Value)
                 {
-                    foreach (var engine in valuePair.Value)
-                    {
-                        comboBoxEngineType.Items.Add(engine.ToString());
-                    }
+                    comboBoxEngineType.Items.Add(engine.ToString());
                 }
             }
 
