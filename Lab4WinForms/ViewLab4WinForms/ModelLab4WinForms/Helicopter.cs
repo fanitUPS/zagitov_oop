@@ -36,7 +36,7 @@ namespace ModelLab4WinForms
         /// <summary>
         /// Load of helicopter
         /// </summary>
-        private float _load;
+        private float _load = 100;
 
         /// <summary>
         /// Load of helicopter
@@ -51,6 +51,17 @@ namespace ModelLab4WinForms
         /// Constructor for XML
         /// </summary>
         public Helicopter()
+        {
+        }
+
+        /// <summary>
+        /// Constructor for FormView
+        /// </summary>
+        /// <param name="consumption">Fuel consumption per 100 km</param>
+        /// <param name="distance">Distance of travel</param>
+        /// <param name="engine">Type of engine</param>
+        public Helicopter(float consumption, float distance,
+            EngineType engine) : base(consumption, distance, engine)
         {
         }
 

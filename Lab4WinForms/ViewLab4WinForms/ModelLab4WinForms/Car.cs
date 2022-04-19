@@ -43,6 +43,17 @@ namespace ModelLab4WinForms
         }
 
         /// <summary>
+        /// Constructor for FormView
+        /// </summary>
+        /// <param name="consumption">Fuel consumption per 100 km</param>
+        /// <param name="distance">Distance of travel</param>
+        /// <param name="engine">Type of engine</param>
+        public Car (float consumption, float distance,
+            EngineType engine) : base(consumption, distance, engine)
+        {
+        }
+
+        /// <summary>
         /// Constuctor of instance Car
         /// </summary>
         /// <param name="consumption">Fuel consumption per 100 km</param>

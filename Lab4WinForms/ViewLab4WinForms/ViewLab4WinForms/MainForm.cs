@@ -13,11 +13,6 @@ namespace ViewLab4WinForms
     public partial class MainForm : Form
     {
         /// <summary>
-        /// EventHandler
-        /// </summary>
-        internal EventHandler<GetTransportListEventArgs> TransportListEvent;
-
-        /// <summary>
         /// List of BaseTransport
         /// </summary>
         private BindingList<TransportBase> _transportList =
@@ -148,7 +143,7 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         private void ButtonSearchClick(object sender, EventArgs e)
         {
-            var searchForm = new SearchForm(this);
+            var searchForm = new SearchForm(_transportList);
             searchForm.StartPosition = FormStartPosition.CenterScreen;
             searchForm.Show();
             this.Hide();
@@ -163,8 +158,6 @@ namespace ViewLab4WinForms
                 searchForm.Close();
                 this.Show();
             };
-
-            TransportListEvent?.Invoke(sender, new GetTransportListEventArgs(_transportList));
 
             searchForm.MessageBox += (o, args) =>
             {
@@ -218,21 +211,13 @@ namespace ViewLab4WinForms
 
             XmlSerializer xmlSerialaizer = 
                 new XmlSerializer(typeof(BindingList<TransportBase>));
-
+            //TODO: bug
             try
             {
                 using (FileStream fileReader = new FileStream(path, FileMode.Open))
                 {
-                    try
-                    {
-                        _transportList = (BindingList<TransportBase>)
-                        xmlSerialaizer.Deserialize(fileReader);
-                    }
-                    //TODO: RSDN
-                    catch (ArgumentException _)
-                    {
-                        ErrorMessageBox(_.Message);
-                    }
+                    _transportList = (BindingList<TransportBase>)
+                    xmlSerialaizer.Deserialize(fileReader);
                 };
 
                 dataGridViewData.DataSource = _transportList;
@@ -241,7 +226,10 @@ namespace ViewLab4WinForms
             {
                 ErrorMessageBox("Loaded file damaged");
             }
-            
+            catch (Exception error)
+            {
+                ErrorMessageBox(error.Message);
+            }
         }
         
         /// <summary>

@@ -39,7 +39,7 @@ namespace ModelLab4WinForms
         /// <summary>
         /// Percent distance on electric engine
         /// </summary>
-        private float _percentOnElectric;
+        private float _percentOnElectric = 0.5f;
 
         /// <summary>
         /// Percent distance on electric engine
@@ -55,6 +55,17 @@ namespace ModelLab4WinForms
         /// Constructor for XML
         /// </summary>
         public Hybrid()
+        {
+        }
+
+        /// <summary>
+        /// Constructor for FormView
+        /// </summary>
+        /// <param name="consumption">Fuel consumption per 100 km</param>
+        /// <param name="distance">Distance of travel</param>
+        /// <param name="engine">Type of engine</param>
+        public Hybrid(float consumption, float distance,
+            EngineType engine) : base(consumption, distance, engine)
         {
         }
 

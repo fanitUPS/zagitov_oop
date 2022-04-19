@@ -14,11 +14,6 @@ namespace ViewLab4WinForms
         internal EventHandler CloseSearchForm;
 
         /// <summary>
-        /// Main Form
-        /// </summary>
-        private MainForm _mainForm;
-
-        /// <summary>
         /// EventHandler
         /// </summary>
         internal EventHandler MessageBox;
@@ -37,10 +32,10 @@ namespace ViewLab4WinForms
         /// <summary>
         /// InitializeComponent of SearchForm
         /// </summary>
-        public SearchForm(MainForm mainForm)
+        public SearchForm(BindingList<TransportBase> dataSource)
         {
             InitializeComponent();
-            _mainForm = mainForm;
+            _dataSource = dataSource;
         }
 
         /// <summary>
@@ -52,16 +47,7 @@ namespace ViewLab4WinForms
         {
             dataGridViewSearch.RowsDefaultCellStyle.Alignment
                 = DataGridViewContentAlignment.MiddleCenter;
-            
-            _mainForm.TransportListEvent += (o, args) =>
-            {
-                foreach (var transport in args.GetTransportList)
-                {
-                    _dataSource.Add(transport);
-                }
-            };
-            
-
+           
             dataGridViewSearch.RowHeadersVisible = false;
             dataGridViewSearch.Width = 466;
             dataGridViewSearch.DataSource = _dataSource;
@@ -113,26 +99,27 @@ namespace ViewLab4WinForms
         /// </summary>
         /// <param name="value">Seach value</param>
         /// <param name="columnName">Search column</param>
-        private void SearchObject(string value, string columnName)
+        private void SearchObject(string value, string property)
         {
             dataGridViewSearch.DataSource = _dataSource;
-            var foundTransport = new List<TransportBase>();
 
-            var indexOfFoundTransport = new List<int>();
-            //TODO:
-            for (int i = 0; i < dataGridViewSearch.Rows.Count; i++)
+            var foundTransport = new List<TransportBase>();
+            if (_dataSource.Count == 0)
             {
-                if (dataGridViewSearch.Rows[i].Cells[columnName]
-                    .Value.ToString() == value)
+                MessageBox?.Invoke("Table empty", new EventArgs());
+            }
+            
+            foreach (var transport in _dataSource)
+            {
+                if (typeof(TransportBase).GetProperty(property).
+                    GetValue(transport).ToString() == value)
                 {
-                    indexOfFoundTransport.Add(i);
+                    foundTransport.Add(transport);
                 }
             }
-            foreach (var index in indexOfFoundTransport)
-            {
-                foundTransport.Add(_dataSource[index]);
-            }
+
             dataGridViewSearch.DataSource = foundTransport;
+            //TODO:(+)
         }
 
         /// <summary>
