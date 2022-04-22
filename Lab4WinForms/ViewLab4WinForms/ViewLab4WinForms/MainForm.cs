@@ -226,6 +226,10 @@ namespace ViewLab4WinForms
             {
                 ErrorMessageBox("Loaded file damaged");
             }
+            catch (ArgumentException _)
+            {
+                ErrorMessageBox("Not valid data in file");
+            }
             catch (Exception error)
             {
                 ErrorMessageBox(error.Message);
