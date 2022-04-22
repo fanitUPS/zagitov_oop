@@ -10,7 +10,7 @@ namespace ViewLab4WinForms
     /// <summary>
     /// Class MainForm
     /// </summary>
-    public partial class MainForm : Form
+    public partial class MainForm : EventForm
     {
         /// <summary>
         /// List of BaseTransport
@@ -61,82 +61,20 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         private void AddTransportClick(object sender, EventArgs e)
         {
-            //TODO: duplication
+            //TODO: duplication(+)
             var addForm = new AddForm();
             addForm.StartPosition = FormStartPosition.CenterScreen;
             addForm.Show();
-
             this.Hide();
             
-            addForm.CloseAddForm += (o, args) =>
-            {
-                this.Show();
-            };
-
-            addForm.CancelAddForm += (o, args) =>
-            {
-                addForm.Close();
-                this.Show();
-            };
-
             addForm.TransportAdded += (o, args) =>
             {
                 _transportList.Add(args.Transport);
             };
 
-            addForm.MessageBox += (o, args) =>
-            {
-                this.ErrorMessageBox(o.ToString());
-            };
+            EventHandler(addForm);
         }
-        
-        /// <summary>
-        /// Click on button Remove
-        /// </summary>
-        /// <param name="sender">Sender</param>
-        /// <param name="e">Event</param>
-        private void ButtonRemoveClick(object sender, EventArgs e)
-        {
-            var selectedIndex = -1;
-            for (int i = 0; i < dataGridViewData.Rows.Count; i++)
-            {
-                if (dataGridViewData.Rows[i].Selected)
-                {
-                    selectedIndex = i;
-                }
-            }
-            
-            if (selectedIndex == -1)
-            {
-                ErrorMessageBox("Removed row doesn't selected");
-                return;
-            }
-            
-            _transportList.RemoveAt(selectedIndex);   
-            
-            if (dataGridViewData.RowCount != 0)
-            {
-                dataGridViewData.Rows[0].Selected = true;
-            }
-        }
-        
-        /// <summary>
-        /// Event click on cell
-        /// </summary>
-        /// <param name="sender">Sender</param>
-        /// <param name="e">Event</param>
-        private void DataGridViewDataCellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            try
-            {
-                dataGridViewData.Rows[e.RowIndex].Selected = true;
-            }
-            catch (ArgumentOutOfRangeException _)
-            {
-                ErrorMessageBox("Try to choose row instead of a column");
-            } 
-        }
-        
+
         /// <summary>
         /// Click on buttonSearch
         /// </summary>
@@ -144,29 +82,63 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         private void ButtonSearchClick(object sender, EventArgs e)
         {
-            //TODO: duplication
+            //TODO: duplication(+)
             var searchForm = new SearchForm(_transportList);
             searchForm.StartPosition = FormStartPosition.CenterScreen;
             searchForm.Show();
             this.Hide();
-            
-            searchForm.CloseSearchForm += (o, args) =>
+
+            EventHandler(searchForm);
+        }
+
+        /// <summary>
+        /// EventHandler
+        /// </summary>
+        /// <param name="form">Form</param>
+        private void EventHandler(EventForm form)
+        {
+            form.CloseForm += (o, args) =>
             {
-                this.Show();
-            };
-            
-            searchForm.CancelSearchForm += (o, args) =>
-            {
-                searchForm.Close();
                 this.Show();
             };
 
-            searchForm.MessageBox += (o, args) =>
+            form.CancelForm += (o, args) =>
+            {
+                form.Close();
+                this.Show();
+            };
+
+            form.MessageBoxEvent += (o, args) =>
             {
                 this.ErrorMessageBox(o.ToString());
             };
         }
 
+        /// <summary>
+        /// Click on button Remove
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event</param>
+        private void ButtonRemoveClick(object sender, EventArgs e)
+        {
+            if (dataGridViewData.SelectedRows.Count == 0)
+            {
+                ErrorMessageBox("Removed row doesn't selected");
+                return;
+            }
+
+            foreach (DataGridViewRow row in dataGridViewData.SelectedRows)
+            {
+                _transportList.RemoveAt(row.Index);
+            }
+               
+            
+            if (dataGridViewData.RowCount != 0)
+            {
+                dataGridViewData.Rows[0].Selected = true;
+            }
+        }
+        
         /// <summary>
         /// Click on buttonSave
         /// </summary>
@@ -179,7 +151,7 @@ namespace ViewLab4WinForms
             fileBrowser.ShowDialog();
             string path = fileBrowser.FileName;
 
-            XmlSerializer xmlSerialaizer = 
+            var xmlSerialaizer = 
                 new XmlSerializer(typeof(BindingList<TransportBase>));
 
             if (string.IsNullOrEmpty(path))
@@ -187,7 +159,7 @@ namespace ViewLab4WinForms
                 return;
             }
 
-            using (FileStream fileWriter = new FileStream(path, FileMode.Create))
+            using (var fileWriter = new FileStream(path, FileMode.Create))
             {
                 xmlSerialaizer.Serialize(fileWriter, _transportList);
             };
@@ -211,12 +183,12 @@ namespace ViewLab4WinForms
                 return;
             }
 
-            XmlSerializer xmlSerialaizer = 
+            var xmlSerialaizer = 
                 new XmlSerializer(typeof(BindingList<TransportBase>));
-            //TODO: bug
+
             try
             {
-                using (FileStream fileReader = new FileStream(path, FileMode.Open))
+                using (var fileReader = new FileStream(path, FileMode.Open))
                 {
                     _transportList = (BindingList<TransportBase>)
                     xmlSerialaizer.Deserialize(fileReader);
@@ -237,7 +209,7 @@ namespace ViewLab4WinForms
                 ErrorMessageBox(error.Message);
             }
         }
-        
+
         /// <summary>
         /// Show MessageBox
         /// </summary>

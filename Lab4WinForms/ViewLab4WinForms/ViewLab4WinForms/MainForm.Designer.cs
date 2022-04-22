@@ -119,9 +119,9 @@ namespace ViewLab4WinForms
             this.dataGridViewData.Name = "dataGridViewData";
             this.dataGridViewData.ReadOnly = true;
             this.dataGridViewData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dataGridViewData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewData.Size = new System.Drawing.Size(480, 312);
             this.dataGridViewData.TabIndex = 0;
-            this.dataGridViewData.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewDataCellClick);
             // 
             // MainForm
             // 

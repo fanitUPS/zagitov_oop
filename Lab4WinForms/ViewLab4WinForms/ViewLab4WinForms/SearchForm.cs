@@ -6,22 +6,9 @@ using System.Windows.Forms;
 
 namespace ViewLab4WinForms
 {
-    public partial class SearchForm : Form
+    public partial class SearchForm : EventForm
     {
-        /// <summary>
-        /// EventHandler
-        /// </summary>
-        internal EventHandler CloseSearchForm;
-
-        /// <summary>
-        /// EventHandler
-        /// </summary>
-        internal EventHandler MessageBox;
-
-        /// <summary>
-        /// EventHandler
-        /// </summary>
-        internal EventHandler CancelSearchForm;
+        
 
         /// <summary>
         /// DataSource
@@ -71,7 +58,7 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         private void ButtonCancelClick(object sender, EventArgs e)
         {
-            CancelSearchForm?.Invoke(sender, e);
+            CancelForm?.Invoke(sender, e);
         }
         
         /// <summary>
@@ -89,7 +76,7 @@ namespace ViewLab4WinForms
             }
             else
             {
-                MessageBox?.Invoke("Choose item in comboBox", e);
+                MessageBoxEvent?.Invoke("Choose item in comboBox", e);
             }
         }
 
@@ -105,7 +92,7 @@ namespace ViewLab4WinForms
             var foundTransport = new List<TransportBase>();
             if (_dataSource.Count == 0)
             {
-                MessageBox?.Invoke("Table empty", EventArgs.Empty);
+                MessageBoxEvent?.Invoke("Table empty", EventArgs.Empty);
             }
             
             foreach (var transport in _dataSource)
@@ -127,7 +114,7 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         private void SearchFormFormClosed(object sender, FormClosedEventArgs e)
         {
-            CloseSearchForm?.Invoke(sender, e);
+            CloseForm?.Invoke(sender, e);
         }
     }
 }
