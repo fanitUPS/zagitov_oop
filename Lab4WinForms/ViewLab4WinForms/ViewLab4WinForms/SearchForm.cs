@@ -26,8 +26,7 @@ namespace ViewLab4WinForms
         /// <summary>
         /// DataSource
         /// </summary>
-        private BindingList<TransportBase> _dataSource = 
-            new BindingList<TransportBase>();
+        private readonly BindingList<TransportBase> _dataSource;
 
         /// <summary>
         /// InitializeComponent of SearchForm
@@ -98,7 +97,7 @@ namespace ViewLab4WinForms
         /// Search object in DataGridView
         /// </summary>
         /// <param name="value">Seach value</param>
-        /// <param name="columnName">Search column</param>
+        /// <param name="property">Search column</param>
         private void SearchObject(string value, string property)
         {
             dataGridViewSearch.DataSource = _dataSource;
@@ -106,7 +105,7 @@ namespace ViewLab4WinForms
             var foundTransport = new List<TransportBase>();
             if (_dataSource.Count == 0)
             {
-                MessageBox?.Invoke("Table empty", new EventArgs());
+                MessageBox?.Invoke("Table empty", EventArgs.Empty);
             }
             
             foreach (var transport in _dataSource)
@@ -119,7 +118,6 @@ namespace ViewLab4WinForms
             }
 
             dataGridViewSearch.DataSource = foundTransport;
-            //TODO:(+)
         }
 
         /// <summary>
