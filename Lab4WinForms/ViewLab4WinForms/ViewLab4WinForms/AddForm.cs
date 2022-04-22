@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 using ModelLab4WinForms;
 
@@ -95,17 +96,14 @@ namespace ViewLab4WinForms
                 {
                     if (keyValue.Key == comboBoxCarType.SelectedItem.ToString())
                     {
-                        foreach (var data in _dataSource)
-                        {
-                            var transport = GetTransport
-                            (keyValue.Key,
-                             data.ConsumptionPerKm,
-                             data.Distance,
+                        var transport = GetTransport(
+                            keyValue.Key,
+                             _dataSource.First().ConsumptionPerKm,
+                             _dataSource.First().Distance,
                              engine);
 
-                            TransportAdded.Invoke
+                        TransportAdded.Invoke
                             (this, new TransportEventArgs(transport));
-                        }
                         this.Close();
                     }
                 }
