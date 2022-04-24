@@ -131,7 +131,6 @@ namespace ViewLab4WinForms
             {
                 _transportList.RemoveAt(row.Index);
             }
-               
             
             if (dataGridViewData.RowCount != 0)
             {

@@ -8,8 +8,6 @@ namespace ViewLab4WinForms
 {
     public partial class SearchForm : EventForm
     {
-        
-
         /// <summary>
         /// DataSource
         /// </summary>
@@ -115,6 +113,16 @@ namespace ViewLab4WinForms
         private void SearchFormFormClosed(object sender, FormClosedEventArgs e)
         {
             CloseForm?.Invoke(sender, e);
+        }
+
+        /// <summary>
+        /// Refresh dataGridView
+        /// </summary>
+        /// <param name="sender">Object</param>
+        /// <param name="e">Event</param>
+        private void ButtonRefreshClick(object sender, EventArgs e)
+        {
+            dataGridViewSearch.DataSource = _dataSource;
         }
     }
 }

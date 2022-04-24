@@ -176,7 +176,8 @@ namespace ViewLab4WinForms
                         (keyValue.Key, consuptionPerKm,
                         distance, engine);
 
-                    _dataSource.Add(new TransportProperties(consuptionPerKm, distance));
+                    _dataSource.Add(new TransportProperties
+                        (transport.ConsumptionPerKm, transport.Distance));
                 }
             }
         }
@@ -271,7 +272,8 @@ namespace ViewLab4WinForms
             comboBoxEngineType.Items.Clear();
             foreach (var valuePair in _engineTypes)
             {
-                if (comboBoxCarType.SelectedItem.ToString() != valuePair.Key) continue;
+                if (comboBoxCarType.SelectedItem.ToString() != 
+                    valuePair.Key) continue;
                 
                 foreach (var engine in valuePair.Value)
                 {

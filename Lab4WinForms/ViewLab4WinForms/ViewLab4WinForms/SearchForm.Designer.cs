@@ -37,6 +37,7 @@ namespace ViewLab4WinForms
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.buttonSearch = new System.Windows.Forms.Button();
+            this.buttonRefresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSearch)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,9 +59,9 @@ namespace ViewLab4WinForms
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(300, 185);
+            this.buttonCancel.Location = new System.Drawing.Point(257, 185);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(59, 23);
             this.buttonCancel.TabIndex = 1;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -102,19 +103,30 @@ namespace ViewLab4WinForms
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(219, 185);
+            this.buttonSearch.Location = new System.Drawing.Point(194, 185);
             this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(75, 23);
+            this.buttonSearch.Size = new System.Drawing.Size(57, 23);
             this.buttonSearch.TabIndex = 9;
             this.buttonSearch.Text = "Search";
             this.buttonSearch.UseVisualStyleBackColor = true;
             this.buttonSearch.Click += new System.EventHandler(this.ButtonSearchClick);
+            // 
+            // buttonRefresh
+            // 
+            this.buttonRefresh.Location = new System.Drawing.Point(322, 185);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Size = new System.Drawing.Size(75, 23);
+            this.buttonRefresh.TabIndex = 10;
+            this.buttonRefresh.Text = "Refresh";
+            this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.Click += new System.EventHandler(this.ButtonRefreshClick);
             // 
             // SearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(561, 225);
+            this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -143,5 +155,6 @@ namespace ViewLab4WinForms
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buttonSearch;
+        private System.Windows.Forms.Button buttonRefresh;
     }
 }
