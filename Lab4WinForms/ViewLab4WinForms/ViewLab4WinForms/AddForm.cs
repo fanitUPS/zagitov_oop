@@ -87,6 +87,7 @@ namespace ViewLab4WinForms
             this.MaximizeBox = false;
 
             dataTable.Width = _widthDataTable;
+
         }
         
         /// <summary>
@@ -177,22 +178,30 @@ namespace ViewLab4WinForms
 
             var selectedStateEngine = 
                 comboBoxEngineType.SelectedItem.ToString();
-            foreach (var keyValue in _engineTypes)
+            try
             {
-                if (comboBoxCarType.SelectedItem.ToString().
-                    ToString() == keyValue.Key)
+                foreach (var keyValue in _engineTypes)
                 {
-                    var consuptionPerKm = rnd.Next(1, _maxConsumption);
-                    var distance = rnd.Next(1, _maxDistance);
-                    var engine = GetEngine(_engineTypes, selectedStateEngine);
+                    if (comboBoxCarType.SelectedItem.ToString().
+                        ToString() == keyValue.Key)
+                    {
+                        var consuptionPerKm = rnd.Next(1, _maxConsumption);
+                        var distance = rnd.Next(1, _maxDistance);
+                        var engine = GetEngine(_engineTypes, selectedStateEngine);
 
-                    var transport = GetTransport
-                        (keyValue.Key, consuptionPerKm,
-                        distance, engine);
+                        var transport = GetTransport
+                            (keyValue.Key, consuptionPerKm,
+                            distance, engine);
 
-                    _dataSource.Add(new TransportProperties
-                        (transport.ConsumptionPerKm, transport.Distance));
+                        _dataSource.Add(new TransportProperties
+                            (transport.ConsumptionPerKm, transport.Distance));
+                    }
                 }
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBoxEvent?.Invoke
+                    (ex.Message, EventArgs.Empty);
             }
         }
 
@@ -255,15 +264,6 @@ namespace ViewLab4WinForms
                 return true;
             }
 
-            foreach (DataGridViewColumn column in dataTable.Columns)
-            {
-                if (dataTable.Rows[0].Cells[column.Index].Value == null)
-                {
-                    MessageBoxEvent?.Invoke
-                        ("Data in cells must be not null", EventArgs.Empty);
-                    return true;
-                }
-            }
             return false;
         }
         
@@ -287,9 +287,9 @@ namespace ViewLab4WinForms
             comboBoxEngineType.Items.Clear();
             foreach (var valuePair in _engineTypes)
             {
-                if (comboBoxCarType.SelectedItem.ToString() != 
+                if (comboBoxCarType.SelectedItem.ToString() !=
                     valuePair.Key) continue;
-                
+
                 foreach (var engine in valuePair.Value)
                 {
                     comboBoxEngineType.Items.Add(engine.ToString());
@@ -312,30 +312,9 @@ namespace ViewLab4WinForms
                     ($"Data in {e.ColumnIndex + 1} cell must be not null", e);
             }
             //TODO: Опустить в TransportProperties
-            //BUG NaN
+            //BUG NaN(+)
             //TODO: Отработать переключение Debug/Release
-            else if (int.TryParse(e.FormattedValue as string, out int intValue))
-            {
-                if (intValue < 0)
-                {
-                    e.Cancel = true;
-                    MessageBoxEvent?.Invoke
-                        ($"Data in {e.ColumnIndex + 1} cell must be positive", e);
-                }
-            }
-            else if (!float.TryParse
-                (e.FormattedValue as string, out float floatValue))
-            {
-                e.Cancel = true;
-                MessageBoxEvent?.Invoke
-                        ($"Data in {e.ColumnIndex + 1} cell must be float", e);
-            }
-            else if (floatValue < 0F)
-            {
-                e.Cancel = true;
-                MessageBoxEvent?.Invoke
-                    ($"Data in {e.ColumnIndex + 1} cell must be positive", e);
-            }
+            
         }
     }
 }

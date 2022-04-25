@@ -77,6 +77,11 @@ namespace ModelLab4WinForms
                 throw new ArgumentException("Value must be not zero.");
             }
 
+            if (value == float.NaN)
+            {
+                throw new ArgumentException("Value must be not NaN.");
+            }
+
             return value;
         }
 
