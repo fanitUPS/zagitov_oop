@@ -140,7 +140,6 @@ namespace ViewLab4WinForms
         /// <param name="selectedStateEngine">Selected engine</param>
         /// <returns>EngineType, if engine not in 
         /// dict, return default engine</returns>
-        /// //TODO: RSDN(+)
         private EngineType GetEngine(Dictionary<string, List<EngineType>> 
             transportDict, string selectedStateEngine)
         {
@@ -208,17 +207,19 @@ namespace ViewLab4WinForms
         private TransportBase GetTransport(string type, float consuptionPerKm, 
             float distance, EngineType engine)
         {
-            //TODO: RSDN(+)
             var constructorDict = new Dictionary<string, Func<TransportBase>>()
             {
-                { nameof(Car), () =>
-                { return new Car(consuptionPerKm, distance, engine); }
+                {
+                    nameof(Car), 
+                    () => new Car(consuptionPerKm, distance, engine)
                 },
-                { nameof(Hybrid), () =>
-                { return new Hybrid(consuptionPerKm, distance, engine); }
+                {
+                    nameof(Hybrid), 
+                    () => new Hybrid(consuptionPerKm, distance, engine)
                 },
-                { nameof(Helicopter), () =>
-                { return new Helicopter(consuptionPerKm, distance, engine); }
+                {
+                    nameof(Helicopter), 
+                    () => new Helicopter(consuptionPerKm, distance, engine)
                 }
             };
             return constructorDict[type].Invoke();
@@ -240,7 +241,6 @@ namespace ViewLab4WinForms
         /// </summary>
         private bool DataTableAddValidation()
         {
-            //TODO: EventArgs.Empty(+)
             if (comboBoxCarType.SelectedIndex == -1)
             {
                 MessageBoxEvent?.Invoke
@@ -311,6 +311,9 @@ namespace ViewLab4WinForms
                 MessageBoxEvent?.Invoke
                     ($"Data in {e.ColumnIndex + 1} cell must be not null", e);
             }
+            //TODO: Опустить в TransportProperties
+            //BUG NaN
+            //TODO: Отработать переключение Debug/Release
             else if (int.TryParse(e.FormattedValue as string, out int intValue))
             {
                 if (intValue < 0)

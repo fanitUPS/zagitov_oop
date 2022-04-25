@@ -61,7 +61,6 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         private void AddTransportClick(object sender, EventArgs e)
         {
-            //TODO: duplication(+)
             var addForm = new AddForm();
             addForm.StartPosition = FormStartPosition.CenterScreen;
             addForm.Show();
@@ -82,7 +81,6 @@ namespace ViewLab4WinForms
         /// <param name="e">Event</param>
         private void ButtonSearchClick(object sender, EventArgs e)
         {
-            //TODO: duplication(+)
             var searchForm = new SearchForm(_transportList);
             searchForm.StartPosition = FormStartPosition.CenterScreen;
             searchForm.Show();

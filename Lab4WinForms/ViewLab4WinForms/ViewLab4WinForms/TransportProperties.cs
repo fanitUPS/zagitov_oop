@@ -27,7 +27,7 @@
         /// Empty instance of TransportProperties
         /// </summary>
         /// <returns>Empty instance of TransportProperties</returns>
-        static internal TransportProperties EmptyInstance()
+        internal static TransportProperties EmptyInstance()
         {
             return new TransportProperties(0, 0);
         }
