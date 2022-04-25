@@ -18,6 +18,21 @@ namespace ViewLab4WinForms
         private BindingList<TransportProperties> _dataSource;
 
         /// <summary>
+        /// Maximum consumption per 100 km for random transport
+        /// </summary>
+        private const int _maxConsumption = 50;
+
+        /// <summary>
+        /// Maximum distance of travel for random transport
+        /// </summary>
+        private const int _maxDistance = 1000;
+
+        /// <summary>
+        /// Width of data table
+        /// </summary>
+        private const int _widthDataTable = 450;
+
+        /// <summary>
         /// Dictionary of engine types
         /// </summary>
         private readonly Dictionary<string, List<EngineType>> _engineTypes = 
@@ -71,7 +86,7 @@ namespace ViewLab4WinForms
 
             this.MaximizeBox = false;
 
-            dataTable.Width = 450;
+            dataTable.Width = _widthDataTable;
         }
         
         /// <summary>
@@ -168,8 +183,8 @@ namespace ViewLab4WinForms
                 if (comboBoxCarType.SelectedItem.ToString().
                     ToString() == keyValue.Key)
                 {
-                    var consuptionPerKm = rnd.Next(1, 50);
-                    var distance = rnd.Next(1, 1000);
+                    var consuptionPerKm = rnd.Next(1, _maxConsumption);
+                    var distance = rnd.Next(1, _maxDistance);
                     var engine = GetEngine(_engineTypes, selectedStateEngine);
 
                     var transport = GetTransport
