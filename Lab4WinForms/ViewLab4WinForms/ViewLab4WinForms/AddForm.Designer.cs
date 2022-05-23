@@ -69,6 +69,7 @@ namespace ViewLab4WinForms
             this.dataTable.Size = new System.Drawing.Size(462, 43);
             this.dataTable.TabIndex = 1;
             this.dataTable.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.DataTableCellMouseLeave);
+            this.dataTable.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DataTableDataError);
             // 
             // comboBoxEngineType
             // 

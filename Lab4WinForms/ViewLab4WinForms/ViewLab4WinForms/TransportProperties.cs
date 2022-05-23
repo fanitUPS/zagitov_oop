@@ -49,7 +49,7 @@ namespace ViewLab4WinForms
         /// <returns>Empty instance of TransportProperties</returns>
         internal static TransportProperties EmptyInstance()
         {
-            return new TransportProperties(0, 0);
+            return new TransportProperties(1, 1);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace ViewLab4WinForms
         /// <returns>Valid value</returns>
         public float CheckValue(float value)
         {
-            if (value < 0)
+            if (value <= 0)
             {
                 throw new ArgumentException("Value must positive.");
             }
@@ -68,7 +68,7 @@ namespace ViewLab4WinForms
             {
                 throw new ArgumentException("Value must be not NaN.");
             }
-
+            
             return value;
         }
     }

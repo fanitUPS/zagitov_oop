@@ -54,6 +54,9 @@ namespace ViewLab4WinForms
         public AddForm()
         {
             InitializeComponent();
+            #if !DEBUG
+            buttonRandomData.Visible = false;
+            #endif
         }
 
         /// <summary>
@@ -87,7 +90,6 @@ namespace ViewLab4WinForms
             this.MaximizeBox = false;
 
             dataTable.Width = _widthDataTable;
-
         }
         
         /// <summary>
@@ -104,6 +106,7 @@ namespace ViewLab4WinForms
             
             string selectedStateEngine = comboBoxEngineType.SelectedItem.
                 ToString();
+
             try
             {
                 var engine = GetEngine(_engineTypes, selectedStateEngine);
@@ -311,10 +314,24 @@ namespace ViewLab4WinForms
                 MessageBoxEvent?.Invoke
                     ($"Data in {e.ColumnIndex + 1} cell must be not null", e);
             }
-            //TODO: Опустить в TransportProperties
+            //TODO: Опустить в TransportProperties(+)
             //BUG NaN(+)
-            //TODO: Отработать переключение Debug/Release
-            
+            //TODO: Отработать переключение Debug/Release(+)
+        }
+        
+        /// <summary>
+        /// The DataError event enables you to handle exceptions thrown 
+        /// in code that is called by the control during data 
+        /// processing operations.
+        /// </summary>
+        /// <param name="sender">Object</param>
+        /// <param name="e">Event</param>
+        private void DataTableDataError
+            (object sender, DataGridViewDataErrorEventArgs e)
+        {
+            MessageBoxEvent?.Invoke
+               ($"Data in {e.ColumnIndex + 1} cell " +
+               $"should be positive and not null", e);
         }
     }
 }
