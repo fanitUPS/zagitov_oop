@@ -64,7 +64,7 @@ namespace ViewLab4WinForms
                 throw new ArgumentException("Value must positive.");
             }
 
-            if (value == float.NaN)
+            if (float.IsNaN(value))
             {
                 throw new ArgumentException("Value must be not NaN.");
             }

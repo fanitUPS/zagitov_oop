@@ -314,9 +314,6 @@ namespace ViewLab4WinForms
                 MessageBoxEvent?.Invoke
                     ($"Data in {e.ColumnIndex + 1} cell must be not null", e);
             }
-            //TODO: Опустить в TransportProperties(+)
-            //BUG NaN(+)
-            //TODO: Отработать переключение Debug/Release(+)
         }
         
         /// <summary>
