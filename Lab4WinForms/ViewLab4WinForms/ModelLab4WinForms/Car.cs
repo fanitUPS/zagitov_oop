@@ -10,7 +10,7 @@ namespace ModelLab4WinForms
         /// <summary>
         /// Gas tank volume
         /// </summary>
-        private float _gasTankVolume;
+        private float _gasTankVolume = 1;
 
         /// <summary>
         /// Engine type
