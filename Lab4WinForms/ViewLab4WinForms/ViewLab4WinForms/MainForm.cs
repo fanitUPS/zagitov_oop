@@ -200,10 +200,6 @@ namespace ViewLab4WinForms
             {
                 ErrorMessageBox("Not valid data in file");
             }
-            catch (Exception error)
-            {
-                ErrorMessageBox(error.Message);
-            }
         }
 
         /// <summary>
