@@ -121,7 +121,6 @@ namespace ViewLab4WinForms
         {
             if (dataGridViewData.SelectedRows.Count == 0)
             {
-                ErrorMessageBox("Removed row doesn't selected");
                 return;
             }
 
