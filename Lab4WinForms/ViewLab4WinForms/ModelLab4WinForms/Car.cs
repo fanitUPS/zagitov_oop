@@ -26,6 +26,7 @@ namespace ModelLab4WinForms
             set => _engineType = CheckEngine(value);
         }
 
+
         /// <summary>
         /// Gas tank volume
         /// </summary>
